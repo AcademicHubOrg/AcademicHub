@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: my-postgres-container
+    environment:
+      - POSTGRESQL_DATABASE=Identity
+      - POSTGRESQL_USER=identityuser
+      - POSTGRESQL_PASSWORD=identityuser
+    ports:
+      - "5440:5432"
+    networks:
+      - my-network
+      
+networks:
+  my-network:
+    driver: bridge
