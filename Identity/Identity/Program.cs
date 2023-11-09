@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.OpenApi;
 using Microsoft.AspNetCore.Authentication.Google;
 using Identity.Core;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 // View Layer
 
@@ -9,31 +10,49 @@ using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication(options =>
-  {
-    options.DefaultScheme = "Cookies";
-    options.DefaultChallengeScheme = "Google";
-  })
-  .AddCookie()
-  .AddGoogle("Google", options =>
-  {
-    options.ClientId = "989838419075-cmepplaro69du10sdlftsr5f8u58gj7p.apps.googleusercontent.com";
-    options.ClientSecret = "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";
-  });
-
+// Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Register authentication services
+builder.Services.AddAuthentication(options =>
+  {
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+  })
+  .AddCookie(options =>
+  {
+    options.LoginPath = "/login"; // Specify the login path
+  })
+  .AddGoogle(googleOptions =>
+  {
+    googleOptions.ClientId = "989838419075-cmepplaro69du10sdlftsr5f8u58gj7p.apps.googleusercontent.com";
+    googleOptions.ClientSecret = "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";
+    googleOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; 
+
+  });
+
+
+// Register authorization services
+builder.Services.AddAuthorization();
+
+// Add the UsersService to the DI container
+builder.Services.AddScoped<UsersService>(); // Use AddScoped or AddSingleton as appropriate
+
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseRouting(); // This must come before UseAuthentication and UseAuthorization
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 var service = new UsersService();
 
+// Define your endpoints here
 app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/users/list", async () => await service.ListAsync());
@@ -42,25 +61,35 @@ app.MapPost("/user", async (UserDto user) =>
   await service.AddAsync(user);
 });
 
-app.MapGet("/login", async context =>
+app.MapGet("/login", (HttpContext httpContext) =>
 {
-  await context.ChallengeAsync("Google", new AuthenticationProperties { RedirectUri = "/" });
+  // Challenge Google authentication, which will redirect to Google's login page
+  return httpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties
+  {
+    RedirectUri = "/signin-google" // Set the redirect URI to your callback endpoint
+  });
 });
 
-app.MapGet("/signin-google", async context =>
+app.MapGet("/signin-google", async (HttpContext httpContext) =>
 {
-  var result = await context.AuthenticateAsync("Google");
-  if (result.Principal != null)
-  {
-    context.Response.Redirect("/");
-    // Create a user in your database if it doesn't exist
-    // Redirect to the original protected resource or a default page
-  }
-  else
-  {
-    context.Response.Redirect("/login-failed");
-  }
-});
+  var authenticateResult = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
+  if (!authenticateResult.Succeeded)
+    return Results.Redirect("/login"); // Redirect to login if not authenticated
+
+  // Assuming you have a method to find or create the user
+  var email = authenticateResult.Principal.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
+  var name = authenticateResult.Principal.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
+
+  // Use your UsersService to find or create the user
+  var userService = httpContext.RequestServices.GetRequiredService<UsersService>();
+  var user = await userService.FindOrCreateUser(email!, name!);
+
+  // Sign in the user with your own application logic if needed
+  // ...
+
+  // Redirect to the default page after login
+  return Results.Redirect("/"); // Replace with your default page URL
+});
 
 app.Run();

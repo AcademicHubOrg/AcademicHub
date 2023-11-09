@@ -21,4 +21,9 @@ public class UsersRepository
   {
     return await _context.Users.ToListAsync();
   }
+  
+  public async Task<User> FindByEmailAsync(string email)
+  {
+    return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+  }
 }
