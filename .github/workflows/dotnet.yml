@@ -15,19 +15,19 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./Identity/Identity.sln
 
     - name: Build
       run: dotnet build --no-restore
 
     # Run unit tests
     - name: Run unit tests
-      run: dotnet test ./Identity/Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal
+      run: dotnet test ./Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal
 
     # Run integration tests
     - name: Run integration tests
-      run: dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal
+      run: dotnet test ./Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal
 
