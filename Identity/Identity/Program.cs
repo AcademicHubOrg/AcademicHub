@@ -66,11 +66,11 @@ app.MapGet("/login", (HttpContext httpContext) =>
   // Challenge Google authentication, which will redirect to Google's login page
   return httpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties
   {
-    RedirectUri = "/signin-google" // Set the redirect URI to your callback endpoint
+    RedirectUri = "/after-signin" // Set the redirect URI to your callback endpoint
   });
 });
 
-app.MapGet("/signin-google", async (HttpContext httpContext) =>
+app.MapGet("/after-signin", async (HttpContext httpContext) =>
 {
   var authenticateResult = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
