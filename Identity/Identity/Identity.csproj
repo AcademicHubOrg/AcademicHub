@@ -7,10 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.*-*"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.13" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.*-*" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 
-        <ProjectReference Include="..\Identity.Core\Identity.Core.csproj"/>
+        <ProjectReference Include="..\Identity.Core\Identity.Core.csproj" />
     </ItemGroup>
 
 </Project>

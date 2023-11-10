@@ -16,7 +16,7 @@ public class UsersService
   {
     _repository = new UsersRepository();
   }
-  
+
   public async Task AddAsync(UserDto user)
   {
     await _repository.AddAsync(new User()
@@ -40,5 +40,18 @@ public class UsersService
       });
     }
     return result;
+  }
+  
+  public async Task<UserDto> FindOrCreateUser(string email, string name)
+  {
+    // Check if user exists
+    var user = await _repository.FindByEmailAsync(email);
+    if (user == null)
+    {
+      // Create a new user if doesn't exist
+      user = new User { Email = email, Name = name };
+      await AddAsync(new UserDto { Email = email, Name = name });
+    }
+    return new UserDto { Id = user.Id, Email = user.Email, Name = user.Name };
   }
 }
