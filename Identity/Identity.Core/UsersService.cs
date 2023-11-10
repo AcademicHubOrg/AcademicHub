@@ -49,7 +49,7 @@ public class UsersService
     if (user == null)
     {
       // Create a new user if doesn't exist
-      user = new User { Email = email, Name = name };
+      user = new User { Email = email, Name = name, IsAdmin = false};
       await AddAsync(new UserDto { Email = email, Name = name });
     }
     return new UserDto { Id = user.Id, Email = user.Email, Name = user.Name };

@@ -56,6 +56,13 @@ var service = new UsersService();
 app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/users/list", async () => await service.ListAsync());
+
+app.MapPost("/user/addAdmin", async (UserDto user) =>
+{
+  await service.AddAsync(user);
+});
+
+
 app.MapPost("/user", async (UserDto user) =>
 {
   await service.AddAsync(user);
