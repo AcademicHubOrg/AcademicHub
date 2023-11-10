@@ -54,4 +54,18 @@ public class UsersService
     }
     return new UserDto { Id = user.Id, Email = user.Email, Name = user.Name };
   }
+
+    public async Task makeAdminAsync(string email, string password)
+    {
+        if (password != "admin")
+        {
+            return;
+        }
+        
+        await _repository.ChangeUserAsync(email);
+        
+    }
+
+
+
 }

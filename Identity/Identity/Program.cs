@@ -57,16 +57,18 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/users/list", async () => await service.ListAsync());
 
-app.MapPost("/user/addAdmin", async (UserDto user) =>
+app.MapPost("/user/add", async (UserDto user) =>
 {
-  await service.AddAsync(user);
+    await service.AddAsync(user);
+});
+
+app.MapPost("/user/makeAdmin", async (string email, string password) =>
+{
+  await service.makeAdminAsync(email,password);
 });
 
 
-app.MapPost("/user", async (UserDto user) =>
-{
-  await service.AddAsync(user);
-});
+
 
 app.MapGet("/login", (HttpContext httpContext) =>
 {
