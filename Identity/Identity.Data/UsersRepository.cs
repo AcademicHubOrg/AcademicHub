@@ -26,4 +26,10 @@ public class UsersRepository
   {
     return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
   }
+    public async Task ChangeUserAsync(string email)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        user.IsAdmin = true;
+        await _context.SaveChangesAsync();
+    }
 }
