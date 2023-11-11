@@ -19,11 +19,11 @@ public class CourseTemplateService
 		_repository = new CourseTemplateRepository();
 	}
   
-	public async Task AddAsync(CourseTemplateDto user)
+	public async Task AddAsync(CourseTemplateDto course)
 	{
 		await _repository.AddAsync(new CourseTemplate()
 		{
-			CourseName = user.Name
+			CourseName = course.Name
 		});
 	}
 

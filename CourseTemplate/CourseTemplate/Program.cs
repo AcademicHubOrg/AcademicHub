@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.OpenApi;
 using CourseTemplate.Core;
 
 var builder = WebApplication.CreateBuilder(args);
