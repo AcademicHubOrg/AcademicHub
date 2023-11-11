@@ -4,12 +4,15 @@ namespace Identity.Data;
 
 public class IdentityDbContext : DbContext
 {
-  public DbSet<User> Users { get; set; }
+  public DbSet<User> Users { get; set; } = null!;
 
   public IdentityDbContext()
   {
   }
-  
+  public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
+  {
+  }
+
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     optionsBuilder.UseNpgsql("Host=localhost;Database=Identity;User Id=identityuser;Password=identityuser;Port=5440");

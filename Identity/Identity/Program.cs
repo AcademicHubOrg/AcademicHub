@@ -64,7 +64,7 @@ app.MapPost("/user/add", async (UserDto user) =>
 
 app.MapPost("/user/makeAdmin", async (string email, string password) =>
 {
-  await service.makeAdminAsync(email,password);
+  await service.MakeAdminAsync(email,password);
 });
 
 
