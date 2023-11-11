@@ -25,8 +25,8 @@ jobs:
 
     # Run unit tests
     - name: Run unit tests
-      run: dotnet test ./CourseTemplate.IntegrationTests/CourseTemplate.IntegrationTests.csproj --no-build --verbosity normal
+      run: dotnet test ./CourseTemplate/CourseTemplate.UnitTests/CourseTemplate.UnitTests.csproj --no-build --verbosity normal
 
     # Run integration tests
     - name: Run integration tests
-      run: dotnet test ./CourseTemplate.UnitTests/CourseTemplate.UnitTests.csproj --no-build --verbosity normal
+      run: dotnet test ./CourseTemplate/CourseTemplate.IntegrationTests/CourseTemplate.IntegrationTests.csproj --no-build --verbosity normal
