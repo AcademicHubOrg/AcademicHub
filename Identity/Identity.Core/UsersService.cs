@@ -11,10 +11,16 @@ public class UserDto
 
 public class UsersService
 {
-  private readonly UsersRepository _repository;
+  private readonly IUsersRepository _repository;
+
   public UsersService()
   {
     _repository = new UsersRepository();
+  }
+
+  public UsersService(IUsersRepository repository)
+  {
+    _repository = repository;
   }
 
   public async Task AddAsync(UserDto user)
@@ -30,7 +36,9 @@ public class UsersService
   {
     var result = new List<UserDto>();
     var dbUsers = await _repository.ListAsync();
-    foreach (var user in dbUsers)
+    var orderedUsers = dbUsers.OrderBy(u => u.Id).ToList(); // This will order by ID
+
+    foreach (var user in orderedUsers)
     {
       result.Add(new UserDto()
       {
@@ -55,7 +63,7 @@ public class UsersService
     return new UserDto { Id = user.Id, Email = user.Email, Name = user.Name };
   }
 
-    public async Task makeAdminAsync(string email, string password)
+    public async Task MakeAdminAsync(string email, string password)
     {
         if (password != "admin")
         {
@@ -65,7 +73,4 @@ public class UsersService
         await _repository.ChangeUserAsync(email);
         
     }
-
-
-
 }
