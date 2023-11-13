@@ -1,0 +1,6 @@
+{
+  "courses": [
+    { "courseName": "name1" },
+    { "courseName": "name2" }
+  ]
+}

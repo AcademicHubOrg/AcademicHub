@@ -1,11 +1,15 @@
 import React from 'react';
 
-import courseInstance from "./Components/CourseInstance";
+import coursesData from './courses.json';
 import CourseInstance from "./Components/CourseInstance";
 
 function CoursesListPage() {
     return (
-        <CourseInstance/>
+        <div>
+            {coursesData.courses.map((course, index) => (
+                <CourseInstance key={index} courseName={course.courseName} />
+            ))}
+        </div>
     );
 }
 
