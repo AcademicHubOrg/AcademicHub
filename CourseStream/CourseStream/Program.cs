@@ -5,7 +5,7 @@ app.MapGet("/", () => "Hello World!");
 
 app.Run();
 
-
+//add course template
 
 
 
