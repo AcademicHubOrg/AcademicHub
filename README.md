@@ -8,7 +8,7 @@ git clone https://github.com/podkolzzzin/AcademicHub.git
 # How to start working with the AcademicHub services(Identity, CourseTemplate, CourseStream and others)?
 
 ## Docker setup
-Make sure that u dont have more than 1 container on the same port. Default port for sevrices is 3440
+Make sure that u dont have more than 1 container on the same port. Default port for sevrices is 5440
 
 
 ```bash
