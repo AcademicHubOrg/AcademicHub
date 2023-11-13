@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import CoursesListPage from './pages/CoursesListPage/CoursesListPage';
 import AuthPage from './pages/AuthPage/AuthPage';
+import AddCoursePage from './pages/AddCoursePage/AddCoursePage';
+import TemplatePage from "./pages/Template/TemplatePage";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/courselist" element={<CoursesListPage />} />
           <Route path="/auth" element={<AuthPage />} />
+            <Route path="/addcourse" element={<AddCoursePage />} />
+            <Route path="/template" element={<TemplatePage />} />
         </Routes>
       </Router>
   );
