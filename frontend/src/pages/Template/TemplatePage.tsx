@@ -1,14 +1,36 @@
 import React, { useState } from 'react';
 
 function TemplatePage() {
-    // State to store the entered text
     const [inputText, setInputText] = useState('');
-    // State to store the displayed text
     const [displayedText, setDisplayedText] = useState('');
+
+    // Function to handle the POST request
+    const sendPostRequest = async (courseTemplateName:string) => {
+        try {
+            const response = await fetch('http://localhost:5204/courseTemplate', { // Replace with your endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: courseTemplateName,
+                    id: '12345'
+                })
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data); // Process the response data as needed
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };
 
     // Function to handle button click
     const handleButtonClick = () => {
         setDisplayedText(inputText);
+        sendPostRequest(inputText); // Send the POST request
     };
 
     return (
@@ -21,10 +43,8 @@ function TemplatePage() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Enter text"
             />
-            {/* Button to display entered text */}
-            <button onClick={handleButtonClick}>Display Text</button>
-            {/* Display the entered text below the button */}
-            {displayedText && <p>Entered Text: {displayedText}</p>}
+            <button onClick={handleButtonClick}>Register course template</button>
+            {displayedText && <p>Registered following course template: {displayedText}</p>}
         </>
     );
 }
