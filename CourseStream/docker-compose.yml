@@ -2,13 +2,13 @@ version: '3.8'
 services:
   postgres:
     image: bitnami/postgresql:latest
-    container_name: my-postgres-container
+    container_name: courseStream-postgres-container
     environment:
       - POSTGRESQL_DATABASE=CourseStream
       - POSTGRESQL_USER=coursestreamuser
       - POSTGRESQL_PASSWORD=coursestreamuser
     ports:
-      - "5440:5432"
+      - "5437:5432"
     networks:
       - my-network
       

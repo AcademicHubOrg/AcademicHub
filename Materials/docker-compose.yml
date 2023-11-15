@@ -2,13 +2,13 @@ version: '3.8'
 services:
   postgres:
     image: bitnami/postgresql:latest
-    container_name: my-postgres-container
+    container_name: materials-postgres-container
     environment:
       - POSTGRESQL_DATABASE=Materials
       - POSTGRESQL_USER=materialsuser
       - POSTGRESQL_PASSWORD=materialsuser
     ports:
-      - "5440:5432"
+      - "5439:5432"
     networks:
       - my-network
       

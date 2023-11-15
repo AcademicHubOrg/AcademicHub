@@ -11,7 +11,7 @@ public class CourseStreamDBContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Database=CourseStream;User Id=coursestreamuser;Password=coursestreamuser;Port=5440;");
+        optionsBuilder.UseNpgsql("Host=localhost;Database=CourseStream;User Id=coursestreamuser;Password=coursestreamuser;Port=5437;");
         base.OnConfiguring(optionsBuilder);
     }
     
