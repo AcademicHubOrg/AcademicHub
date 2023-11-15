@@ -1,0 +1,18 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Materials.Data;
+
+public class MaterialsDbContext : DbContext
+{
+    public DbSet<MaterialData> Materials { get; set; }
+    public MaterialsDbContext()
+    {
+		
+    }
+  
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseNpgsql("Host=localhost;Database=Materials;User Id=materialsuser;Password=materialsuser;Port=5440;");
+        base.OnConfiguring(optionsBuilder);
+    }
+}
