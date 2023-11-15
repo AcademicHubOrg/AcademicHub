@@ -1,11 +1,7 @@
-using Xunit;
 using Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Identity.Core;
-using System.Threading.Tasks;
-using System.Linq;
-
 
 namespace Identity.IntegrationTests
 {
