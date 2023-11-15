@@ -7,13 +7,15 @@ import CoursesListPage from './pages/CoursesListPage/CoursesListPage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import AddCoursePage from './pages/AddCoursePage/AddCoursePage';
 import TemplatePage from "./pages/Template/TemplatePage";
+import TopMenu from "./pages/TopMenu/TopMenu";
 
 function App() {
   return (
       <Router>
+          <TopMenu/>
         <Routes>
-          <Route path="/courselist" element={<CoursesListPage />} />
-          <Route path="/auth" element={<AuthPage />} />
+            <Route path="/courselist" element={<CoursesListPage />} />
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="/addcourse" element={<AddCoursePage />} />
             <Route path="/template" element={<TemplatePage />} />
         </Routes>
