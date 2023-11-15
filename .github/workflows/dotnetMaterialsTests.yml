@@ -1,0 +1,32 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test-materials:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore ./Materials/Materials.sln
+
+    - name: Build
+      run: dotnet build ./Materials/Materials.sln --no-restore
+
+    # Run unit tests
+    - name: Run unit tests
+      run: dotnet test ./Materials/Materials.UnitTests/Materials.UnitTests.csproj --no-build --verbosity normal
+
+    # Run integration tests
+    - name: Run integration tests
+      run: dotnet test ./Materials/Materials.IntegrationTests/Materials.IntegrationTests.csproj --no-build --verbosity normal
