@@ -12,7 +12,7 @@ public class CourseTemplateDbContext : DbContext
   
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseNpgsql("Host=localhost;Database=CourseTemplate;User Id=coursetemplateuser;Password=coursetemplateuser;Port=5440;");
+		optionsBuilder.UseNpgsql("Host=localhost;Database=CourseTemplate;User Id=coursetemplateuser;Password=coursetemplateuser;Port=5438;");
 		base.OnConfiguring(optionsBuilder);
 	}
 }

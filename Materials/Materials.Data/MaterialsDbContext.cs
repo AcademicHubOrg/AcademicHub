@@ -12,7 +12,7 @@ public class MaterialsDbContext : DbContext
   
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=localhost;Database=Materials;User Id=materialsuser;Password=materialsuser;Port=5440;");
+        optionsBuilder.UseNpgsql("Host=localhost;Database=Materials;User Id=materialsuser;Password=materialsuser;Port=5439;");
         base.OnConfiguring(optionsBuilder);
     }
 }

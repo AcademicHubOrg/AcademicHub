@@ -2,7 +2,7 @@ version: '3.8'
 services:
   postgres:
     image: bitnami/postgresql:latest
-    container_name: my-postgres-container
+    container_name: identity-postgres-container
     environment:
       - POSTGRESQL_DATABASE=Identity
       - POSTGRESQL_USER=identityuser
