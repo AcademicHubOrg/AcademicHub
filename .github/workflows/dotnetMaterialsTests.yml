@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test-identity:
+  build-and-test-materials:
     runs-on: ubuntu-latest
 
     steps:
