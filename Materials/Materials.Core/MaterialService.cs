@@ -15,6 +15,14 @@ public class MaterialDataDto
     public string CourseId { get; set; } = null!;
 }
 
+//this class may be extended to store all types of materials  
+//some attributes may be missing depending on data type
+public class MaterialShowData
+{
+    public string Name { get; set; }
+    public string DataText { get; set; }
+}
+
 public class MaterialService
 {
     private readonly MaterialsRepository _repository;
@@ -49,4 +57,41 @@ public class MaterialService
         }
         return result;
     }
+    
+    public async Task<List<MaterialShowData>> ListByCourseIdAsync(int courseId)
+    {
+        var result = new List<MaterialShowData>();
+        var dbMaterials = await _repository.ListAsync();
+        foreach (var materialData in dbMaterials)
+        {
+            if (courseId == materialData.CourseId)
+            {
+                result.Add(new MaterialShowData()
+                {
+                    Name = materialData.MaterialName,
+                    DataText = materialData.DataText,
+                });
+            }
+        }
+        return result;
+    }
+    
+    public async Task<List<MaterialShowData>> ListByIdAsync(int materialId)
+    {
+        var result = new List<MaterialShowData>();
+        var dbMaterials = await _repository.ListAsync();
+        foreach (var materialData in dbMaterials)
+        {
+            if (materialId == materialData.CourseId)
+            {
+                result.Add(new MaterialShowData()
+                {
+                    Name = materialData.MaterialName,
+                    DataText = materialData.DataText,
+                });
+            }
+        }
+        return result;
+    }
+    
 }

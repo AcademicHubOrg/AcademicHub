@@ -31,9 +31,8 @@ var service = new MaterialService();
 
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/material/list", async () => await service.ListAsync());
-app.MapPost("/material/add", async (MaterialDataDto materialData) =>
-{
-    await service.AddAsync(materialData);
-});
+app.MapGet("/material/id", async (int materialId) => await service.ListByIdAsync(materialId));
+app.MapGet("/material/course", async (int courseId) => await service.ListByCourseIdAsync(courseId));
+app.MapPost("/material/add", async (MaterialDataDto materialData) => { await service.AddAsync(materialData);});
 
 app.Run();
