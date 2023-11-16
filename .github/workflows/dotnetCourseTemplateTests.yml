@@ -17,11 +17,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Restore CustomExpressions dependencies
-      run: dotnet restore ./CustomExpressions/CustomExpressions.sln
+    - name: Restore CustomExceptions dependencies
+      run: dotnet restore ./CustomExceptions/CustomExceptions.sln
       
-    - name: Build CustomExpressions
-      run: dotnet build .CustomExpressions/CustomExpressions.sln --no-restore
+    - name: Build CustomExceptions
+      run: dotnet build .CustomExceptions/CustomExceptions.sln --no-restore
       
     - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
