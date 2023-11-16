@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using CourseTemplate.Core.CustomExceptions;
+using Microsoft.AspNetCore; // for AspNetCore
+using Microsoft.AspNetCore.Mvc.Filters; // for IExceptionFilter
+using Microsoft.Extensions.Logging;      // for ILogger
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc; // for StatusCodes
+
 
 public class CustomExceptionFilter : IExceptionFilter
 {

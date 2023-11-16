@@ -10,4 +10,10 @@
       <ProjectReference Include="..\CourseTemplate.Data\CourseTemplate.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="CustomExceptions">
+        <HintPath>..\..\CustomExceptions\bin\Debug\net7.0\CustomExceptions.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
