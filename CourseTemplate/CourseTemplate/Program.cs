@@ -1,99 +1,118 @@
 using CourseTemplate.Core;
+using CourseTemplate.Core.CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<CourseTemplateService>();
-
-// Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Add CORS services with a specific policy
+builder.Services.AddLogging();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder =>
-        {
-            builder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+	options.AddPolicy("AllowSpecificOrigin",
+		builder =>
+		{
+			builder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
+				.AllowAnyHeader()
+				.AllowAnyMethod();
+		});
+});
+
+builder.Services.AddMvc(options =>
+{
+	options.Filters.Add<CustomExceptionFilter>();
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Use the CORS policy
 app.UseCors("AllowSpecificOrigin");
 
 app.UseExceptionHandler(errorApp =>
 {
-    errorApp.Run(async context =>
-    {
-        var exceptionHandlerPathFeature =
-            context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
-        context.Response.StatusCode = 500;
+	errorApp.Run(async context =>
+	{
+		var exceptionHandlerPathFeature = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
+		var env = context.RequestServices.GetService<IWebHostEnvironment>();
+		var errorCode = StatusCodes.Status500InternalServerError;
+		context.Response.StatusCode = errorCode;
+		context.Response.ContentType = "application/json";
 
-        // Check if the exception is of type ArgumentException
-        if (exceptionHandlerPathFeature?.Error is ArgumentException)
-        {
-            context.Response.StatusCode = 400; // Bad Request
-            await context.Response.WriteAsJsonAsync(new { ErrorMessage = exceptionHandlerPathFeature.Error.Message });
-        }
-        else
-        {
-            await context.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred. Please try again later." });
-        }
-    });
+		var errorMessage = "An unexpected error occurred. Please try again later.";
+		
+		if (exceptionHandlerPathFeature?.Error is ArgumentException)
+		{
+			errorMessage = "Invalid input provided.";
+			errorCode = StatusCodes.Status400BadRequest;
+		}
+		else if (exceptionHandlerPathFeature?.Error is NotFoundException)
+		{
+			errorMessage = exceptionHandlerPathFeature.Error.Message;
+			errorCode = StatusCodes.Status404NotFound;
+		}
+		else if (exceptionHandlerPathFeature?.Error is ConflictException)
+		{
+			errorMessage = exceptionHandlerPathFeature.Error.Message;
+			errorCode = StatusCodes.Status409Conflict;
+		}
+
+		if (env.IsDevelopment())
+		{
+			// In development, return detailed error information
+			errorMessage += " dev info: " + exceptionHandlerPathFeature?.Error.Message;
+		}
+		await context.Response.WriteAsJsonAsync(new 
+		{ 
+			ErrorMessage = errorMessage, 
+			ErrorCode = errorCode 
+		});
+	});
 });
 
-app.UseStatusCodePages(async context =>
+
+// StatusCodePages Middleware
+app.UseStatusCodePages(context =>
 {
-    context.HttpContext.Response.ContentType = "application/json";
-
-    if (context.HttpContext.Response.StatusCode == 404)
-    {
-        await context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "Resource not found." });
-    }
-    else
-    {
-        await context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
-    }
+	context.HttpContext.Response.ContentType = "application/json";
+	return context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
 });
 
+// Routes
 app.MapGet("/", BaseUrl);
 app.MapGet("/courseTemplate/list", ListOfCourseTemplates);
 app.MapPost("/courseTemplate/add", AddCourse);
+app.MapGet("/courseTemplate/{id}", GetCourseById);
 
 app.Run();
 
-
+// Route implementations
 string BaseUrl()
 {
-    return "Hello World!";
+	return "Hello World!";
 }
 
 async Task<object> ListOfCourseTemplates([FromServices] CourseTemplateService service)
 {
-    var result = await service.ListAsync();
-    return new { Data = result };
+	var result = await service.ListAsync();
+	return new { Data = result };
 }
 
-static async Task<object> AddCourse([FromServices] CourseTemplateService service, CourseTemplateDto courseTemplate)
+static async Task<object> AddCourse([FromServices] CourseTemplateService service, CreateCourseTemplateDto courseTemplate)
 {
-    if (courseTemplate == null || string.IsNullOrEmpty(courseTemplate.Name))
-    {
-        throw new ArgumentException("Invalid data provided. Course name is required.");
-    }
+	if (string.IsNullOrEmpty(courseTemplate.Name))
+	{
+		throw new ArgumentException("Invalid data provided. Course name is required.");
+	}
 
-    await service.AddAsync(courseTemplate);
-    return new { Message = "Course added successfully." };
-    
+	await service.AddAsync(courseTemplate);
+	return new { Message = "Course added successfully." };
+}
+
+async Task<object> GetCourseById([FromServices] CourseTemplateService service, int id)
+{
+	var course = await service.GetByIdAsync(id);
+	return course;
 }
