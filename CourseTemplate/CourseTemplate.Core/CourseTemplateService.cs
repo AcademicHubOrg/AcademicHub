@@ -24,15 +24,21 @@ public class CourseTemplateService
   
 	public async Task AddAsync(CourseTemplateDto course)
 	{
-		if (course.Name == null)
+		var dbCourseTemplates = await _repository.ListAsync();
+
+		// Check if a course with the same name already exists
+		if (dbCourseTemplates.Any(c => c.CourseName == course.Name))
 		{
-			throw new Exception("Invalid data provided");
+			throw new ArgumentException($"A course with the name '{course.Name}' already exists.");
 		}
+
+		// If not, add the new course
 		await _repository.AddAsync(new CourseTemplate()
 		{
 			CourseName = course.Name
 		});
 	}
+
 
 	public async Task<List<CourseTemplateViewDto>> ListAsync()
 	{
