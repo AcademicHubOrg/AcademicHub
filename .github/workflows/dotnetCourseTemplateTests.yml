@@ -18,10 +18,10 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore CustomExpressions dependencies
-      run: dotnet restore ./CustomExpressions.sln
+      run: dotnet restore ./CustomExpressions/CustomExpressions.sln
       
     - name: Build CustomExpressions
-      run: dotnet build ./CustomExpressions.sln --no-restore
+      run: dotnet build .CustomExpressions/CustomExpressions.sln --no-restore
       
     - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
