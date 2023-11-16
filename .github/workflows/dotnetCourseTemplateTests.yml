@@ -18,10 +18,10 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore CustomExceptions dependencies
-      run: dotnet restore ./CourseTemplate/CustomExceptions/CustomExceptions.sln
+      run: dotnet restore ./CourseTemplate/AcademicHub.Common/CustomExceptions.sln
       
     - name: Build CustomExceptions
-      run: dotnet build ./CourseTemplate/CustomExceptions/CustomExceptions.sln --no-restore
+      run: dotnet build ./CourseTemplate/AcademicHub.Common/CustomExceptions.sln --no-restore
       
     - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
