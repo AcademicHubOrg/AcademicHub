@@ -9,14 +9,9 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.*-*"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <ProjectReference Include="..\..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj" />
         
       <ProjectReference Include="..\CourseTemplate.Core\CourseTemplate.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="CustomExceptions">
-        <HintPath>..\..\CustomExceptions\bin\Debug\net7.0\CustomExceptions.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
 </Project>

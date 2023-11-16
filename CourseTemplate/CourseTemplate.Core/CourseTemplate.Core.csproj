@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj" />
       <ProjectReference Include="..\CourseTemplate.Data\CourseTemplate.Data.csproj" />
     </ItemGroup>
 

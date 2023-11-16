@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.CustomExceptions.iml
+/.idea.AcademicHub.Common.iml
 /modules.xml
 /projectSettingsUpdater.xml
 /contentModel.xml
