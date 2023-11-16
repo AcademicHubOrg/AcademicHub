@@ -21,7 +21,7 @@ jobs:
       run: dotnet restore ./CustomExceptions/CustomExceptions.sln
       
     - name: Build CustomExceptions
-      run: dotnet build .CustomExceptions/CustomExceptions.sln --no-restore
+      run: dotnet build ./CustomExceptions/CustomExceptions.sln --no-restore
       
     - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
