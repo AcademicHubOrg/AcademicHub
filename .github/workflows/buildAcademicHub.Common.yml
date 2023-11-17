@@ -1,0 +1,23 @@
+name: Build CustomExceptions DLL
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore AcademicHub.Common dependencies
+      run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
+      
+    - name: Build AcademicHub.Common
+      run: dotnet build ./AcademicHub.Common/AcademicHub.Common.sln --no-restore
+      
+    
