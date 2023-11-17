@@ -20,7 +20,7 @@ jobs:
       run: ls -R
 
     - name: Build buildAcademicHub.Common
-      uses: ./github/workflows/buildAcademicHub.Common.yml
+      uses: ./.github/workflows/buildAcademicHub.Common.yml
       
     - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
