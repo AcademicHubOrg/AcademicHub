@@ -15,12 +15,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
-    - name: List directory structure
-      run: ls -R
+        dotnet-version: 6.0.x
 
-    - name: Build buildAcademicHub.Common
-      uses: ./.github/workflows/buildAcademicHub.Common.yml
+    - name: Restore CustomExceptions dependencies
+      run: dotnet restore ./CustomExceptions/CustomExceptions.sln
+      
+    - name: Build CustomExceptions
+      run: dotnet build ./CustomExceptions/CustomExceptions.sln --no-restore
       
     - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
