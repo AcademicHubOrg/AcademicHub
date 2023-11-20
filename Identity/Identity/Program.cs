@@ -26,8 +26,8 @@ builder.Services.AddAuthentication(options =>
   })
   .AddGoogle(googleOptions =>
   {
-    googleOptions.ClientId = "989838419075-cmepplaro69du10sdlftsr5f8u58gj7p.apps.googleusercontent.com";
-    googleOptions.ClientSecret = "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";
+    googleOptions.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID")!;
+    googleOptions.ClientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET")!;
     googleOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; 
 
   });
