@@ -2,7 +2,7 @@ import React from 'react';
 
 const AuthPage: React.FC = () => {
     const redirectToUrl = () => {
-        window.location.href = 'http://localhost:5006/login'; // Replace with your specific URL
+        window.location.href = 'https://localhost:44339/login'; // Replace with your specific URL
     };
 
     return (

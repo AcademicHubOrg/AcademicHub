@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: identity-microservice-container
+    environment:
+      - POSTGRESQL_DATABASE=Identity
+      - POSTGRESQL_USER=identityuser
+      - POSTGRESQL_PASSWORD=identityuser
+    ports:
+      - "5440:5432"
+    networks:
+      - my-network
+
+  identity:
+    build:
+      context: ./Identity # This points to the 'AcademicHub' directory
+      dockerfile: /Identity/Dockerfile
+    ports:
+      - "7108:7108"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      #- ConnectionStrings__IdentityContext=Server=postgres;Port=5432;Database=Identity;User Id=identityuser;Password=identityuser
+    depends_on:
+      - postgres
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
