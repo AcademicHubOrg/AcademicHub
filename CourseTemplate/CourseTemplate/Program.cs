@@ -1,5 +1,5 @@
 using CourseTemplate.Core;
-using CourseTemplate.Core.CustomExceptions;
+using CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);

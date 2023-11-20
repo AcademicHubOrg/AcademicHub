@@ -1,4 +1,4 @@
-﻿using CourseTemplate.Core.CustomExceptions;
+﻿using CustomExceptions;
 using CourseTemplate.Data;
 
 namespace CourseTemplate.Core

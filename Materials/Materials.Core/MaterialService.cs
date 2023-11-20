@@ -1,4 +1,5 @@
-﻿using Materials.Data;
+﻿using CustomExceptions;
+using Materials.Data;
 
 namespace Materials.Core;
 
@@ -6,7 +7,15 @@ using System.Security.Cryptography;
 
 
 
-public class MaterialDataDto
+public class MaterialDataDtoAdd
+{
+    public string Name { get; set; } = null!;
+    public string DataText { get; set; } = null!;
+    
+    public string CourseId { get; set; } = null!;
+}
+
+public class MaterialDataDtoShow
 {
     public string Name { get; set; } = null!;
     public string Id { get; set; } = null!;
@@ -31,8 +40,15 @@ public class MaterialService
         _repository = new MaterialsRepository();
     }
   
-    public async Task AddAsync(MaterialDataDto material)
+    public async Task AddAsync(MaterialDataDtoAdd material)
     {
+        var courseId = Convert.ToInt32(material.CourseId);
+        var dbMaterials = await _repository.ListAsync();
+        if (dbMaterials.Any(m => m.MaterialName == material.Name && m.CourseId == courseId))
+        {
+            throw new ConflictException($"The course with id: '{courseId}' contains a material with the name '{material.Name}'");
+        }
+        
         await _repository.AddAsync(new MaterialData()
         {
             MaterialName = material.Name,
@@ -41,13 +57,13 @@ public class MaterialService
         });
     }
 
-    public async Task<List<MaterialDataDto>> ListAsync()
+    public async Task<List<MaterialDataDtoShow>> ListAsync()
     {
-        var result = new List<MaterialDataDto>();
+        var result = new List<MaterialDataDtoShow>();
         var dbMaterials = await _repository.ListAsync();
         foreach (var materialData in dbMaterials)
         {
-            result.Add(new MaterialDataDto()
+            result.Add(new MaterialDataDtoShow()
             {
                 Name = materialData.MaterialName,
                 Id = materialData.Id.ToString(),
@@ -73,6 +89,10 @@ public class MaterialService
                 });
             }
         }
+        if (result.Count == 0)
+        {
+            throw new NotFoundException($"Material with course ID: '{courseId}'");
+        }
         return result;
     }
     
@@ -90,6 +110,10 @@ public class MaterialService
                     DataText = materialData.DataText,
                 });
             }
+        }
+        if (result.Count == 0)
+        {
+            throw new NotFoundException($"Material with ID: '{materialId}'");
         }
         return result;
     }

@@ -1,4 +1,4 @@
-namespace CourseTemplate.Core.CustomExceptions;
+namespace CustomExceptions;
 
 public class NotFoundException : Exception
 {
