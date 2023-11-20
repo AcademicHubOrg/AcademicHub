@@ -17,10 +17,16 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Restore dependencies
+    - name: Restore AcademicHub.Common dependencies
+      run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
+      
+    - name: Build AcademicHub.Common
+      run: dotnet build ./AcademicHub.Common/AcademicHub.Common.sln --no-restore
+      
+    - name: Restore Materials dependencies
       run: dotnet restore ./Materials/Materials.sln
 
-    - name: Build
+    - name: Build Materials
       run: dotnet build ./Materials/Materials.sln --no-restore
 
     # Run unit tests

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Materials.Data", "Materials
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Materials.Core", "Materials.Core\Materials.Core.csproj", "{BDAC4E93-ADEA-48F3-81BF-CB20ED82919C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExceptions", "..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj", "{CABA7AED-5FAB-4DF5-AA8E-53B56A8C593C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{BDAC4E93-ADEA-48F3-81BF-CB20ED82919C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDAC4E93-ADEA-48F3-81BF-CB20ED82919C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDAC4E93-ADEA-48F3-81BF-CB20ED82919C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABA7AED-5FAB-4DF5-AA8E-53B56A8C593C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABA7AED-5FAB-4DF5-AA8E-53B56A8C593C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABA7AED-5FAB-4DF5-AA8E-53B56A8C593C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABA7AED-5FAB-4DF5-AA8E-53B56A8C593C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

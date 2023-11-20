@@ -1,5 +1,5 @@
 using CourseTemplate.Core;
-using CourseTemplate.Core.CustomExceptions;
+using CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,7 +45,7 @@ app.UseExceptionHandler(errorApp =>
 		
 		if (exceptionHandlerPathFeature?.Error is ArgumentException)
 		{
-			errorMessage = "Invalid input provided.";
+			errorMessage = exceptionHandlerPathFeature.Error.Message;
 			errorCode = StatusCodes.Status400BadRequest;
 		}
 		else if (exceptionHandlerPathFeature?.Error is NotFoundException)
@@ -62,7 +62,7 @@ app.UseExceptionHandler(errorApp =>
 		if (env.IsDevelopment())
 		{
 			// In development, return detailed error information
-			errorMessage += " dev info: " + exceptionHandlerPathFeature?.Error.Message;
+			errorMessage += " dev info: " + exceptionHandlerPathFeature?.Error.InnerException;
 		}
 		await context.Response.WriteAsJsonAsync(new 
 		{ 

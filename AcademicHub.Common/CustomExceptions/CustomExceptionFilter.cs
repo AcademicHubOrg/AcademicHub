@@ -1,4 +1,4 @@
-using CourseTemplate.Core.CustomExceptions;
+using CustomExceptions;
 using Microsoft.AspNetCore; // for AspNetCore
 using Microsoft.AspNetCore.Mvc.Filters; // for IExceptionFilter
 using Microsoft.Extensions.Logging;      // for ILogger
