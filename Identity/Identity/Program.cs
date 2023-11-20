@@ -5,6 +5,7 @@ using Identity.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Matching;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ builder.Services.AddAuthentication(options =>
 	})
 	.AddCookie(options =>
 	{
+		options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 		options.LoginPath = "/login"; // Specify the login path
 	})
 	.AddGoogle(googleOptions =>
@@ -108,17 +110,19 @@ app.UseStatusCodePages(context =>
 
 
 app.UseRouting(); // This must come before UseAuthentication and UseAuthorization
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+// Then, define endpoints
 
 
-// Define your endpoints here
+
 app.MapGet("/", BaseUrl);
 app.MapGet("/user/list", ListOfUsers);
 app.MapPost("/user/add", AddUser);
 app.MapPost("/user/makeAdmin", MakeAdmin);
 app.MapGet("/login", Login);
-app.MapGet("/after-signin", AfterSignin);
+app.MapGet("/after-signin", AfterSignIn);
 
 app.Run();
 
@@ -167,33 +171,43 @@ async Task<object> MakeAdmin([FromServices] UsersService service, string email, 
 	return new {Message = "Admin assigned successfully."};
 }
 
-async Task<object> Login(HttpContext httpContext)
+Task<IResult> Login(HttpContext httpContext)
 {
-	// Challenge Google authentication, which will redirect to Google's login page
 	return httpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties
 	{
-		RedirectUri = "/after-signin" // Set the redirect URI to your callback endpoint
-	});
-};
+		RedirectUri = "/after-signin"
+	}).ContinueWith(_ => Results.Redirect("/"));
+}
 
-async Task<object> AfterSignin(HttpContext httpContext)
+async Task<IResult> AfterSignIn(HttpContext httpContext)
 {
 	var authenticateResult = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
 	if (!authenticateResult.Succeeded)
-		return Results.Redirect("/login"); // Redirect to login if not authenticated
+	{
+		return Results.Redirect("/login");
+	}
 
-	// Assuming you have a method to find or create the user
 	var email = authenticateResult.Principal.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
 	var name = authenticateResult.Principal.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value;
 
-	// Use your UsersService to find or create the user
-	var userService = httpContext.RequestServices.GetRequiredService<UsersService>();
-	var user = await userService.FindOrCreateUser(email!, name!);
+	if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(name))
+	{
+		return Results.Redirect("/login");
+	}
 
-	// Sign in the user with your own application logic if needed
-	// ...
+	try
+	{
+		var userService = httpContext.RequestServices.GetRequiredService<UsersService>();
+		var user = await userService.FindOrCreateUser(email, name);
+	}
+	catch (Exception ex)
+	{
+		return Results.Problem("An error occurred during the login process.");
+	}
 
-	// Redirect to the default page after login
-	return Results.Redirect("/"); // Replace with your default page URL
-};
+	return Results.Redirect("/");
+}
+
+
+
+
