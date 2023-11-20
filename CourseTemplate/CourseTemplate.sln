@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate.Data", "Cour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate.Core", "CourseTemplate.Core\CourseTemplate.Core.csproj", "{9E5BF1DE-729D-468B-B7CC-9310471B98FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExceptions", "..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj", "{F405E199-515C-4716-9F67-7E76D1B6ADEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
