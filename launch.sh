@@ -1,46 +1,33 @@
 #!/bin/bash
 
-# Start Docker Compose for PostgreSQL
-echo "Starting PostgreSQL for Identity Service"
-cd Identity
-docker-compose up -d
-cd ..
+echo "Starting all services..."
 
-# Wait for PostgreSQL to be ready (Optional, you might need a more sophisticated wait mechanism)
-sleep 3
+# Navigate to the directory containing the scripts if they're not in the same directory as launch.sh
+cd LaunchScripts
 
-# Apply EF Core migrations (Ensure you're in the correct directory to do this)
-cd Identity
-cd Identity.Data
-dotnet ef database update
-cd ..
+# Make sure the scripts are executable
+chmod +x launchIdentity.sh
+chmod +x launchMaterials.sh
+chmod +x launchCourseStream.sh
+chmod +x launchCourseTemplate.sh
+chmod +x launchfrontend.sh
 
-# Run the .NET Solution (Ensure this is the correct directory and method to start your application)
-cd Identity
-export ASPNETCORE_URLS=https://localhost:7108
-export ASPNETCORE_ENVIRONMENT=Development
-dotnet restore Identity.sln
-dotnet run Identity.sln
+# Execute each script
+
+echo "Launching Identity Service..."
+./launchIdentity.sh
+
+echo "Launching Materials Service..."
+./launchMaterials.sh
+
+echo "Launching Course Stream Service..."
+./launchCourseStream.sh
+
+echo "Launching Course Template Service..."
+./launchCourseTemplate.sh
+
+echo "Launching Frontend Service..."
+./launchfrontend.sh
 
 
-
-
-echo "Starting CourseTemplate Service"
-cd CourseTemplate
-docker-compose up -d
-cd ..
-
-echo "Starting CourseStream Service"
-cd CourseStream
-docker-compose up -d
-cd ..
-
-echo "Starting Materials Service"
-cd Materials
-docker-compose up -d
-cd ..
-
-echo "Starting Frontend"
-cd frontend
-# Insert commands to start the React frontend, e.g., `npm start`
-cd ..
+echo "All services started successfully."
