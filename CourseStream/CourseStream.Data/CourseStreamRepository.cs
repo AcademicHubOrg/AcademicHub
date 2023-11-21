@@ -21,4 +21,22 @@ public class CourseStreamRepository
     {
         return await _context.CourseStreams.ToListAsync();
     }
+    public async Task EnrollStudentAsync(int studentId, int courseStreamId)
+    {
+        var enrollment = new EnrolledStudent
+        {
+            StudentId = studentId,
+            CourseStreamId = courseStreamId
+        };
+
+        _context.EnrolledStudents.Add(enrollment);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<bool> IsStudentEnrolledAsync(int studentId, int courseStreamId)
+    {
+        return await _context.EnrolledStudents
+            .AnyAsync(e => e.StudentId == studentId && e.CourseStreamId == courseStreamId);
+    }
+
 }

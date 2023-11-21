@@ -11,9 +11,9 @@ builder.Services.AddLogging();
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowSpecificOrigin",
-		builder =>
+		corsPolicyBuilder =>
 		{
-			builder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
+			corsPolicyBuilder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
 				.AllowAnyHeader()
 				.AllowAnyMethod();
 		});
@@ -86,7 +86,7 @@ app.UseStatusCodePages(context =>
 app.MapGet("/", BaseUrl);
 app.MapGet("/courseStream/list", ListOfCourseStreams);
 app.MapPost("/courseStream/add", AddCourse);
-
+app.MapPost("courseStream/enrollStudent", EnrollStudent);
 app.Run();
 
 // Route implementations
@@ -112,5 +112,21 @@ static async Task<object> AddCourse([FromServices] CourseStreamService service, 
 	return new { Message = "Course added successfully." };
 }
 
+async Task<IActionResult> EnrollStudent([FromServices] CourseStreamService service, int studentId, int courseStreamId)
+{
+	try
+	{
+		await service.EnrollStudentAsync(studentId, courseStreamId);
+		return new OkObjectResult(new { Message = "Student enrolled successfully." });
+	}
+	catch (ConflictException ex)
+	{
+		return new ConflictObjectResult(new { ErrorMessage = ex.Message });
+	}
+	catch (Exception ex)
+	{
+		return new BadRequestObjectResult(new { ErrorMessage = ex.Message });
+	}
+}
 
 
