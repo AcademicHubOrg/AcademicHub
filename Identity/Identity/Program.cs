@@ -52,50 +52,6 @@ app.UseSwaggerUI();
 
 app.UseCors("AllowSpecificOrigin");
 
-app.UseExceptionHandler(errorApp =>
-{
-    errorApp.Run(async context =>
-    {
-        var exceptionHandlerPathFeature =
-            context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
-        var env = context.RequestServices.GetService<IWebHostEnvironment>();
-        var errorCode = StatusCodes.Status500InternalServerError;
-        context.Response.StatusCode = errorCode;
-        context.Response.ContentType = "application/json";
-
-        var errorMessage = "An unexpected error occurred. Please try again later.";
-
-        if (exceptionHandlerPathFeature?.Error is ArgumentException)
-        {
-            errorMessage = exceptionHandlerPathFeature.Error.Message;
-            errorCode = StatusCodes.Status400BadRequest;
-        }
-        else if (exceptionHandlerPathFeature?.Error is NotFoundException)
-        {
-            errorMessage = exceptionHandlerPathFeature.Error.Message;
-            errorCode = StatusCodes.Status404NotFound;
-        }
-        else if (exceptionHandlerPathFeature?.Error is ConflictException)
-        {
-            errorMessage = exceptionHandlerPathFeature.Error.Message;
-            errorCode = StatusCodes.Status409Conflict;
-        }
-
-        if (env.IsDevelopment())
-        {
-            // In development, return detailed error information
-            errorMessage += " dev info: " + exceptionHandlerPathFeature?.Error.InnerException;
-        }
-
-        await context.Response.WriteAsJsonAsync(new
-        {
-            ErrorMessage = errorMessage,
-            ErrorCode = errorCode
-        });
-    });
-});
-
-
 // StatusCodePages Middleware
 app.UseStatusCodePages(context =>
 {
