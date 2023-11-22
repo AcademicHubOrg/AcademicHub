@@ -40,7 +40,6 @@ builder.Services.AddAuthentication(options =>
         googleOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     });
 
-
 // Register authorization services
 builder.Services.AddAuthorization();
 
@@ -58,13 +57,10 @@ app.UseStatusCodePages(context =>
     return context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
 });
 
-
 app.UseRouting(); // This must come before UseAuthentication and UseAuthorization
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-// Then, define endpoints
-
 
 app.MapGet("/", EndpointHandlers.BaseUrl);
 app.MapGet("/user/list", EndpointHandlers.ListOfUsers);
