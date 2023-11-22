@@ -21,4 +21,9 @@ public class CourseTemplateRepository
 	{
 		return await _context.CourseTemplates.ToListAsync();
 	}
+	
+	public async Task<CourseTemplate?> GetByIdAsync(int id)
+	{
+		return await _context.CourseTemplates.FindAsync(id);
+	}
 }

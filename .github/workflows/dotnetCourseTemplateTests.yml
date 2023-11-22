@@ -17,10 +17,16 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Restore dependencies
+    - name: Restore CustomExceptions dependencies
+      run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
+      
+    - name: Build CustomExceptions
+      run: dotnet build ./AcademicHub.Common/AcademicHub.Common.sln --no-restore
+      
+    - name: Restore CourseTemplate dependencies
       run: dotnet restore ./CourseTemplate/CourseTemplate.sln
 
-    - name: Build
+    - name: Build CourseTemplate
       run: dotnet build ./CourseTemplate/CourseTemplate.sln --no-restore
 
     # Run unit tests

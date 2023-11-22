@@ -5,10 +5,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <ProjectReference Include="..\..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj" />
-      <ProjectReference Include="..\CourseStream.Data\CourseStream.Data.csproj" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     </ItemGroup>
 
 </Project>
