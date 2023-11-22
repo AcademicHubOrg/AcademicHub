@@ -12,7 +12,7 @@ public class CourseStreamShowDto
 	public string Id { get; set; } = null!;
 }
 
-public abstract class CourseStreamAddDto
+public class CourseStreamAddDto
 {
 	public string Name { get; set; } = null!;
 }

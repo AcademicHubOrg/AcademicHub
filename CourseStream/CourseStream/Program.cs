@@ -86,7 +86,7 @@ app.UseStatusCodePages(context =>
 app.MapGet("/", BaseUrl);
 app.MapGet("/courseStream/list", ListOfCourseStreams);
 app.MapPost("/courseStream/add", AddCourse);
-app.MapPost("courseStream/enrollStudent", EnrollStudent);
+app.MapPost("courseStream/enroll", EnrollStudent);
 app.Run();
 
 // Route implementations
@@ -112,20 +112,16 @@ static async Task<object> AddCourse([FromServices] CourseStreamService service, 
 	return new { Message = "Course added successfully." };
 }
 
-async Task<IActionResult> EnrollStudent([FromServices] CourseStreamService service, int studentId, int courseStreamId)
+async Task<object> EnrollStudent([FromServices] CourseStreamService service, int studentId, int courseStreamId)
 {
 	try
 	{
 		await service.EnrollStudentAsync(studentId, courseStreamId);
-		return new OkObjectResult(new { Message = "Student enrolled successfully." });
+		return new {Message = "Student enrolled successfully."};
 	}
-	catch (ConflictException ex)
+	catch (Exception e)
 	{
-		return new ConflictObjectResult(new { ErrorMessage = ex.Message });
-	}
-	catch (Exception ex)
-	{
-		return new BadRequestObjectResult(new { ErrorMessage = ex.Message });
+		throw new ConflictException(e.Message);
 	}
 }
 

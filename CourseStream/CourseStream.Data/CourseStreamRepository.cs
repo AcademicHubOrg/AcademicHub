@@ -23,10 +23,11 @@ public class CourseStreamRepository
     }
     public async Task EnrollStudentAsync(int studentId, int courseStreamId)
     {
-        var enrollment = new EnrolledStudent
+        var enrollment = new Enrollment
         {
             StudentId = studentId,
-            CourseStreamId = courseStreamId
+            CourseStreamId = courseStreamId,
+            EnrollmentTimestamp = DateTimeOffset.UtcNow
         };
 
         _context.EnrolledStudents.Add(enrollment);
@@ -36,7 +37,7 @@ public class CourseStreamRepository
     public async Task<bool> IsStudentEnrolledAsync(int studentId, int courseStreamId)
     {
         return await _context.EnrolledStudents
-            .AnyAsync(e => e.StudentId == studentId && e.CourseStreamId == courseStreamId);
+            .AnyAsync(e =>  e.CourseStreamId == courseStreamId && e.StudentId == studentId );
     }
 
 }
