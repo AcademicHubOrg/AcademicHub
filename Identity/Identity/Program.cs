@@ -1,3 +1,4 @@
+using CustomExceptions;
 using Identity;
 using Microsoft.AspNetCore.Authentication.Google;
 using Identity.Core;
@@ -19,8 +20,6 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
-
-builder.Services.AddMvc(options => { options.Filters.Add<CustomExceptionFilter>(); });
 
 // Register authentication services
 builder.Services.AddAuthentication(options =>
@@ -61,6 +60,8 @@ app.UseRouting(); // This must come before UseAuthentication and UseAuthorizatio
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 app.MapGet("/", EndpointHandlers.BaseUrl);
 app.MapGet("/user/list", EndpointHandlers.ListOfUsers);
