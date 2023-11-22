@@ -112,19 +112,9 @@ static async Task<object> AddCourse([FromServices] CourseStreamService service, 
 	return new { Message = "Course added successfully." };
 }
 
-async Task<object> EnrollStudent([FromServices] CourseStreamService service, string studentId, string courseStreamId)
+async Task<object> EnrollStudent([FromServices] CourseStreamService service, int studentId, int courseStreamId)
 {
-	if (string.IsNullOrWhiteSpace(studentId))
-	{
-		throw new ArgumentException("Invalid data provided. Student Id is required.");
-	}
-	if (string.IsNullOrWhiteSpace(courseStreamId))
-	{
-		throw new ArgumentException("Invalid data provided. Course Id is required.");
-	}
-	int.TryParse(studentId, out var argStudentId);
-	int.TryParse(courseStreamId, out var argCourseStreamId);
-	await service.EnrollStudentAsync(argStudentId, argCourseStreamId);
+	await service.EnrollStudentAsync(studentId, courseStreamId);
 	return new { Message = "Enrolment successful." };
 }
 
