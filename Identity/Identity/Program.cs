@@ -1,12 +1,8 @@
 using CustomExceptions;
 using Identity;
-using Microsoft.AspNetCore.OpenApi;
 using Microsoft.AspNetCore.Authentication.Google;
 using Identity.Core;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Matching;
 
 var builder = WebApplication.CreateBuilder(args);
 
