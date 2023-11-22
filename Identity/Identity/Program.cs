@@ -1,4 +1,3 @@
-using CustomExceptions;
 using Identity;
 using Microsoft.AspNetCore.Authentication.Google;
 using Identity.Core;
@@ -36,8 +35,8 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(googleOptions =>
     {
-        googleOptions.ClientId = "989838419075-cmepplaro69du10sdlftsr5f8u58gj7p.apps.googleusercontent.com";
-        googleOptions.ClientSecret = "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";
+        googleOptions.ClientId = builder.Configuration["Auth:Google:ClientID"]!;
+        googleOptions.ClientSecret = builder.Configuration["Auth:Google:ClientSecret"]!;
         googleOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     });
 
