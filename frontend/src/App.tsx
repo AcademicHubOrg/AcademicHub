@@ -7,6 +7,7 @@ import CoursesListPage from './pages/CoursesListPage/CoursesListPage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import AddCoursePage from './pages/AddCoursePage/AddCoursePage';
 import TemplatePage from "./pages/Template/TemplatePage";
+import ProfilePage from "./pages/ProfilePage/Profile";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
             <Route path="/addcourse" element={<AddCoursePage />} />
             <Route path="/template" element={<TemplatePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
   );
