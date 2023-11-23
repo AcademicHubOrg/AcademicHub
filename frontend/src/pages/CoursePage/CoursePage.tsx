@@ -5,11 +5,16 @@ import CourseDetails from "./Components/CourseDetails";
 interface Course {
     id: string;
     name: string;
-    materials: string;
+}
+
+interface Material {
+    name: string;
+    dataText: string;
 }
 
 const CoursePage: React.FC = () => {
     const [course, setCourse] = useState<Course | null>(null);
+    const [materials, setMaterials] = useState<Material[]>([]);
     const { courseId } = useParams<{ courseId: string }>();
 
     // Fetch data from the backend
@@ -23,7 +28,18 @@ const CoursePage: React.FC = () => {
             .catch(error => {
                 console.error('Error fetching data: ', error);
             });
-    }, [courseId]); // dependency array includes courseId
+        fetch(`https://localhost:7263/material/course?courseId=${courseId}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Material Data:', data);
+                setMaterials(data); // Assuming the API returns an array of materials
+            })
+            .catch(error => {
+                console.error('Error fetching materials data: ', error);
+            });
+    }, [courseId]);// dependency array includes courseId
+
+
 
     return (
         <div>
@@ -33,6 +49,19 @@ const CoursePage: React.FC = () => {
             ) : (
                 <p>Loading course data for course ID: {courseId}...</p>
             )}
+            <div>
+                <h2>Materials</h2>
+                {materials.length > 0 ? (
+                    materials.map(material => (
+                        <div key={material.name}>
+                            <h3>{material.name}</h3>
+                            <p>{material.dataText}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>Loading materials...</p>
+                )}
+            </div>
         </div>
     );
 };
