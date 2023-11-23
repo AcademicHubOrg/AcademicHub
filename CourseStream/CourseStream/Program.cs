@@ -39,9 +39,9 @@ app.UseHttpsRedirection();
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 
-app.MapGet("/", EndpointHandlers.BaseUrl);
-app.MapGet("/courseStream/list", EndpointHandlers.ListOfCourseStreams);
-app.MapPost("/courseStream/add", EndpointHandlers.AddCourse);
+app.MapGet("/healthz", EndpointHandlers.HealthCheck);
+app.MapGet("/courseStreams/list", EndpointHandlers.ListOfCourseStreams);
+app.MapPost("/courseStreams/add", EndpointHandlers.AddCourse);
 
 app.Run();
 

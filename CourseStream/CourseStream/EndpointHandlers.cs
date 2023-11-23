@@ -5,9 +5,9 @@ namespace CourseStream;
 
 internal static  class EndpointHandlers
 {
-	public static string BaseUrl()
+	public static IResult BaseUrl()
 	{
-		return "Hello World!";
+		return Results.Ok();
 	}
 
 	public static async Task<object> ListOfCourseStreams([FromServices] CourseStreamService service)

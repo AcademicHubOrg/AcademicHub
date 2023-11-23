@@ -38,9 +38,9 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
-app.MapGet("/", EndpointHandlers.BaseUrl);
-app.MapGet("/courseTemplate/list", EndpointHandlers.ListOfCourseTemplates);
-app.MapPost("/courseTemplate/add", EndpointHandlers.AddCourse);
-app.MapGet("/courseTemplate/{id}", EndpointHandlers.GetCourseById);
+app.MapGet("/healthz", EndpointHandlers.HealthCheck);
+app.MapGet("/courseTemplates/list", EndpointHandlers.ListOfCourseTemplates);
+app.MapPost("/courseTemplates/add", EndpointHandlers.AddCourse);
+app.MapGet("/courseTemplates/{id}", EndpointHandlers.GetCourseById);
 
 app.Run();

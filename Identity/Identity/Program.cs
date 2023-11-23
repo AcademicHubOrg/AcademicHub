@@ -63,10 +63,10 @@ app.UseAuthorization();
 
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
-app.MapGet("/", EndpointHandlers.BaseUrl);
-app.MapGet("/user/list", EndpointHandlers.ListOfUsers);
-app.MapPost("/user/add", EndpointHandlers.AddUser);
-app.MapPost("/user/makeAdmin", EndpointHandlers.MakeAdmin);
+app.MapGet("/healthz", EndpointHandlers.HealthCheck);
+app.MapGet("/users/list", EndpointHandlers.ListOfUsers);
+app.MapPost("/users/add", EndpointHandlers.AddUser);
+app.MapPost("/users/makeAdmin", EndpointHandlers.MakeAdmin);
 app.MapGet("/login", EndpointHandlers.Login);
 app.MapGet("/after-signin", EndpointHandlers.AfterSignIn);
 

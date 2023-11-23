@@ -5,10 +5,10 @@ namespace Materials;
 
 internal static class EndpointHandlers
 {
-	public static string BaseUrl()
-    {
-    	return "Hello World!";
-    }
+	public static IResult HealthCheck()
+	{
+		return Results.Ok();
+	}
     
 	public static async Task<object> ListOfCourseTemplates([FromServices] MaterialService service)
     {

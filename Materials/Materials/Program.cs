@@ -38,11 +38,11 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
-app.MapGet("/", EndpointHandlers.BaseUrl);
-app.MapGet("/material/list", EndpointHandlers.ListOfCourseTemplates);
-app.MapGet("/material/id", EndpointHandlers.GetMaterialByMaterialId);
-app.MapGet("/material/course", EndpointHandlers.GetMaterialSByCourseId);
-app.MapPost("/material/add", EndpointHandlers.AddMaterial);
+app.MapGet("/healthz", EndpointHandlers.HealthCheck);
+app.MapGet("/materials/list", EndpointHandlers.ListOfCourseTemplates);
+app.MapGet("/materials/{id}", EndpointHandlers.GetMaterialByMaterialId);
+app.MapGet("/materials/{courseId}", EndpointHandlers.GetMaterialSByCourseId);
+app.MapPost("/materials/add", EndpointHandlers.AddMaterial);
 
 app.Run();
 
