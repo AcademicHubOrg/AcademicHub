@@ -23,10 +23,29 @@ jobs:
     - name: Build
       run: dotnet build ./Identity/Identity.sln --no-restore
 
-    # Run unit tests
-    - name: Run unit tests
-      run: dotnet test ./Identity/Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal
+    # Calculate code coverage percentage for unit tests
 
-    # Run integration tests
-    - name: Run integration tests
-      run: dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal
+    - name: Calculate unit test coverage
+      run: |
+        dotnet test ./Identity/Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+        coverage_percentage_unit=$(bash <(curl -s https://codecov.io/bash) -f ./Identity/Identity.UnitTests/coverage.opencover.xml -X gcov)
+
+        if [ "$coverage_percentage_unit" -ne 100 ]; then
+          echo "Error: Code coverage for unit tests is not 100%."
+          exit 1
+        fi
+      shell: bash
+      
+      # Calculate code coverage percentage for integration tests
+    - name: Calculate integration test coverage
+      run: |
+        dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+        coverage_percentage_integration=$(bash <(curl -s https://codecov.io/bash) -f ./Identity/Identity.IntegrationTests/coverage.opencover.xml -X gcov)
+
+        if [ "$coverage_percentage_integration" -ne 100 ]; then
+          echo "Error: Code coverage for integration tests is not 100%."
+          exit 1
+        fi
+      shell: bash
