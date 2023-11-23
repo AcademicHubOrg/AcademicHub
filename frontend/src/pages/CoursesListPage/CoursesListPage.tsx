@@ -18,7 +18,7 @@ const CoursesList = () => {
             .then(data => {
                 // Assuming the data is an array of courses
                 // console.log(data);
-                setCourses(data);
+                setCourses(data.data);
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);
