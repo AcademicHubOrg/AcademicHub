@@ -60,7 +60,7 @@ namespace CourseStream.Data.Migrations
 
                     b.HasIndex("CourseStreamId");
 
-                    b.ToTable("EnrolledStudents");
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("CourseStream.Data.Enrollment", b =>

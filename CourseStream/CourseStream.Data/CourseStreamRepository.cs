@@ -30,13 +30,13 @@ public class CourseStreamRepository
             EnrollmentTimestamp = DateTimeOffset.UtcNow
         };
 
-        _context.EnrolledStudents.Add(enrollment);
+        _context.Enrollments.Add(enrollment);
         await _context.SaveChangesAsync();
     }
 
     public async Task<bool> IsStudentEnrolledAsync(int studentId, int courseStreamId)
     {
-        return await _context.EnrolledStudents
+        return await _context.Enrollments
             .AnyAsync(e =>  e.CourseStreamId == courseStreamId && e.StudentId == studentId );
     }
 

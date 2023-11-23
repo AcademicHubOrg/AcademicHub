@@ -17,7 +17,7 @@ public class CourseStreamAddDto
 	public string Name { get; set; } = null!;
 }
 
-public abstract class EnrolledStudentsDto
+public class EnrolledStudentsDto
 {
 	public string Id { get; set; } = null!;
 }

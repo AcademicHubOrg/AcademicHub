@@ -4,7 +4,7 @@ namespace CourseStream.Data;
 public class CourseStreamDBContext : DbContext
 {
     public DbSet<CourseStream> CourseStreams { get; set; }
-    public DbSet<Enrollment> EnrolledStudents { get; set; }
+    public DbSet<Enrollment> Enrollments { get; set; }
     public CourseStreamDBContext()
     {
         
