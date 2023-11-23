@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-import CourseInstance from "./Components/CourseInstance";
+import TemplateInstance from "./Components/TemplateInstance";
 
 // TypeScript interfaces for type checking
-interface Course {
+interface CourseTemplate {
     id: string;
     name: string;
 }
 
-const CoursesList = () => {
-    const [courses, setCourses] = useState<Course[]>([]);
+const TemplateList = () => {
+    const [courseTemplates, setCourses] = useState<CourseTemplate[]>([]);
 
     // Fetch data from the backend
     useEffect(() => {
-        fetch('http://localhost:5237/courseStream/list')
+        fetch('http://localhost:5204/courseTemplate/list')
             .then(response => response.json())
             .then(data => {
                 // Assuming the data is an array of courses
@@ -27,15 +27,15 @@ const CoursesList = () => {
 
     return (
         <div>
-            <h1>Courses List</h1>
+            <h1>Template List</h1>
             <ul>
-                {courses.map(course => (
-                    <CourseInstance key={course.id} courseName={course.name} courseID={course.id}/>
+                {courseTemplates.map(course => (
+                    <TemplateInstance key={course.id} courseName={course.name} courseID={course.id}/>
                 ))}
             </ul>
         </div>
     );
 };
 
-export default CoursesList;
+export default TemplateList;
 

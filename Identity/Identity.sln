@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Core", "Identity.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Data", "Identity.Data\Identity.Data.csproj", "{60300D1E-BEEE-45D8-A162-699A721D4B62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExceptions", "..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj", "{DF102F1E-18F1-41A0-BCBF-A34F6B4E6448}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{60300D1E-BEEE-45D8-A162-699A721D4B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60300D1E-BEEE-45D8-A162-699A721D4B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60300D1E-BEEE-45D8-A162-699A721D4B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF102F1E-18F1-41A0-BCBF-A34F6B4E6448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF102F1E-18F1-41A0-BCBF-A34F6B4E6448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF102F1E-18F1-41A0-BCBF-A34F6B4E6448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF102F1E-18F1-41A0-BCBF-A34F6B4E6448}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
