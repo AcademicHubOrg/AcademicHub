@@ -18,7 +18,7 @@ const CoursePage: React.FC = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setCourse(data.data[parseInt(courseId as string)]);
+                setCourse(data.data[parseInt(courseId as string) - 1]);
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);
