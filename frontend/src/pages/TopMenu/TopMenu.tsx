@@ -10,7 +10,8 @@ const TopMenu: React.FC = () => {
             <button onClick={() => navigate('/courselist')}>Courses List</button>
             <button onClick={() => navigate('/auth')}>Auth</button>
             <button onClick={() => navigate('/addcourse')}>Add Course</button>
-            <button onClick={() => navigate('/template')}>Template</button>
+            <button onClick={() => navigate('/template')}>Add Template</button>
+            <button onClick={() => navigate('/templateList')}>Template List</button>
         </div>
     );
 };

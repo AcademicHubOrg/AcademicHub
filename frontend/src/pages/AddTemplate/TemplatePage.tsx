@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-function TemplatePage() {
+function AddTemplatePage() {
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
 
     // Function to handle the POST request
     const sendPostRequest = async (courseTemplateName:string) => {
         try {
-            const response = await fetch('http://localhost:5204/courseTemplate', { // Replace with your endpoint
+            const response = await fetch('http://localhost:5204/courseTemplate/add', { // Replace with your endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,4 +49,4 @@ function TemplatePage() {
     );
 }
 
-export default TemplatePage;
+export default AddTemplatePage;
