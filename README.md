@@ -44,3 +44,5 @@ Here what should you see Docker has started up successfully and database was upd
 ![image](https://github.com/podkolzzzin/AcademicHub/assets/94047397/c0469c30-beed-447c-ba0e-d1bed468cf78)
 
 After that you are ready to work with the project
+
+
