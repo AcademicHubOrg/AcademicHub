@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 internal static class EndpointHandlers
 {
-	public static IResult BaseUrl()
+	public static IResult HealthCheck()
 	{
 		return Results.Ok();
 	}
