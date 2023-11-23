@@ -9,6 +9,7 @@ import AddCoursePage from './pages/AddCoursePage/AddCoursePage';
 import AddTemplatePage from "./pages/AddTemplate/TemplatePage";
 import TopMenu from "./pages/TopMenu/TopMenu";
 import TemplateList from "./pages/TemplateList/TemplateListPage";
+import CoursePage from "./pages/CoursePage/CoursePage";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
             <Route path="/addcourse" element={<AddCoursePage />} />
             <Route path="/template" element={<AddTemplatePage />} />
             <Route path="/templateList" element={<TemplateList />} />
+            <Route path="/template" element={<TemplatePage />} />
+            <Route path="/course/:courseId" element={<CoursePage/>} />
         </Routes>
       </Router>
   );
