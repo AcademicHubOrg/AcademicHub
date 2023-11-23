@@ -106,8 +106,6 @@ namespace CourseTemplate.UnitTests
                     new Data.CourseTemplate { Id = 3, CourseName = "Course3" }
                 }
             };
-
-            // Add more test cases as needed
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
