@@ -6,12 +6,12 @@ using Moq;
 
 namespace CourseTemplate.UnitTests
 {
-    public class UnitTest1
+    public class CourseTemplateUnitTests
     {
         private readonly Mock<ICourseTemplateRepository> _mockRepository;
         private readonly CourseTemplateService _service;
 
-        public UnitTest1()
+        public CourseTemplateUnitTests()
         {
             _mockRepository = new Mock<ICourseTemplateRepository>();
             _service = new CourseTemplateService(_mockRepository.Object);
