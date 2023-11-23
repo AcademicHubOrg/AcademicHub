@@ -50,7 +50,8 @@ public class CourseStreamService
 			throw new ConflictException("Student is already enrolled in this course stream.");
 		}
 
-		await _repository.EnrollStudentAsync(studentId, courseStreamId);
+		var currentTime = DateTime.UtcNow;
+		await _repository.EnrollStudentAsync(studentId, courseStreamId, currentTime);
 	}
 
 

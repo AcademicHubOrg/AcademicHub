@@ -1,4 +1,6 @@
-﻿namespace CourseStream.Data;
+﻿using System.Runtime.InteropServices.JavaScript;
+
+namespace CourseStream.Data;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -21,13 +23,13 @@ public class CourseStreamRepository
     {
         return await _context.CourseStreams.ToListAsync();
     }
-    public async Task EnrollStudentAsync(int studentId, int courseStreamId)
+    public async Task EnrollStudentAsync(int studentId, int courseStreamId, DateTime currentTime)
     {
         var enrollment = new Enrollment
         {
             StudentId = studentId,
             CourseStreamId = courseStreamId,
-            EnrollmentTimestamp = DateTimeOffset.UtcNow
+            EnrollmentTimestamp = currentTime
         };
 
         _context.Enrollments.Add(enrollment);
