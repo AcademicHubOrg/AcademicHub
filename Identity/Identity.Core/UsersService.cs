@@ -2,15 +2,6 @@
 
 namespace Identity.Core;
 
-public int OnePlusOne()
-{
-  return 1 + 1;
-}
-
-
-
-
-
 public class UserDto
 {
   public int Id { get; set; }
@@ -49,7 +40,6 @@ public class UsersService
 
     foreach (var user in orderedUsers)
     {
-      OnePlusOne();
       result.Add(new UserDto()
       {
         Email = user.Email,
