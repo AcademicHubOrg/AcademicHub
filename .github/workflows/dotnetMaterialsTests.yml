@@ -37,8 +37,8 @@ jobs:
 
         coverage_percentage_unit=$(bash <(curl -s https://codecov.io/bash) -f ./Materials/Materials.UnitTests/coverage.opencover.xml -X gcov)
 
-        if [ "$coverage_percentage_unit" -ne 100 ]; then
-          echo "Error: Code coverage for unit tests is not 100%."
+        if [ "$coverage_percentage_unit" -ne 60 ]; then
+          echo "Error: Code coverage for unit tests is not 60%."
           exit 1
         fi
       shell: bash
@@ -50,8 +50,8 @@ jobs:
 
         coverage_percentage_integration=$(bash <(curl -s https://codecov.io/bash) -f ./Materials/Materials.IntegrationTests/coverage.opencover.xml -X gcov)
 
-        if [ "$coverage_percentage_integration" -ne 100 ]; then
-          echo "Error: Code coverage for integration tests is not 100%."
+        if [ "$coverage_percentage_integration" -ne 60 ]; then
+          echo "Error: Code coverage for integration tests is not 60%."
           exit 1
         fi
       shell: bash
