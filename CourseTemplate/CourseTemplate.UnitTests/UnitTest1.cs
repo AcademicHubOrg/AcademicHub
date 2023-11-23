@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CourseTemplate.Core;
 using CourseTemplate.Data;
 using CustomExceptions;
 using Moq;
-using Xunit;
 
 namespace CourseTemplate.UnitTests
 {
