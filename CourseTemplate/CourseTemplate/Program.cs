@@ -38,7 +38,6 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
-// Routes
 app.MapGet("/", EndpointHandlers.BaseUrl);
 app.MapGet("/courseTemplate/list", EndpointHandlers.ListOfCourseTemplates);
 app.MapPost("/courseTemplate/add", EndpointHandlers.AddCourse);
