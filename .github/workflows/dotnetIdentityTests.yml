@@ -12,6 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -23,19 +24,30 @@ jobs:
     - name: Build
       run: dotnet build ./Identity/Identity.sln --no-restore
 
-    - name: Run unit tests with coverage
-      run: dotnet test ./Identity/Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./TestResults/'
-  
-    - name: Run integration tests with coverage
-      run: dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./TestResults/'
+    # Create TestResults Directory for Unit Tests
+    - name: Create TestResults Directory for Unit Tests
+      run: mkdir -p ./Identity/Identity.UnitTests/TestResults
 
+    # Run unit tests with coverage
+    - name: Run unit tests with coverage
+      run: dotnet test ./Identity/Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Identity/Identity.UnitTests/TestResults/'
+
+    # Create TestResults Directory for Integration Tests
+    - name: Create TestResults Directory for Integration Tests
+      run: mkdir -p ./Identity/Identity.IntegrationTests/TestResults
+
+    # Run integration tests with coverage
+    - name: Run integration tests with coverage
+      run: dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Identity/Identity.IntegrationTests/TestResults/'
+
+    # Install ReportGenerator
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
 
+    # Generate coverage report
     - name: Generate coverage report
       run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
 
+    # Enforce coverage threshold
     - name: Enforce coverage threshold
       run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'Cobertura' -assemblyfilters:'+Identity.Core' -classfilters:'+' -verbosity:Info -threshold:80
-
-    
