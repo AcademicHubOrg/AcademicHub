@@ -36,6 +36,9 @@ jobs:
     - name: Create TestResults Directory for Integration Tests
       run: mkdir -p ./Identity/Identity.IntegrationTests/TestResults
 
+    - name: List of files
+      run: ls ./Identity/Identity.IntegrationTests/TestResults
+
     # Run integration tests with coverage
     - name: Run integration tests with coverage
       run: dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Identity/Identity.IntegrationTests/TestResults/'
