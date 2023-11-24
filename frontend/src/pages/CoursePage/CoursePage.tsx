@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CourseDetails from "./Components/CourseDetails";
+import {Addresses} from "../../LocalHostAddresses";
 
 interface Course {
     id: string;
@@ -14,7 +15,7 @@ const CoursePage: React.FC = () => {
 
     // Fetch data from the backend
     useEffect(() => {
-        fetch(`http://localhost:5237/courseStream/list`)
+        fetch(`${Addresses.COURSESTREAMS}/courseStreams/list`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);

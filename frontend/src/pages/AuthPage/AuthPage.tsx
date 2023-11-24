@@ -1,8 +1,9 @@
 import React from 'react';
+import {Addresses} from "../../LocalHostAddresses";
 
 const AuthPage: React.FC = () => {
     const redirectToUrl = () => {
-        window.location.href = 'http://localhost:5006/login'; // Replace with your specific URL
+        window.location.href = `${Addresses.AUTH}/login`; // Replace with your specific URL
     };
 
     return (
