@@ -29,8 +29,4 @@
       <ProjectReference Include="..\Identity.Data\Identity.Data.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="TestResults" />
-    </ItemGroup>
-
 </Project>
