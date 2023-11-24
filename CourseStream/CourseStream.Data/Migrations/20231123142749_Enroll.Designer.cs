@@ -3,6 +3,7 @@ using System;
 using CourseStream.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CourseStream.Data.Migrations
 {
     [DbContext(typeof(CourseStreamDBContext))]
-    partial class CourseStreamDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231123142749_Enroll")]
+    partial class Enroll
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace CourseStream.Data.Migrations
                     b.Property<int>("CourseStreamId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("EnrollmentTimestamp")
+                    b.Property<DateTimeOffset>("EnrollmentTimestamp")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("StudentId")
