@@ -26,4 +26,10 @@ internal static  class EndpointHandlers
 		await service.AddAsync(courseStream);
 		return new { Message = "Course added successfully." };
 	}
+	
+	public static async Task<object> EnrollStudent([FromServices] CourseStreamService service, int studentId, int courseStreamId)
+	{
+		await service.EnrollStudentAsync(studentId, courseStreamId);
+		return new { Message = "Enrolment successful." };
+	}
 }
