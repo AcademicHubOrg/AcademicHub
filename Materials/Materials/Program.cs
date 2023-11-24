@@ -1,6 +1,6 @@
-using CustomExceptions;
+using Materials;
 using Materials.Core;
-using Microsoft.AspNetCore.Mvc;
+using CustomExceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,59 +19,12 @@ builder.Services.AddCors(options =>
 		});
 });
 
-builder.Services.AddMvc(options =>
-{
-	options.Filters.Add<CustomExceptionFilter>();
-});
-
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors("AllowSpecificOrigin");
-
-app.UseExceptionHandler(errorApp =>
-{
-	errorApp.Run(async context =>
-	{
-		var exceptionHandlerPathFeature = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
-		var env = context.RequestServices.GetService<IWebHostEnvironment>();
-		var errorCode = StatusCodes.Status500InternalServerError;
-		context.Response.StatusCode = errorCode;
-		context.Response.ContentType = "application/json";
-
-		var errorMessage = "An unexpected error occurred. Please try again later.";
-		
-		if (exceptionHandlerPathFeature?.Error is ArgumentException)
-		{
-			errorMessage = exceptionHandlerPathFeature.Error.Message;
-			errorCode = StatusCodes.Status400BadRequest;
-		}
-		else if (exceptionHandlerPathFeature?.Error is NotFoundException)
-		{
-			errorMessage = exceptionHandlerPathFeature.Error.Message;
-			errorCode = StatusCodes.Status404NotFound;
-		}
-		else if (exceptionHandlerPathFeature?.Error is ConflictException)
-		{
-			errorMessage = exceptionHandlerPathFeature.Error.Message;
-			errorCode = StatusCodes.Status409Conflict;
-		}
-
-		if (env.IsDevelopment())
-		{
-			// In development, return detailed error information
-			errorMessage += " dev info: " + exceptionHandlerPathFeature?.Error.InnerException;
-		}
-		await context.Response.WriteAsJsonAsync(new 
-		{ 
-			ErrorMessage = errorMessage, 
-			ErrorCode = errorCode 
-		});
-	});
-});
-
 
 // StatusCodePages Middleware
 app.UseStatusCodePages(context =>
@@ -80,68 +33,18 @@ app.UseStatusCodePages(context =>
 	return context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
 });
 
+app.UseRouting(); // This must come before UseAuthentication and UseAuthorization
+app.UseHttpsRedirection();
 
-// Routes
-app.MapGet("/", BaseUrl);
-app.MapGet("/material/list", ListOfCourseTemplates);
-app.MapGet("/material/id", GetMaterialById);
-app.MapGet("/material/course", GetMaterialSByCourse);
-app.MapPost("/material/add", AddMaterial);
+app.UseMiddleware<CustomErrorHandlingMiddleware>();
+
+app.MapGet("/healthz", EndpointHandlers.HealthCheck);
+app.MapGet("/materials/list", EndpointHandlers.ListOfCourseTemplates);
+app.MapGet("/materials/{id}", EndpointHandlers.GetMaterialByMaterialId);
+app.MapGet("/materials/{courseId}", EndpointHandlers.GetMaterialSByCourseId);
+app.MapPost("/materials/add", EndpointHandlers.AddMaterial);
 
 app.Run();
 
-// Route implementations
-string BaseUrl()
-{
-	return "Hello World!";
-}
 
-async Task<object> ListOfCourseTemplates([FromServices] MaterialService service)
-{
-	var result = await service.ListAsync();
-	return new { Data = result };
-}
-
-static async Task<object> AddMaterial([FromServices] MaterialService service, MaterialDataDtoAdd material)
-{
-	if (string.IsNullOrEmpty(material.Name))
-	{
-		throw new ArgumentException("Invalid data provided. Material name is required.");
-	}
-	if (string.IsNullOrEmpty(material.CourseId))
-	{
-		throw new ArgumentException("Invalid data provided. CourseId is required.");
-	}
-
-	try
-	{ 
-		Convert.ToInt32(material.CourseId);
-	}
-	catch (Exception e)
-	{
-		throw new ArgumentException("Invalid data provided: CourseId.");
-	}
-
-	await service.AddAsync(material);
-	return new { Message = "Material added successfully." };
-}
-
-static async Task<object> GetMaterialById([FromServices] MaterialService service, int? materialId)
-{
-	if (materialId is null)
-	{
-		throw new ArgumentException("Invalid data provided. Material Id is required.");
-	}
-	return await service.ListByIdAsync(materialId.Value);
-}
-
-static async Task<object> GetMaterialSByCourse([FromServices] MaterialService service, int? courseId)
-{
-	if (courseId is null)
-	{
-		throw new ArgumentException("Invalid data provided. Course Id is required.");
-	}
-
-	return await service.ListByCourseIdAsync(courseId.Value);
-}
 

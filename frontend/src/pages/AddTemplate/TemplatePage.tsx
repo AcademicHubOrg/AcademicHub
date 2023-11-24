@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Addresses} from "../../LocalHostAddresses";
 
 function AddTemplatePage() {
     const [inputText, setInputText] = useState('');
@@ -7,7 +8,7 @@ function AddTemplatePage() {
     // Function to handle the POST request
     const sendPostRequest = async (courseTemplateName:string) => {
         try {
-            const response = await fetch('http://localhost:5204/courseTemplate/add', { // Replace with your endpoint
+            const response = await fetch(`${Addresses.COURSETEMPLATES}/courseTemplates/add`, { // Replace with your endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

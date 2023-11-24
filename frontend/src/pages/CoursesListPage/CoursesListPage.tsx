@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import CourseInstance from "./Components/CourseInstance";
+import {Addresses} from "../../LocalHostAddresses";
 
 // TypeScript interfaces for type checking
 interface Course {
@@ -13,7 +14,7 @@ const CoursesList = () => {
 
     // Fetch data from the backend
     useEffect(() => {
-        fetch('http://localhost:5237/courseStream/list')
+        fetch(`${Addresses.COURSESTREAMS}/courseStreams/list`)
             .then(response => response.json())
             .then(data => {
                 // Assuming the data is an array of courses
