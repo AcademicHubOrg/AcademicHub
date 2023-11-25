@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {CSSProperties, useEffect, useState} from 'react';
 
 import CourseInstance from "./Components/CourseInstance";
 import {Addresses} from "../../LocalHostAddresses";
@@ -8,6 +8,13 @@ interface Course {
     id: string;
     name: string;
 }
+
+const tableStyle: CSSProperties = {
+    width: '100%',      // Makes the table full-width
+    border: '1px solid black',
+    borderCollapse: 'collapse',
+    fontSize: '1.2rem'  // Larger font size
+};
 
 const CoursesList = () => {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -29,11 +36,20 @@ const CoursesList = () => {
     return (
         <div>
             <h1>Courses List</h1>
-            <ul>
-                {courses.map(course => (
-                    <CourseInstance key={course.id} courseName={course.name} courseID={course.id}/>
-                ))}
-            </ul>
+            <table style={tableStyle}>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {courses.map(course => (
+                        <CourseInstance key={course.id} courseName={course.name} courseID={course.id}/>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

@@ -1,5 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CSSProperties } from 'react';
+
+const cellStyle: CSSProperties = {
+    border: '1px solid black',
+    padding: '10px',
+    textAlign: 'center',
+};
 
 interface CourseProps {
     courseName: string;
@@ -13,11 +20,13 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID}) => {
         navigate(`/course/${courseID}`);
     }
     return (
-        <div>
-            <h1>{courseName}</h1>
-            <h1>{courseID}</h1>
-            <button onClick={handleDetailsClick}>Details</button>
-        </div>
+        <tr>
+            <td style={cellStyle}>{courseID}</td>
+            <td style={cellStyle}>{courseName}</td>
+            <td style={cellStyle}>
+                <button onClick={handleDetailsClick}>Details</button>
+            </td>
+        </tr>
     );
 };
 
