@@ -1,0 +1,26 @@
+.topMenu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.topMenu button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 15px; /* Increased border-radius for rounded corners */
+}
+
+.topMenu button:hover {
+    background-color: #e0e0e0;
+}
+
+.topMenu .active {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px; /* Ensure active buttons are also rounded */
+}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CourseDetails from "./Components/CourseDetails";
-import {Addresses} from "../../LocalHostAddresses";
+import { getCourseDetails } from '../../api/courseService';
+import { getCourseMaterials } from '../../api/materialService';
 
 interface Course {
     id: string;
@@ -20,27 +21,14 @@ const CoursePage: React.FC = () => {
 
     // Fetch data from the backend
     useEffect(() => {
-        fetch(`${Addresses.COURSESTREAMS}/courseStreams/list`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setCourse(data.data[parseInt(courseId as string) - 1]);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
-        fetch(`https://localhost:7263/material/course?courseId=${courseId}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log('Material Data:', data);
-                setMaterials(data); // Assuming the API returns an array of materials
-            })
-            .catch(error => {
-                console.error('Error fetching materials data: ', error);
-            });
+        getCourseDetails(courseId as string)
+            .then(course => setCourse(course))
+            .catch(error => console.error('Error fetching course data: ', error));
+
+        getCourseMaterials(courseId as string)
+            .then(materials => setMaterials(materials))
+            .catch(error => console.error('Error fetching materials data: ', error));
     }, [courseId]);// dependency array includes courseId
-
-
 
     return (
         <div>

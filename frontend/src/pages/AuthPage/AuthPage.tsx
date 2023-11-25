@@ -1,5 +1,5 @@
 import React from 'react';
-import {Addresses} from "../../LocalHostAddresses";
+import {Addresses} from '../../api/LocalHostAddresses';
 
 const AuthPage: React.FC = () => {
     const redirectToUrl = () => {

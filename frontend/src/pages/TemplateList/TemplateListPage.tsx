@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import TemplateInstance from "./Components/TemplateInstance";
-import {Addresses} from "../../LocalHostAddresses";
+import { getCourseTemplates } from '../../api/templateService';
 
 // TypeScript interfaces for type checking
 interface CourseTemplate {
@@ -14,16 +14,9 @@ const TemplateList = () => {
 
     // Fetch data from the backend
     useEffect(() => {
-        fetch(`${Addresses.COURSETEMPLATES}/courseTemplates/list`)
-            .then(response => response.json())
-            .then(data => {
-                // Assuming the data is an array of courses
-                // console.log(data);
-                setCourses(data.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
+        getCourseTemplates()
+            .then(templates => setCourses(templates))
+            .catch(error => console.error('Error fetching templates data: ', error));
     }, []);
 
     return (

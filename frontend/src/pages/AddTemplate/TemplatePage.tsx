@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Addresses} from "../../LocalHostAddresses";
+import {Addresses} from '../../api/LocalHostAddresses';
 
 function AddTemplatePage() {
     const [inputText, setInputText] = useState('');
