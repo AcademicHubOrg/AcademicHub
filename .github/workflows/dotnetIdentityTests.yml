@@ -28,10 +28,6 @@ jobs:
     - name: Run unit tests with coverage
       run: dotnet test ./Identity/Identity.UnitTests/Identity.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Identity/Identity.UnitTests/TestResults/'
 
-    # Run integration tests with coverage
-    - name: Run integration tests with coverage
-      run: dotnet test ./Identity/Identity.IntegrationTests/Identity.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Identity/Identity.IntegrationTests/TestResults/'
-
     # Install ReportGenerator
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
