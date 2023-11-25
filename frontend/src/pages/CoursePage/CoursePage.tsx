@@ -29,7 +29,7 @@ const CoursePage: React.FC = () => {
             .catch(error => {
                 console.error('Error fetching data: ', error);
             });
-        fetch(`https://localhost:5116/materials/by-course/${courseId}`)
+        fetch(`${Addresses.MATERIALS}/materials/by-course/${courseId}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Material Data:', data);
