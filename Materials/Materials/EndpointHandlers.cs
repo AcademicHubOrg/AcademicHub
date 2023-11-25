@@ -49,7 +49,7 @@ internal static class EndpointHandlers
     	return await service.ListByIdAsync(materialId.Value);
     }
     
-	public static async Task<object> GetMaterialSByCourseId([FromServices] MaterialService service, int? courseId)
+	public static async Task<object> GetMaterialsByCourseId([FromServices] MaterialService service, int? courseId)
     {
     	if (courseId is null)
     	{

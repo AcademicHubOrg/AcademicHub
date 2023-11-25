@@ -102,7 +102,7 @@ public class MaterialService
         var dbMaterials = await _repository.ListAsync();
         foreach (var materialData in dbMaterials)
         {
-            if (materialId == materialData.CourseId)
+            if (materialId == materialData.Id)
             {
                 result.Add(new MaterialShowData()
                 {

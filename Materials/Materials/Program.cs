@@ -40,8 +40,8 @@ app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/materials/list", EndpointHandlers.ListOfCourseTemplates);
-app.MapGet("/materials/{id}", EndpointHandlers.GetMaterialByMaterialId);
-app.MapGet("/materials/{courseId}", EndpointHandlers.GetMaterialSByCourseId);
+app.MapGet("/materials/by-id/{id}", EndpointHandlers.GetMaterialByMaterialId);
+app.MapGet("/materials/by-course/{courseId}", EndpointHandlers.GetMaterialsByCourseId);
 app.MapPost("/materials/add", EndpointHandlers.AddMaterial);
 
 app.Run();
