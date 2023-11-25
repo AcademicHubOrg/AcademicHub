@@ -1,7 +1,7 @@
 import React, {CSSProperties, useEffect, useState} from 'react';
 
 import CourseInstance from "./Components/CourseInstance";
-import {Addresses} from "../../LocalHostAddresses";
+import { getCoursesList } from '../../api/coursesListService';
 
 // TypeScript interfaces for type checking
 interface Course {
@@ -21,16 +21,9 @@ const CoursesList = () => {
 
     // Fetch data from the backend
     useEffect(() => {
-        fetch(`${Addresses.COURSESTREAMS}/courseStreams/list`)
-            .then(response => response.json())
-            .then(data => {
-                // Assuming the data is an array of courses
-                // console.log(data);
-                setCourses(data.data);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
+        getCoursesList()
+            .then(courses => setCourses(courses))
+            .catch(error => console.error('Error fetching courses data: ', error));
     }, []);
 
     return (
