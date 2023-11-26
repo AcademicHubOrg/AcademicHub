@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import TemplateInstance from "./Components/TemplateInstance";
-import { getCourseTemplates } from '../../api/templateService';
+import { getCourseTemplates } from '../../api/templateListService';
 
 // TypeScript interfaces for type checking
 interface CourseTemplate {
