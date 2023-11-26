@@ -38,11 +38,6 @@ npm start
 # You're All Set!
 
 You are now ready to contribute to the AcademicHub project. Happy coding!
-.
-.
-.
-.
-.
 
 
 # Getting Started with Create React App
