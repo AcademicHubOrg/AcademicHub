@@ -1,0 +1,38 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test-courseTemplate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore CustomExceptions dependencies
+      run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
+      
+    - name: Build CustomExceptions
+      run: dotnet build ./AcademicHub.Common/AcademicHub.Common.sln --no-restore
+      
+    - name: Restore CourseTemplate dependencies
+      run: dotnet restore ./CourseTemplate/CourseTemplate.sln
+
+    - name: Build CourseTemplate
+      run: dotnet build ./CourseTemplate/CourseTemplate.sln --no-restore
+
+    # Run unit tests
+    - name: Run unit tests
+      run: dotnet test ./CourseTemplate/CourseTemplate.UnitTests/CourseTemplate.UnitTests.csproj --no-build --verbosity normal
+
+    # Run integration tests
+    - name: Run integration tests
+      run: dotnet test ./CourseTemplate/CourseTemplate.IntegrationTests/CourseTemplate.IntegrationTests.csproj --no-build --verbosity normal

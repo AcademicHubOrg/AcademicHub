@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate", "CourseTemplate\CourseTemplate.csproj", "{02F852CA-E0AB-4FB1-B44D-EEA4B4A58098}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate.UnitTests", "CourseTemplate.UnitTests\CourseTemplate.UnitTests.csproj", "{9155028F-A912-42BB-B1B0-AD531E72179B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate.IntegrationTests", "CourseTemplate.IntegrationTests\CourseTemplate.IntegrationTests.csproj", "{89C11512-7DEE-40BF-9CEF-29BA7B6AEAB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate.Data", "CourseTemplate.Data\CourseTemplate.Data.csproj", "{902412DB-2D10-430B-9FA1-C683238393E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseTemplate.Core", "CourseTemplate.Core\CourseTemplate.Core.csproj", "{9E5BF1DE-729D-468B-B7CC-9310471B98FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExceptions", "..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj", "{F405E199-515C-4716-9F67-7E76D1B6ADEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02F852CA-E0AB-4FB1-B44D-EEA4B4A58098}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F852CA-E0AB-4FB1-B44D-EEA4B4A58098}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F852CA-E0AB-4FB1-B44D-EEA4B4A58098}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F852CA-E0AB-4FB1-B44D-EEA4B4A58098}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9155028F-A912-42BB-B1B0-AD531E72179B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9155028F-A912-42BB-B1B0-AD531E72179B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9155028F-A912-42BB-B1B0-AD531E72179B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9155028F-A912-42BB-B1B0-AD531E72179B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C11512-7DEE-40BF-9CEF-29BA7B6AEAB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C11512-7DEE-40BF-9CEF-29BA7B6AEAB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C11512-7DEE-40BF-9CEF-29BA7B6AEAB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C11512-7DEE-40BF-9CEF-29BA7B6AEAB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{902412DB-2D10-430B-9FA1-C683238393E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{902412DB-2D10-430B-9FA1-C683238393E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{902412DB-2D10-430B-9FA1-C683238393E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{902412DB-2D10-430B-9FA1-C683238393E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E5BF1DE-729D-468B-B7CC-9310471B98FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F405E199-515C-4716-9F67-7E76D1B6ADEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

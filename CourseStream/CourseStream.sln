@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseStream", "CourseStream\CourseStream.csproj", "{48C56BBE-B39D-4F9B-805A-6E8203AB33B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseStream.Data", "CourseStream.Data\CourseStream.Data.csproj", "{13467212-5A95-4A8E-8E3C-EEEFA6F70EB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseStream.Core", "CourseStream.Core\CourseStream.Core.csproj", "{B2F02852-DD45-4FC2-BEDC-207354FB1500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseStream.UnitTests", "CourseStream.UnitTests\CourseStream.UnitTests.csproj", "{2B0CB8BA-F88E-4389-AFB5-D4C230621522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseStream.IntegrationTests", "CourseStream.IntegrationTests\CourseStream.IntegrationTests.csproj", "{B3B44241-4B14-44B9-9074-E93EF2BC641C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomExceptions", "..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj", "{71460762-B92C-4F2C-9409-71992EE0A39E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48C56BBE-B39D-4F9B-805A-6E8203AB33B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48C56BBE-B39D-4F9B-805A-6E8203AB33B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48C56BBE-B39D-4F9B-805A-6E8203AB33B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48C56BBE-B39D-4F9B-805A-6E8203AB33B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13467212-5A95-4A8E-8E3C-EEEFA6F70EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13467212-5A95-4A8E-8E3C-EEEFA6F70EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13467212-5A95-4A8E-8E3C-EEEFA6F70EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13467212-5A95-4A8E-8E3C-EEEFA6F70EB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F02852-DD45-4FC2-BEDC-207354FB1500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F02852-DD45-4FC2-BEDC-207354FB1500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F02852-DD45-4FC2-BEDC-207354FB1500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F02852-DD45-4FC2-BEDC-207354FB1500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0CB8BA-F88E-4389-AFB5-D4C230621522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0CB8BA-F88E-4389-AFB5-D4C230621522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0CB8BA-F88E-4389-AFB5-D4C230621522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0CB8BA-F88E-4389-AFB5-D4C230621522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3B44241-4B14-44B9-9074-E93EF2BC641C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B44241-4B14-44B9-9074-E93EF2BC641C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B44241-4B14-44B9-9074-E93EF2BC641C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B44241-4B14-44B9-9074-E93EF2BC641C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71460762-B92C-4F2C-9409-71992EE0A39E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71460762-B92C-4F2C-9409-71992EE0A39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71460762-B92C-4F2C-9409-71992EE0A39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71460762-B92C-4F2C-9409-71992EE0A39E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

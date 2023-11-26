@@ -1,0 +1,38 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test-courseStream:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Restore CustomExceptions dependencies
+      run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
+      
+    - name: Build CustomExceptions
+      run: dotnet build ./AcademicHub.Common/AcademicHub.Common.sln --no-restore
+      
+    - name: Restore CourseStream dependencies
+      run: dotnet restore ./CourseStream/CourseStream.sln
+
+    - name: Build CourseStream
+      run: dotnet build ./CourseStream/CourseStream.sln --no-restore
+
+    # Run unit tests
+    - name: Run unit tests
+      run: dotnet test ./CourseStream/CourseStream.UnitTests/CourseStream.UnitTests.csproj --no-build --verbosity normal
+
+    # Run integration tests
+    - name: Run integration tests
+      run: dotnet test ./CourseStream/CourseStream.IntegrationTests/CourseStream.IntegrationTests.csproj --no-build --verbosity normal
