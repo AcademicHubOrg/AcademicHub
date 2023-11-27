@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function AddCoursePage() {
+function AddCourseStreamPage() {
     // State to store the entered text
     const [inputText, setInputText] = useState('');
     // State to store the displayed text
@@ -29,4 +29,4 @@ function AddCoursePage() {
     );
 }
 
-export default AddCoursePage;
+export default AddCourseStreamPage;

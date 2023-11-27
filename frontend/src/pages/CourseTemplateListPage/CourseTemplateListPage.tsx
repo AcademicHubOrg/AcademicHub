@@ -9,7 +9,7 @@ interface CourseTemplate {
     name: string;
 }
 
-const TemplateList = () => {
+const CourseTemplateListPage = () => {
     const [courseTemplates, setCourses] = useState<CourseTemplate[]>([]);
 
     // Fetch data from the backend
@@ -31,5 +31,5 @@ const TemplateList = () => {
     );
 };
 
-export default TemplateList;
+export default CourseTemplateListPage;
 
