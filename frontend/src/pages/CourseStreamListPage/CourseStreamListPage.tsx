@@ -16,7 +16,7 @@ const tableStyle: CSSProperties = {
     fontSize: '1.2rem'  // Larger font size
 };
 
-const CoursesList = () => {
+const CourseStreamListPage = () => {
     const [courses, setCourses] = useState<Course[]>([]);
 
     // Fetch data from the backend
@@ -47,5 +47,5 @@ const CoursesList = () => {
     );
 };
 
-export default CoursesList;
+export default CourseStreamListPage;
 

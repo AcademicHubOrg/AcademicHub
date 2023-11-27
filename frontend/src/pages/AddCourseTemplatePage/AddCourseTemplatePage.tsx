@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addCourseTemplate } from '../../api/addTemplateService';
 
-function AddTemplatePage() {
+function AddCourseTemplatePage() {
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
 
@@ -28,4 +28,4 @@ function AddTemplatePage() {
     );
 }
 
-export default AddTemplatePage;
+export default AddCourseTemplatePage;

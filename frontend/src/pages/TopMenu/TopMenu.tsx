@@ -10,11 +10,11 @@ const TopMenu: React.FC = () => {
     return (
         <div className="topMenu">
             <button className={isActive('/') ? 'active' : ''} onClick={() => navigate('/')}>Home</button>
-            <button className={isActive('/courselist') ? 'active' : ''} onClick={() => navigate('/courselist')}>Courses List</button>
+            <button className={isActive('/courselist') ? 'active' : ''} onClick={() => navigate('/courselist')}>Courses stream List</button>
             <button className={isActive('/auth') ? 'active' : ''} onClick={() => navigate('/auth')}>Auth</button>
             <button className={isActive('/addcourse') ? 'active' : ''} onClick={() => navigate('/addcourse')}>Add Course</button>
             <button className={isActive('/template') ? 'active' : ''} onClick={() => navigate('/template')}>Add Template</button>
-            <button className={isActive('/templateList') ? 'active' : ''} onClick={() => navigate('/templateList')}>Template List</button>
+            <button className={isActive('/templateList') ? 'active' : ''} onClick={() => navigate('/templateList')}>Courses template List</button>
         </div>
     );
 };
