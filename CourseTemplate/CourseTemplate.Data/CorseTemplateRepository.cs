@@ -11,6 +11,11 @@ public class CourseTemplateRepository : ICourseTemplateRepository
 		_context = context ?? throw new ArgumentNullException(nameof(context));
 	}
 
+	public CourseTemplateRepository()
+	{
+		_context = new CourseTemplateDbContext();
+	}
+
 	public async Task AddAsync(CourseTemplate courseTemplate)
 	{
 		_context.Add(courseTemplate);
