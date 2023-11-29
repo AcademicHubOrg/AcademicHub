@@ -47,4 +47,4 @@ jobs:
       
       # Check code coverage threshold
     - name: Check code coverage threshold
-      run: bash ./scripts/coverage-check.sh ./CourseStream/CourseStream.UnitTests/CourseStream/CourseStream.UnitTests/TestResults CourseStream.Core branch 90
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/CourseStream/CourseStream.UnitTests/CourseStream/CourseStream.UnitTests/TestResults/coverage.cobertura.xml CourseStream.Core branch 95      

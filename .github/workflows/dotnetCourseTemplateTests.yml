@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
 
     - name: Restore CustomExceptions dependencies
       run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
@@ -52,5 +52,5 @@ jobs:
       
       # Check code coverage threshold
     - name: Check code coverage threshold
-      run: bash ./scripts/coverage-check.sh ./CourseTemplate/CourseTemplate.UnitTests/CourseTemplate/CourseTemplate.UnitTests/TestResults CourseTemplate.Core branch 90
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/CourseTemplate/CourseTemplate.UnitTests/CourseTemplate/CourseTemplate.UnitTests/TestResults/coverage.cobertura.xml CourseTemplate.Core branch 95      
       

@@ -20,7 +20,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
 
     - name: Restore dependencies
       run: dotnet restore ./Identity/Identity.sln
@@ -42,6 +42,4 @@ jobs:
       
       # Check code coverage threshold
     - name: Check code coverage threshold
-      run: bash ./scripts/coverage-check.sh ./Identity/Identity.UnitTests/Identity/Identity.UnitTests/TestResults Identity.Core branch 95
-      
-
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/Identity/Identity.UnitTests/Identity/Identity.UnitTests/TestResults/coverage.cobertura.xml Identity.Core branch 95

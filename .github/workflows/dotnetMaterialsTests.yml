@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
 
     - name: Restore AcademicHub.Common dependencies
       run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
@@ -47,4 +47,4 @@ jobs:
       
       # Check code coverage threshold
     - name: Check code coverage threshold
-      run: bash ./scripts/coverage-check.sh ./Materials/Materials.UnitTests/Materials/Materials.UnitTests/TestResults Materials.Core branch 95
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/Materials/Materials.UnitTests/Materials/Materials.UnitTests/TestResults/coverage.cobertura.xml Materials.Core branch 95      
