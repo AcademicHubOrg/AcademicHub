@@ -8,9 +8,9 @@ namespace Identity;
 
 internal static class EndpointHandlers
 {
-    public static string BaseUrl()
+    public static IResult HealthCheck()
     {
-        return "Hello World!";
+        return Results.Ok();
     }
 
     public static async Task<object> ListOfUsers([FromServices] UsersService service)

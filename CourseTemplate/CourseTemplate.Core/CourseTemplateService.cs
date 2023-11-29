@@ -16,11 +16,16 @@ namespace CourseTemplate.Core
 
     public class CourseTemplateService
     {
-        private readonly CourseTemplateRepository _repository;
+        private readonly ICourseTemplateRepository _repository;
 
         public CourseTemplateService()
         {
             _repository = new CourseTemplateRepository();
+        }
+        
+        public CourseTemplateService(ICourseTemplateRepository repository)
+        {
+            _repository = repository;
         }
 
         public async Task AddAsync(CreateCourseTemplateDto createCourse)

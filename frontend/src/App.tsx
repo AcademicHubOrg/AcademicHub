@@ -1,14 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import CoursesListPage from './pages/CoursesListPage/CoursesListPage';
+import CourseStreamListPage from './pages/CourseStreamListPage/CourseStreamListPage';
 import AuthPage from './pages/AuthPage/AuthPage';
-import AddCoursePage from './pages/AddCoursePage/AddCoursePage';
-import AddTemplatePage from "./pages/AddTemplate/TemplatePage";
+import AddCourseStreamPage from './pages/AddCourseStreamPage/AddCourseStreamPage';
+import AddCourseTemplatePage from "./pages/AddCourseTemplatePage/AddCourseTemplatePage";
 import TopMenu from "./pages/TopMenu/TopMenu";
-import TemplateList from "./pages/TemplateList/TemplateListPage";
+import CourseTemplateListPage from "./pages/CourseTemplateListPage/CourseTemplateListPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
 
 function App() {
@@ -16,11 +15,11 @@ function App() {
       <Router>
           <TopMenu/>
         <Routes>
-            <Route path="/courselist" element={<CoursesListPage />} />
+            <Route path="/courselist" element={<CourseStreamListPage />} />
             <Route path="/auth" element={<AuthPage />} />
-            <Route path="/addcourse" element={<AddCoursePage />} />
-            <Route path="/template" element={<AddTemplatePage />} />
-            <Route path="/templatelist" element={<TemplateList />} />
+            <Route path="/addcourse" element={<AddCourseStreamPage />} />
+            <Route path="/template" element={<AddCourseTemplatePage />} />
+            <Route path="/templatelist" element={<CourseTemplateListPage />} />
             <Route path="/course/:courseId" element={<CoursePage/>} />
         </Routes>
       </Router>

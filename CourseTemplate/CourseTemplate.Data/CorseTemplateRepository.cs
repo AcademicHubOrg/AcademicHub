@@ -2,15 +2,20 @@ namespace CourseTemplate.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-public class CourseTemplateRepository
+public class CourseTemplateRepository : ICourseTemplateRepository
 {
 	private readonly CourseTemplateDbContext _context;
+
+	public CourseTemplateRepository(CourseTemplateDbContext context)
+	{
+		_context = context ?? throw new ArgumentNullException(nameof(context));
+	}
 
 	public CourseTemplateRepository()
 	{
 		_context = new CourseTemplateDbContext();
 	}
-  
+
 	public async Task AddAsync(CourseTemplate courseTemplate)
 	{
 		_context.Add(courseTemplate);
@@ -21,7 +26,7 @@ public class CourseTemplateRepository
 	{
 		return await _context.CourseTemplates.ToListAsync();
 	}
-	
+
 	public async Task<CourseTemplate?> GetByIdAsync(int id)
 	{
 		return await _context.CourseTemplates.FindAsync(id);

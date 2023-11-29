@@ -17,6 +17,11 @@ public class CourseStreamAddDto
 	public string Name { get; set; } = null!;
 }
 
+public class EnrolledStudentsDto
+{
+	public string Id { get; set; } = null!;
+}
+
 public class CourseStreamService
 {
 	private readonly CourseStreamRepository _repository;
@@ -37,6 +42,18 @@ public class CourseStreamService
 			CourseName = courseStream.Name
 		});
 	}
+	
+	public async Task EnrollStudentAsync(int studentId, int courseStreamId)
+	{
+		if (await _repository.IsStudentEnrolledAsync(studentId, courseStreamId))
+		{
+			throw new ConflictException("Student is already enrolled in this course stream.");
+		}
+
+		var currentTime = DateTime.UtcNow;
+		await _repository.EnrollStudentAsync(studentId, courseStreamId, currentTime);
+	}
+
 
 	public async Task<List<CourseStreamShowDto>> ListAsync()
 	{

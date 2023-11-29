@@ -1,3 +1,45 @@
+# AcademicHub Frontend Setup Guide
+
+## Prerequisites: Ensure Backend is Installed and Set Up
+
+Before starting with the frontend, make sure the backend is ready:
+
+### Clone the repository
+```bash
+git clone https://github.com/AcademicHubOrg/AcademicHub.git
+```
+
+### Set Up backend services
+Follow the backend setup instructions in the [AcademicHub README](https://github.com/AcademicHubOrg/AcademicHub/blob/main/README.md).
+
+## Setting Up the Frontend on React
+
+### Step 1: Create a New Project in Your IDE
+- Open your IDE.
+- Create a new project.
+- Wait until all the components install and you see "Happy hacking!" message in terminal.
+
+### Step 2: Access the Frontend Directory
+- Navigate to the frontend directory within the cloned repository in your IDE.
+
+### Step 3: Install Node Package Manager (npm)
+- Execute the following command in your terminal to install npm:
+```bash
+npm install
+```
+
+### Step 4: Start the Frontend Application
+- To run the frontend, use:
+```bash
+npm start
+```
+- You also use the 'start' button in the npm toolbar if your IDE has one.
+
+# You're All Set!
+
+You are now ready to contribute to the AcademicHub project. Happy coding!
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
