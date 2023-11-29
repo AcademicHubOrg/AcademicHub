@@ -11,8 +11,8 @@ if [ -z "$COBERTURA_REPORT" ]; then
   exit 1
 fi
 
-# Extract Identity.Core branch coverage percentage
-IDENTITY_CORE_BRANCH_COVERAGE=$(grep 'Identity.Core' "$COBERTURA_REPORT" | grep 'branch-rate' | sed -E 's/.*branch-rate="([0-9.]+)".*/\1/' | awk '{print $1 * 100}')
+# Extract the first match of Identity.Core branch coverage percentage
+IDENTITY_CORE_BRANCH_COVERAGE=$(grep 'Identity.Core' "$COBERTURA_REPORT" | grep 'branch-rate' | head -n 1 | sed -E 's/.*branch-rate="([0-9.]+)".*/\1/' | awk '{print $1 * 100}')
 
 # Check if Identity.Core branch coverage is found
 if [ -z "$IDENTITY_CORE_BRANCH_COVERAGE" ]; then
