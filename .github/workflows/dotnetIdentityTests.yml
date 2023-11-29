@@ -41,10 +41,11 @@ jobs:
       run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
     
     # List the TestResults dir  
-    - name: List TestResults directory
-      run: ls -l ./Identity/Identity.UnitTests/TestResults/
+    - name: List project directory
+      run: ls -lR
       
       # Check code coverage threshold
     - name: Check code coverage threshold
       run: bash ./scripts/coverage-check.sh ./Identity/Identity.UnitTests/TestResults/coverage.cobertura.xml Identity.Core branch 90
+      
 
