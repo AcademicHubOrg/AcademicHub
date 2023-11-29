@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'CourseTemplate/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'CourseTemplate/**'
 
 jobs:
   build-and-test-courseTemplate:
@@ -46,6 +50,7 @@ jobs:
     - name: Generate coverage report
       run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
       
-      # Enforce coverage threshold
-    - name: Enforce coverage threshold
-      run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'Cobertura' -assemblyfilters:'+CourseTemplate.Core' -classfilters:'+' -verbosity:Info -threshold:80
+      # Check code coverage threshold
+    - name: Check code coverage threshold
+      run: bash ./scripts/coverage-check.sh ./CourseTemplate/CourseTemplate.UnitTests/CourseTemplate/CourseTemplate.UnitTests/TestResults CourseTemplate.Core branch 90
+      

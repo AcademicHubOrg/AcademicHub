@@ -47,4 +47,4 @@ jobs:
       
       # Check code coverage threshold
     - name: Check code coverage threshold
-      run: bash ./scripts/coverage-check.sh ./Materials/Materials.UnitTests/TestResults/coverage.cobertura.xml Materials.Core branch 95
+      run: bash ./scripts/coverage-check.sh ./Materials/Materials.UnitTests/Materials/Materials.UnitTests/TestResults Materials.Core branch 95
