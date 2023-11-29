@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'Identity/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'Identity/**'
 
 jobs:
   build-and-test-identity:
