@@ -42,4 +42,5 @@ jobs:
       
       # Check code coverage threshold
     - name: Check code coverage threshold
-      run: bash ./scripts/coverage-check.sh
+      run: bash ./scripts/coverage-check.sh ./TestResults/coverage.cobertura.xml Identity.Core branch 90
+

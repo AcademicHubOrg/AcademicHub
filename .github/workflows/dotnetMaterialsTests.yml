@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'Materials/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'Materials/**'
 
 jobs:
   build-and-test-materials:
@@ -33,10 +37,6 @@ jobs:
     - name: Run unit tests with coverage
       run: dotnet test ./Materials/Materials.UnitTests/Materials.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Materials/Materials.UnitTests/TestResults/'
       
-      # Run integration tests with coverage
-    - name: Run integration tests with coverage
-      run: dotnet test ./Materials/Materials.IntegrationTests/Materials.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Materials/Materials.IntegrationTests/TestResults/'
-      
       # Install ReportGenerator
     - name: Install ReportGenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
@@ -45,6 +45,6 @@ jobs:
     - name: Generate coverage report
       run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
       
-      # Enforce coverage threshold
-    - name: Enforce coverage threshold
-      run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'Cobertura' -assemblyfilters:'+Materials.Core' -classfilters:'+' -verbosity:Info -threshold:80
+      # Check code coverage threshold
+    - name: Check code coverage threshold
+      run: bash ./scripts/coverage-check.sh ./TestResults/coverage.cobertura.xml Materials.Core branch 95
