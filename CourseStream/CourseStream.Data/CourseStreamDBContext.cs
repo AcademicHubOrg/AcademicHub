@@ -9,6 +9,9 @@ public class CourseStreamDBContext : DbContext
     {
         
     }
+    public CourseStreamDBContext(DbContextOptions<CourseStreamDBContext> options) : base(options)
+    {
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

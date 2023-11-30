@@ -4,13 +4,18 @@ namespace CourseStream.Data;
 
 using Microsoft.EntityFrameworkCore;
 
-public class CourseStreamRepository
+public class CourseStreamRepository : ICourseStreamRepository
 {
     private readonly CourseStreamDBContext _context;
 
     public CourseStreamRepository()
     {
          _context = new CourseStreamDBContext();
+    }
+
+    public CourseStreamRepository(CourseStreamDBContext context)
+    {
+        _context = context;
     }
 
     public async Task AddAsync(CourseStream courseStream)

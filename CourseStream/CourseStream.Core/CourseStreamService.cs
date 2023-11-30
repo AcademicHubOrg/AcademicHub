@@ -19,17 +19,17 @@ public class CourseStreamAddDto
 	public int TemplateId { get; set; }
 }
 
-public class EnrolledStudentsDto
-{
-	public string Id { get; set; } = null!;
-}
 
 public class CourseStreamService
 {
-	private readonly CourseStreamRepository _repository;
+	private readonly ICourseStreamRepository _repository;
 	public CourseStreamService()
 	{
 		_repository = new CourseStreamRepository();
+	}
+	public CourseStreamService(ICourseStreamRepository repository)
+	{
+		_repository = repository;
 	}
 
 	public async Task AddAsync(CourseStreamAddDto courseStream)
@@ -45,6 +45,7 @@ public class CourseStreamService
 			TemplateId = courseStream.TemplateId
 		});
 	}
+
 	
 	public async Task EnrollStudentAsync(int studentId, int courseStreamId)
 	{
