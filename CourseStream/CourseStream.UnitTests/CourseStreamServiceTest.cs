@@ -134,6 +134,49 @@ namespace CourseStream.UnitTests
             Assert.Null(exception.Exception);
         }
 
+        [Fact]
+        public async Task GetByIdAsync_WhenCourseStreamFound_ReturnsCourseStreamShowDto()
+        {
+            // Arrange
+            var mockRepo = new Mock<ICourseStreamRepository>();
+            var service = new CourseStreamService(mockRepo.Object);
+
+            int courseId = 1;
+            var dbCourseStream = new Data.CourseStream
+            {
+                Id = courseId,
+                CourseName = "Test Course",
+                TemplateId = 101
+            };
+
+            mockRepo.Setup(r => r.GetByIdAsync(courseId)).ReturnsAsync(dbCourseStream);
+
+            // Act
+            var result = await service.GetByIdAsync(courseId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(dbCourseStream.CourseName, result.Name);
+            Assert.Equal(dbCourseStream.Id.ToString(), result.Id);
+            Assert.Equal(dbCourseStream.TemplateId.ToString(), result.TemplateId);
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_WhenCourseStreamNotFound_ThrowsNotFoundException()
+        {
+            // Arrange
+            var mockRepo = new Mock<ICourseStreamRepository>();
+            var service = new CourseStreamService(mockRepo.Object);
+
+            int courseId = 1;
+            mockRepo.Setup(r => r.GetByIdAsync(courseId)).ReturnsAsync((Data.CourseStream)null);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<NotFoundException>(async () =>
+                await service.GetByIdAsync(courseId));
+        }
+
+
 
 
     }
