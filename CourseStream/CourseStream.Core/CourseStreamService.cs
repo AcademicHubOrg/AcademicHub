@@ -10,11 +10,13 @@ public class CourseStreamShowDto
 {
 	public string Name { get; set; } = null!;
 	public string Id { get; set; } = null!;
+	public string TemplateId { get; set; } = null!;
 }
 
 public class CourseStreamAddDto
 {
 	public string Name { get; set; } = null!;
+	public int TemplateId { get; set; }
 }
 
 public class EnrolledStudentsDto
@@ -39,7 +41,8 @@ public class CourseStreamService
 		}
 		await _repository.AddAsync(new CourseStream()
 		{
-			CourseName = courseStream.Name
+			CourseName = courseStream.Name,
+			TemplateId = courseStream.TemplateId
 		});
 	}
 	
@@ -65,6 +68,7 @@ public class CourseStreamService
 			{
 				Name = courseStream.CourseName,
 				Id = courseStream.Id.ToString(),
+				TemplateId = courseStream.TemplateId.ToString()
 			});
 		}
 		return result;

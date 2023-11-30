@@ -10,7 +10,7 @@ public class CourseStreamRepository
 
     public CourseStreamRepository()
     {
-        _context = new CourseStreamDBContext();
+         _context = new CourseStreamDBContext();
     }
 
     public async Task AddAsync(CourseStream courseStream)

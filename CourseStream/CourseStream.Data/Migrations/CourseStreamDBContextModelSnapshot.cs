@@ -34,6 +34,9 @@ namespace CourseStream.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("TemplateId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("CourseStreams");
