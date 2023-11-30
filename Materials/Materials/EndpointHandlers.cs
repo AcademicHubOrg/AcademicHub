@@ -22,17 +22,19 @@ internal static class EndpointHandlers
 		return new { Data = result };
 	}
     
-	public static async Task<object> AddMaterial([FromServices] MaterialService service, MaterialDataDtoAdd material)
+	public static async Task<object> AddMaterial([FromServices] MaterialService service, [FromServices]IHttpClientFactory httpClientFactory , MaterialDataDtoAdd material)
     {
+	    var client = httpClientFactory.CreateClient();
+	    var response = await client.GetAsync("https://localhost:5237/courseStreams/" + material.CourseId);
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new ArgumentException("Invalid data provided. Course Stream does not exist.");
+	    }
     	if (string.IsNullOrEmpty(material.Name))
     	{
     		throw new ArgumentException("Invalid data provided. Material name is required.");
     	}
-    	if (string.IsNullOrEmpty(material.CourseId))
-    	{
-    		throw new ArgumentException("Invalid data provided. CourseId is required.");
-    	}
-    
+
     	try
     	{ 
     		Convert.ToInt32(material.CourseId);
@@ -46,15 +48,17 @@ internal static class EndpointHandlers
     	return new { Message = "Material added successfully." };
     }
 
-	public static async Task<object> AddEssentialMaterial([FromServices] MaterialService service, MaterialDataDtoAdd material)
+	public static async Task<object> AddEssentialMaterial([FromServices] MaterialService service, [FromServices]IHttpClientFactory httpClientFactory , MaterialDataDtoAdd material)
 	{
+		var client = httpClientFactory.CreateClient();
+		var response = await client.GetAsync("https://localhost:5204/courseTemplates/" + material.CourseId);
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new ArgumentException("Invalid data provided. Template does not exist.");
+		}
 		if (string.IsNullOrEmpty(material.Name))
 		{
 			throw new ArgumentException("Invalid data provided. Material name is required.");
-		}
-		if (string.IsNullOrEmpty(material.CourseId))
-		{
-			throw new ArgumentException("Invalid data provided. CourseId is required.");
 		}
 
 		try
