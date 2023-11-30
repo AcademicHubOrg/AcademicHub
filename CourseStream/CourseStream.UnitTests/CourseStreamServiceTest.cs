@@ -64,8 +64,8 @@ namespace CourseStream.UnitTests
             var mockRepo = new Mock<ICourseStreamRepository>();
             var service = new CourseStreamService(mockRepo.Object);
 
-            int studentId = 2;
-            int courseStreamId = 2;
+            var studentId = 2;
+            var courseStreamId = 2;
             mockRepo.Setup(r => r.IsStudentEnrolledAsync(studentId, courseStreamId))
                 .ReturnsAsync(false);
 
@@ -83,8 +83,8 @@ namespace CourseStream.UnitTests
             var mockRepo = new Mock<ICourseStreamRepository>();
             var service = new CourseStreamService(mockRepo.Object);
 
-            int studentId = 2;
-            int courseStreamId = 2;
+            var studentId = 2;
+            var courseStreamId = 2;
             mockRepo.Setup(r => r.IsStudentEnrolledAsync(studentId, courseStreamId))
                 .ReturnsAsync(true);
 
@@ -114,7 +114,7 @@ namespace CourseStream.UnitTests
 
             // Assert
             Assert.Equal(dbCourseStreams.Count, result.Count);
-            for (int i = 0; i < dbCourseStreams.Count; i++)
+            for (var i = 0; i < dbCourseStreams.Count; i++)
             {
                 Assert.Equal(dbCourseStreams[i].CourseName, result[i].Name);
                 Assert.Equal(dbCourseStreams[i].Id.ToString(), result[i].Id);
