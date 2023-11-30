@@ -5,6 +5,7 @@ namespace Materials.Data;
 public class MaterialsDbContext : DbContext
 {
     public DbSet<MaterialData> Materials { get; set; }
+    public DbSet<EssentialMaterial> EssentialMaterials { get; set; }
     public MaterialsDbContext()
     {
 		

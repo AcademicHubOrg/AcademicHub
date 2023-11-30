@@ -17,8 +17,19 @@ public class MaterialsRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task AddEssentialAsync(EssentialMaterial essentialData)
+    {
+        _context.Add(essentialData);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<List<MaterialData>> ListAsync()
     {
         return await _context.Materials.ToListAsync();
+    }
+
+    public async Task<List<EssentialMaterial>> ListEssentialsAsync()
+    {
+        return await _context.EssentialMaterials.ToListAsync();
     }
 }
