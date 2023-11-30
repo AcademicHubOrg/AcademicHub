@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'Materials/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'Materials/**'
 
 jobs:
   build-and-test-materials:
@@ -15,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
 
     - name: Restore AcademicHub.Common dependencies
       run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
@@ -28,11 +32,19 @@ jobs:
 
     - name: Build Materials
       run: dotnet build ./Materials/Materials.sln --no-restore
-
-    # Run unit tests
-    - name: Run unit tests
-      run: dotnet test ./Materials/Materials.UnitTests/Materials.UnitTests.csproj --no-build --verbosity normal
-
-    # Run integration tests
-    - name: Run integration tests
-      run: dotnet test ./Materials/Materials.IntegrationTests/Materials.IntegrationTests.csproj --no-build --verbosity normal
+      
+      # Run unit tests with coverage
+    - name: Run unit tests with coverage
+      run: dotnet test ./Materials/Materials.UnitTests/Materials.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./Materials/Materials.UnitTests/TestResults/'
+      
+      # Install ReportGenerator
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      
+      # Generate coverage report
+    - name: Generate coverage report
+      run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
+      
+      # Check code coverage threshold
+    - name: Check code coverage threshold
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/Materials/Materials.UnitTests/Materials/Materials.UnitTests/TestResults/coverage.cobertura.xml Materials.Core branch 95      

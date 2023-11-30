@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'CourseTemplate/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'CourseTemplate/**'
 
 jobs:
   build-and-test-courseTemplate:
@@ -15,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
 
     - name: Restore CustomExceptions dependencies
       run: dotnet restore ./AcademicHub.Common/AcademicHub.Common.sln
@@ -28,11 +32,25 @@ jobs:
 
     - name: Build CourseTemplate
       run: dotnet build ./CourseTemplate/CourseTemplate.sln --no-restore
-
-    # Run unit tests
-    - name: Run unit tests
-      run: dotnet test ./CourseTemplate/CourseTemplate.UnitTests/CourseTemplate.UnitTests.csproj --no-build --verbosity normal
-
-    # Run integration tests
-    - name: Run integration tests
-      run: dotnet test ./CourseTemplate/CourseTemplate.IntegrationTests/CourseTemplate.IntegrationTests.csproj --no-build --verbosity normal
+      
+      
+      # Run unit tests with coverage
+    - name: Run unit tests with coverage
+      run: dotnet test ./CourseTemplate/CourseTemplate.UnitTests/CourseTemplate.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./CourseTemplate/CourseTemplate.UnitTests/TestResults/'
+      
+      # Run integration tests with coverage
+    - name: Run integration tests with coverage
+      run: dotnet test ./CourseTemplate/CourseTemplate.IntegrationTests/CourseTemplate.IntegrationTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./CourseTemplate/CourseTemplate.IntegrationTests/TestResults/'
+      
+      # Install ReportGenerator
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      
+      # Generate coverage report
+    - name: Generate coverage report
+      run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
+      
+      # Check code coverage threshold
+    - name: Check code coverage threshold
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/CourseTemplate/CourseTemplate.UnitTests/CourseTemplate/CourseTemplate.UnitTests/TestResults/coverage.cobertura.xml CourseTemplate.Core branch 95      
+      

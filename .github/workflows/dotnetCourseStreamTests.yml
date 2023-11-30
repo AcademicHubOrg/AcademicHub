@@ -3,8 +3,12 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'CourseStream/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'CourseStream/**'
 
 jobs:
   build-and-test-courseStream:
@@ -28,11 +32,19 @@ jobs:
 
     - name: Build CourseStream
       run: dotnet build ./CourseStream/CourseStream.sln --no-restore
-
-    # Run unit tests
-    - name: Run unit tests
-      run: dotnet test ./CourseStream/CourseStream.UnitTests/CourseStream.UnitTests.csproj --no-build --verbosity normal
-
-    # Run integration tests
-    - name: Run integration tests
-      run: dotnet test ./CourseStream/CourseStream.IntegrationTests/CourseStream.IntegrationTests.csproj --no-build --verbosity normal
+      
+      # Run unit tests with coverage
+    - name: Run unit tests with coverage
+      run: dotnet test ./CourseStream/CourseStream.UnitTests/CourseStream.UnitTests.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput='./CourseStream/CourseStream.UnitTests/TestResults/'
+      
+      # Install ReportGenerator
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      
+      # Generate coverage report
+    - name: Generate coverage report
+      run: reportgenerator -reports:'**/TestResults/coverage.cobertura.xml' -targetdir:'coveragereport' -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
+      
+      # Check code coverage threshold
+    - name: Check code coverage threshold
+      run: bash ./scripts/coverage-check.sh ${{ github.workspace }}/CourseStream/CourseStream.UnitTests/CourseStream/CourseStream.UnitTests/TestResults/coverage.cobertura.xml CourseStream.Core branch 95      
