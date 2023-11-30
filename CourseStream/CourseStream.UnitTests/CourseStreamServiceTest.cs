@@ -131,7 +131,7 @@ namespace CourseStream.UnitTests
             // Assert
 
             var exception = Record.ExceptionAsync(async () => await service.ListAsync());
-            Assert.Null(exception.Result);
+            Assert.Null(exception.Exception);
         }
 
 
