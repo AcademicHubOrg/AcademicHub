@@ -28,7 +28,7 @@ const CoursePage: React.FC = () => {
         getCourseMaterials(courseId as string, templateId as string)
             .then(materials => setMaterials(materials))
             .catch(error => console.error('Error fetching materials data: ', error));
-    }, [courseId]);// dependency array includes courseId
+    }, [courseId, templateId]);// dependency array includes courseId
 
     return (
         <div>
