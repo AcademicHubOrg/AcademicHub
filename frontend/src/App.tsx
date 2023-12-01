@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import CourseStreamListPage from './pages/CourseStreamListPage/CourseStreamListPage';
 import AuthPage from './pages/AuthPage/AuthPage';
-import AddCourseStreamPage from './pages/AddCourseStreamPage/AddCourseStreamPage';
 import AddCourseTemplatePage from "./pages/AddCourseTemplatePage/AddCourseTemplatePage";
 import TopMenu from "./pages/TopMenu/TopMenu";
 import CourseTemplateListPage from "./pages/CourseTemplateListPage/CourseTemplateListPage";
 import CoursePage from "./pages/CoursePage/CoursePage";
+import CreateCoursePage from "./pages/CreateCoursePage/CreateCoursePage";
 import Profile from "./pages/ProfilePage/Profile";
 
 function App() {
@@ -18,10 +18,10 @@ function App() {
         <Routes>
             <Route path="/courselist" element={<CourseStreamListPage />} />
             <Route path="/auth" element={<AuthPage />} />
-            <Route path="/addcourse" element={<AddCourseStreamPage />} />
             <Route path="/template" element={<AddCourseTemplatePage />} />
             <Route path="/templatelist" element={<CourseTemplateListPage />} />
-            <Route path="/course/:courseId" element={<CoursePage/>} />
+            <Route path="/course/:courseId/:templateId" element={<CoursePage/>} />
+            <Route path="/createCourse/:templateId" element={<CreateCoursePage/>} />
             <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
