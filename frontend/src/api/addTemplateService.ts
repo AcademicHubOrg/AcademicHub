@@ -9,7 +9,6 @@ export const addCourseTemplate = async (courseTemplateName: string) => {
             },
             body: JSON.stringify({
                 name: courseTemplateName,
-                id: '12345' // Assuming the ID is generated or handled in some way
             })
         });
         if (!response.ok) {
