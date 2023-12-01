@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
-import { getCourseMaterials } from '../../api/materialService';
+import { getCourseMaterials } from '../../api/getCourseMaterialService';
 
 interface Course {
     id: string;
@@ -17,7 +17,7 @@ interface Material {
 const CoursePage: React.FC = () => {
     const [course, setCourse] = useState<Course | null>(null);
     const [materials, setMaterials] = useState<Material[]>([]);
-    const { courseId } = useParams<{ courseId: string }>();
+    const { courseId, templateId } = useParams<{ courseId: string, templateId: string }>();
 
     // Fetch data from the backend
     useEffect(() => {
@@ -25,7 +25,7 @@ const CoursePage: React.FC = () => {
             .then(course => setCourse(course))
             .catch(error => console.error('Error fetching course data: ', error));
 
-        getCourseMaterials(courseId as string)
+        getCourseMaterials(courseId as string, templateId as string)
             .then(materials => setMaterials(materials))
             .catch(error => console.error('Error fetching materials data: ', error));
     }, [courseId]);// dependency array includes courseId

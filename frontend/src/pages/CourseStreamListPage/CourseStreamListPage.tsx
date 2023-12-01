@@ -7,6 +7,7 @@ import { getCoursesList } from '../../api/coursesListService';
 interface Course {
     id: string;
     name: string;
+    templateId: string;
 }
 
 const tableStyle: CSSProperties = {
@@ -33,13 +34,14 @@ const CourseStreamListPage = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>TemplateID</th>
                         <th>Name</th>
                         <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
                     {courses.map(course => (
-                        <CourseInstance key={course.id} courseName={course.name} courseID={course.id}/>
+                        <CourseInstance key={course.id} courseName={course.name} courseID={course.id} templateId = {course.templateId}/>
                     ))}
                 </tbody>
             </table>

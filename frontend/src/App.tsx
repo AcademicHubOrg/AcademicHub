@@ -21,7 +21,7 @@ function App() {
             <Route path="/addcourse" element={<AddCourseStreamPage />} />
             <Route path="/template" element={<AddCourseTemplatePage />} />
             <Route path="/templatelist" element={<CourseTemplateListPage />} />
-            <Route path="/course/:courseId" element={<CoursePage/>} />
+            <Route path="/course/:courseId/:templateId" element={<CoursePage/>} />
             <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
