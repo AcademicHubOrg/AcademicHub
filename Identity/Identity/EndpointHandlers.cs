@@ -1,4 +1,5 @@
-﻿using Identity.Core;
+﻿using System.Security.Claims;
+using Identity.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -35,19 +36,27 @@ internal static class EndpointHandlers
         return new { Message = "User added successfully." };
     }
 
-    public static async Task<object> MakeAdmin([FromServices] UsersService service, string email, string password)
+    public static async Task<object> MakeAdmin([FromServices] UsersService service, HttpContext httpContext, string emailToMakeAdmin, string password)
     {
-        if (string.IsNullOrEmpty(email))
-        {
-            throw new ArgumentException("Invalid data provided. Email is required.");
-        }
+        var currentUserEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
-        if (string.IsNullOrEmpty(password))
+        await UserExist(service, emailToMakeAdmin);
+        await UserExist(service, currentUserEmail);
+            
+        
+        var isCurrentUserAdmin = await service.IsUserAdminAsync(currentUserEmail);
+        if (!isCurrentUserAdmin)
         {
-            throw new ArgumentException("Invalid data provided. Password is required.");
+            return Results.Forbid();
         }
-
-        await service.MakeAdminAsync(email, password);
+        
+        var isTargetUserAlreadyAdmin = await service.IsUserAdminAsync(emailToMakeAdmin);
+        if (isTargetUserAlreadyAdmin)
+        {
+            return new { Message = "This user is already an admin." };
+        }
+        
+        await service.MakeAdminAsync(emailToMakeAdmin, password);
         return new { Message = "Admin assigned successfully." };
     }
 
@@ -82,5 +91,21 @@ internal static class EndpointHandlers
         var user = await userService.FindOrCreateUser(email, name);
 
         return Results.Ok(user);
+    }
+
+    private static async Task UserExist(UsersService service, string email)
+    {
+        if (string.IsNullOrEmpty(email))
+        {
+            throw new ArgumentException("Unable to identify the current user with email: " + email);
+        }
+
+        var isUserExist= await service.UserExist(email);
+        if (isUserExist)
+        {
+            throw new ArgumentException("Unable to identify the current user with email: " + email);
+        }
+
+        return;
     }
 }

@@ -29,12 +29,12 @@ public class UsersRepository : IUsersRepository
   
   public async Task<User> FindByEmailAsync(string email)
   {
-    return (await _context.Users.FirstOrDefaultAsync(u => u.Email == email))!;
+    return (await _context.Users.FirstOrDefaultAsync(u => u.Email == email));
   }
-    public async Task ChangeUserAsync(string email)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-        user!.IsAdmin = true;
-        await _context.SaveChangesAsync();
-    }
+  public async Task ChangeUserAsync(string email)
+  {
+    var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+    user!.IsAdmin = true;
+    await _context.SaveChangesAsync();
+  }
 }
