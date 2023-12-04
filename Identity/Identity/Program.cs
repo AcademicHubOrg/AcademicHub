@@ -69,5 +69,7 @@ app.MapPost("/users/add", EndpointHandlers.AddUser);
 app.MapPost("/users/makeAdmin", EndpointHandlers.MakeAdmin);
 app.MapGet("/login", EndpointHandlers.Login);
 app.MapGet("/after-signin", EndpointHandlers.AfterSignIn);
+app.MapGet("/internal/IsUserExist", EndpointHandlers.isUserExist);
+app.MapGet("/internal/IsUserAdmin", EndpointHandlers.isUserAdmin);
 
 app.Run();
