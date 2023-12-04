@@ -66,10 +66,10 @@ app.UseMiddleware<CustomErrorHandlingMiddleware>();
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/users/list", EndpointHandlers.ListOfUsers);
 app.MapPost("/users/add", EndpointHandlers.AddUser);
-app.MapPost("/users/makeAdmin", EndpointHandlers.MakeAdmin);
+app.MapPost("/users/make-admin", EndpointHandlers.MakeAdmin);
 app.MapGet("/login", EndpointHandlers.Login);
 app.MapGet("/after-signin", EndpointHandlers.AfterSignIn);
-app.MapGet("/internal/IsUserExist", EndpointHandlers.isUserExist);
-app.MapGet("/internal/IsUserAdmin", EndpointHandlers.isUserAdmin);
+app.MapGet("/internal/user-exist", EndpointHandlers.UserExist);
+app.MapGet("/internal/user-admin", EndpointHandlers.UserAdmin);
 
 app.Run();

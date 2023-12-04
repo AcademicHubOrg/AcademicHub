@@ -40,24 +40,24 @@ internal static class EndpointHandlers
     {
         var currentUserEmail = httpContext.User.FindFirst(ClaimTypes.Email)?.Value;
 
-        if (await isUserExist(service, emailToMakeAdmin) == false)
-        {
-            throw new ArgumentException("email target");
-        }
-        if (await isUserExist(service, currentUserEmail) == false)
-        {
-            throw new ArgumentException("email current");
-        }
+        var targetStatus = GetUserExistAndAdmin(service, emailToMakeAdmin);
+        var requesterStatus = GetUserExistAndAdmin(service, currentUserEmail);
 
-        
-        if (await isUserAdmin(service, currentUserEmail) == false)
+        if (targetStatus.Result.Item1 == false)
         {
-            return Results.Forbid();
+            throw new ArgumentException(emailToMakeAdmin);
         }
-        
-        if (await isUserAdmin(service, emailToMakeAdmin) == true)
+        if (requesterStatus.Result.Item1 == false)
         {
-            return new { Message = "This user is already an admin." };
+            throw new ArgumentException(currentUserEmail);
+        }
+        if (requesterStatus.Result.Item2 == false)
+        {
+            throw new ArgumentException(currentUserEmail);
+        }
+        if (targetStatus.Result.Item2 == true)
+        {
+            throw new ArgumentException(emailToMakeAdmin);
         }
         
         await service.MakeAdminAsync(emailToMakeAdmin, password);
@@ -97,45 +97,25 @@ internal static class EndpointHandlers
         return Results.Ok(user);
     }
     
-    public static async Task<bool> isUserExist([FromServices] UsersService service, string email)
+    public static async Task<bool> UserExist([FromServices] UsersService service, string email)
     {
-        if (string.IsNullOrEmpty(email))
-        {
-            throw new ArgumentException("Unable to identify the current user with email: " + email);
-        }
-
-        var isUserExist= await service.UserExist(email);
-        if (isUserExist)
-        {
-            return true;
-        }
-
-        return false;
-        
-        //throw new ArgumentException("Unable to identify the current user with email: " + email);
+        var tmp = GetUserExistAndAdmin(service, email);
+        return tmp.Result.Item1;
     }
     
-    public static async Task<bool> isUserAdmin([FromServices] UsersService service, string email)
+    public static async Task<bool> UserAdmin([FromServices] UsersService service, string email)
+    {
+        var tmp = GetUserExistAndAdmin(service, email);
+        return tmp.Result.Item2;
+    }
+
+    private static async Task<(bool, bool)> GetUserExistAndAdmin([FromServices] UsersService service, string email)
     {
         if (string.IsNullOrEmpty(email))
         {
             throw new ArgumentException("Unable to identify the current user with email: " + email);
         }
-
-        var isUserExist= await service.UserExist(email);
-        if (!isUserExist)
-        {
-            return false;
-        }
-
-        var isCurrentUserAdmin = await service.IsUserAdminAsync(email);
-        if (!isCurrentUserAdmin)
-        {
-            return false;
-        }
-
-        return true;
-
-        //throw new ArgumentException("Unable to identify the current user with email: " + email);
+        var UserExistAndAdmin = await service.GetUserExistAndAdmin(email);
+        return UserExistAndAdmin;
     }
 }

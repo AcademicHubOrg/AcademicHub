@@ -75,24 +75,19 @@ public class UsersService
         
 	}
 
-	public async Task<bool> IsUserAdminAsync(string email)
+	public async Task<(bool, bool)> GetUserExistAndAdmin(string email)
 	{
 		var tmp = await _repository.FindByEmailAsync(email);
 		if (tmp is null)
 		{
-			throw new NotFoundException("user with email $email");
+			return (false, false);
 		}
 
-		return tmp.IsAdmin;
-	}
-	
-	public async Task<bool> UserExist(string email)
-	{
-		var tmp = await _repository.FindByEmailAsync(email);
-		if (tmp is null)
+		if (!tmp.IsAdmin)
 		{
-			return false;
+			return (true, false);
 		}
-		return true;
+
+		return (true, true);
 	}
 }
