@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
 import { getCourseMaterials } from '../../api/getCourseMaterialService';
+import { useMyContext } from '../../MyContext';
 
 interface Course {
     id: string;
@@ -17,7 +18,9 @@ interface Material {
 const CoursePage: React.FC = () => {
     const [course, setCourse] = useState<Course | null>(null);
     const [materials, setMaterials] = useState<Material[]>([]);
-    const { courseId, templateId } = useParams<{ courseId: string, templateId: string }>();
+    const { jsonData, updateJsonData } = useMyContext();
+    const courseId = jsonData.courseIDJSON;
+    const templateId = jsonData.templateIDJSON; // take from context here
 
     // Fetch data from the backend
     useEffect(() => {
