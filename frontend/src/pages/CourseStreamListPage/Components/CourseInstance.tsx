@@ -24,7 +24,7 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
             courseIDJSON: courseID,
             templateIDJSON: templateId
         })
-        navigate(`/course/${courseID}/${templateId}`); // write to context
+        navigate(`/course`); // write to context
     }
     return (
         <tr>
