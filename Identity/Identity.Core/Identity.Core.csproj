@@ -7,10 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- Adjusted to the relative path in the Docker build context -->
-        <ProjectReference Include="AcademicHub.Common/CustomExceptions/CustomExceptions.csproj" />
-        <!-- Assuming Identity.Data is within the Identity directory -->
-        <ProjectReference Include="../Identity.Data/Identity.Data.csproj" />
+      <ProjectReference Include="..\Identity.Data\Identity.Data.csproj" />
     </ItemGroup>
 
 </Project>

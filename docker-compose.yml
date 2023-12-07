@@ -1,7 +1,61 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: identity-postgres-container
+    environment:
+      - POSTGRESQL_DATABASE=Identity
+      - POSTGRESQL_USER=identityuser
+      - POSTGRESQL_PASSWORD=identityuser
+    ports:
+      - "5440:5432"
+    networks:
+      - academic_hub_backend_vpn
+
   identity:
     build:
       context: .
-      dockerfile: Identity/Identity/Dockerfile
+      dockerfile: Dockerfile.Identity
+    restart: always
+    container_name: academic_hub_identity
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+    ports:
+      - "52998:443"
+      - "52999:80" 
+    networks:
+      - academic_hub_backend_vpn
+
+networks:
+  academic_hub_backend_vpn:
+    name: academic_hub_backend_vpn
+
+#version: '3.9'
+#
+#services:
+#  identity:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.Identity
+#    container_name: ah_identity
+#    restart: "no"
+#    ports:
+#      - "52999:80"
+#      - "52998:443"
+#    networks:
+#      - academic_hub_backend
+#
+#  postgres:
+#    image: bitnami/postgresql:latest
+#    container_name: identity-postgres-container
+#    environment:
+#      - POSTGRESQL_DATABASE=Identity
+#      - POSTGRESQL_USER=identityuser
+#      - POSTGRESQL_PASSWORD=identityuser
+#    networks:
+#      - academic_hub_backend
+#
+#networks:
+#  academic_hub_backend:
+#    name: academic_hub_backend

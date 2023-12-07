@@ -15,7 +15,7 @@ public class IdentityDbContext : DbContext
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
-    optionsBuilder.UseNpgsql("Host=localhost;Database=Identity;User Id=identityuser;Password=identityuser;Port=5440");
+    optionsBuilder.UseNpgsql("Host=identity-postgres-container; Database=Identity;User Id=identityuser;Password=identityuser;Port=5440");
     base.OnConfiguring(optionsBuilder);
   }
 }
