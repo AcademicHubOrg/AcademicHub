@@ -17,11 +17,6 @@ namespace CourseTemplate.Core
     public class CourseTemplateService
     {
         private readonly ICourseTemplateRepository _repository;
-
-        public CourseTemplateService()
-        {
-            _repository = new CourseTemplateRepository();
-        }
         
         public CourseTemplateService(ICourseTemplateRepository repository)
         {

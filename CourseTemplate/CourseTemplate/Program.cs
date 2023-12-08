@@ -1,19 +1,36 @@
 using CourseTemplate;
 using CourseTemplate.Core;
+using CourseTemplate.Data;
 using CustomExceptions;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+// Access configuration
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddSingleton<CourseTemplateService>();
+// Configure your DbContext
+builder.Services.AddDbContext<CourseTemplateDbContext>(options =>
+	options.UseNpgsql(connectionString));
+builder.Services.AddScoped<CourseTemplateService>();
+builder.Services.AddScoped<ICourseTemplateRepository, CourseTemplateRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
+
+// Configure Forwarded Headers Middleware to handle reverse proxy server scenarios
+// builder.Services.Configure<ForwardedHeadersOptions>(options =>
+// {
+//     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+// });
+
+
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowSpecificOrigin",
-		builder =>
+		corsPolicyBuilder =>
 		{
-			builder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
+			corsPolicyBuilder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
 				.AllowAnyHeader()
 				.AllowAnyMethod();
 		});
@@ -42,5 +59,12 @@ app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/courseTemplates/list", EndpointHandlers.ListOfCourseTemplates);
 app.MapPost("/courseTemplates/add", EndpointHandlers.AddCourse);
 app.MapGet("/courseTemplates/{id}", EndpointHandlers.GetCourseById);
+
+// Apply EF Core Migrations
+using (var scope = app.Services.CreateScope())
+{
+	var dbContext = scope.ServiceProvider.GetRequiredService<CourseTemplateDbContext>();
+	dbContext.Database.Migrate();
+}
 
 app.Run();

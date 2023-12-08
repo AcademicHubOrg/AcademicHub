@@ -8,12 +8,7 @@ public class CourseTemplateRepository : ICourseTemplateRepository
 
 	public CourseTemplateRepository(CourseTemplateDbContext context)
 	{
-		_context = context ?? throw new ArgumentNullException(nameof(context));
-	}
-
-	public CourseTemplateRepository()
-	{
-		_context = new CourseTemplateDbContext();
+		_context = context;
 	}
 
 	public async Task AddAsync(CourseTemplate courseTemplate)

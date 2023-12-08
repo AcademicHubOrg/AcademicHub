@@ -4,17 +4,12 @@ namespace CourseTemplate.Data;
 
 public class CourseTemplateDbContext : DbContext
 {
-	public DbSet<CourseTemplate> CourseTemplates { get; set; }
-	public CourseTemplateDbContext()
+	public DbSet<CourseTemplate> CourseTemplates { get; set; } = null!;
+	public CourseTemplateDbContext(DbContextOptions options)
+		: base(options)
 	{
-		
 	}
-  
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		optionsBuilder.UseNpgsql("Host=localhost;Database=CourseTemplate;User Id=coursetemplateuser;Password=coursetemplateuser;Port=5438;");
-		base.OnConfiguring(optionsBuilder);
-	}
+	
 }
 
 

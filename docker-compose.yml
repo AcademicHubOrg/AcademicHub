@@ -10,22 +10,40 @@ services:
       - POSTGRESQL_PASSWORD=identityuser
     expose:
       - "5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - academic_hub_backend_vpn
 
   identity:
     build:
       context: .
-      dockerfile: Dockerfile.Identity
+      dockerfile: Identity/Identity/Dockerfile
     restart: always
     container_name: academic_hub_identity
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development 
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "52999:80" 
+      - "52999:80"
     networks:
       - academic_hub_backend_vpn
+  coursetemplate:
+    build:
+      context: .
+      dockerfile: CourseTemplate/CourseTemplate/Dockerfile
+    restart: always
+    container_name: academic_hub_coursetemplate
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52998:80"
+    networks:
+      - academic_hub_backend_vpn
+
 
 networks:
   academic_hub_backend_vpn:
     name: academic_hub_backend_vpn
+    
+volumes:
+  postgres_data:
