@@ -6,16 +6,17 @@ public class UsersRepository : IUsersRepository
 {
   private readonly IdentityDbContext _context;
 
-  public UsersRepository()
-  {
-    _context = new IdentityDbContext();
-  }
+  // public UsersRepository()
+  // {
+  //   _context = new IdentityDbContext();
+  // }
   
   public UsersRepository(IdentityDbContext context)
   {
     _context = context;
   }
   
+
   public async Task AddAsync(User user)
   {
     _context.Add(user);

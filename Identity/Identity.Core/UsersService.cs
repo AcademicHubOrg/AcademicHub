@@ -13,10 +13,10 @@ public class UsersService
 {
   private readonly IUsersRepository _repository;
 
-  public UsersService()
-  {
-    _repository = new UsersRepository();
-  }
+  // public UsersService()
+  // {
+  //   _repository = new UsersRepository();
+  // }
 
   public UsersService(IUsersRepository repository)
   {
