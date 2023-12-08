@@ -67,7 +67,7 @@ app.UseCors("AllowSpecificOrigin");
 app.UseStatusCodePages(context =>
 {
     context.HttpContext.Response.ContentType = "application/json";
-    return context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
+    return context.HttpContext.Response.WriteAsJsonAsync(new {ErrorMessage = "An unexpected error occurred."});
 });
 
 // Use Forwarded Headers Middleware to read headers forwarded by the reverse proxy
@@ -77,7 +77,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();
+// app.UseSession();
 // Use Cookie Policy with Lax same-site policy
 app.UseCookiePolicy(new CookiePolicyOptions
 {
