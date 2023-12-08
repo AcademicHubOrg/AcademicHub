@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CourseStream.Data.Migrations
 {
-    [DbContext(typeof(CourseStreamDBContext))]
+    [DbContext(typeof(CourseStreamDbContext))]
     [Migration("20231123142749_Enroll")]
     partial class Enroll
     {

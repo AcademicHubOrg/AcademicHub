@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: bitnami/postgresql:latest
-    container_name: identity-postgres-container
+    container_name: postgres-container
     environment:
       - POSTGRESQL_DATABASE=Identity
       - POSTGRESQL_USER=identityuser
@@ -27,7 +27,8 @@ services:
       - "52999:80"
     networks:
       - academic_hub_backend_vpn
-  coursetemplate:
+      
+  course-template:
     build:
       context: .
       dockerfile: CourseTemplate/CourseTemplate/Dockerfile
@@ -37,6 +38,19 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "52998:80"
+    networks:
+      - academic_hub_backend_vpn
+  
+  course-stream:
+    build:
+      context: .
+      dockerfile: CourseStream/CourseStream/Dockerfile
+    restart: always
+    container_name: academic_hub_coursestream
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52997:80"
     networks:
       - academic_hub_backend_vpn
 

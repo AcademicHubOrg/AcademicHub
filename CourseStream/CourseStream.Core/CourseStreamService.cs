@@ -24,10 +24,10 @@ public class EnrolledStudentsDto
 
 public class CourseStreamService
 {
-	private readonly CourseStreamRepository _repository;
-	public CourseStreamService()
+	private readonly ICourseStreamRepository _repository;
+	public CourseStreamService(ICourseStreamRepository repository)
 	{
-		_repository = new CourseStreamRepository();
+		_repository = repository;
 	}
 
 	public async Task AddAsync(CourseStreamAddDto courseStream)
