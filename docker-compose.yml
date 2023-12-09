@@ -66,6 +66,17 @@ services:
       - "52996:80"
     networks:
       - academic_hub_backend_vpn
+  
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: always
+    container_name: academic_hub_frontend   
+    ports:
+      - "3000:3000"
+    networks:
+      - academic_hub_backend_vpn
 
 networks:
   academic_hub_backend_vpn:
