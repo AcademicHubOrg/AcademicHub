@@ -1,7 +1,7 @@
 enum Addresses{
-    AUTH = "https://localhost:5006",
-    COURSESTREAMS = "https://localhost:5237",
-    COURSETEMPLATES = "https://localhost:5204",
-    MATERIALS = "https://localhost:5116"
+    AUTH = "https://localhost:52999",
+    COURSESTREAMS = "https://localhost:52997",
+    COURSETEMPLATES = "https://localhost:5998",
+    MATERIALS = "https://localhost:52996"
 }
 export {Addresses};

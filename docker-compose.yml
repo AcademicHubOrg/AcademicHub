@@ -69,9 +69,9 @@ services:
   
   web:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    restart: always
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: "no"
     container_name: academic_hub_frontend   
     ports:
       - "3000:3000"
