@@ -3,6 +3,7 @@ using System;
 using CourseStream.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,10 +11,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CourseStream.Data.Migrations
 {
-    [DbContext(typeof(CourseStreamDbContext))]
-    partial class CourseStreamDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CourseStreamDBContext))]
+    [Migration("20231130104904_TemplateIdAdd")]
+    partial class TemplateIdAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

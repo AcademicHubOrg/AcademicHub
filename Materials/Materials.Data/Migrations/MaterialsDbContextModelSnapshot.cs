@@ -21,6 +21,30 @@ namespace Materials.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Materials.Data.EssentialMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DataText")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TemplateId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EssentialMaterials");
+                });
+
             modelBuilder.Entity("Materials.Data.MaterialData", b =>
                 {
                     b.Property<int>("Id")

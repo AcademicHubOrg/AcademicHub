@@ -42,4 +42,9 @@ public class CourseStreamRepository : ICourseStreamRepository
             .AnyAsync(e =>  e.CourseStreamId == courseStreamId && e.StudentId == studentId );
     }
 
+    public async Task<CourseStream?> GetByIdAsync(int id)
+    {
+        return await _context.CourseStreams.FindAsync(id);
+    }
+
 }

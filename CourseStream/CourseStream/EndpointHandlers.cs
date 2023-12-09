@@ -1,7 +1,10 @@
 using CourseStream.Core;
+using CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace CourseStream;
+
 
 internal static  class EndpointHandlers
 {
@@ -16,13 +19,18 @@ internal static  class EndpointHandlers
 		return new { Data = result };
 	}
 
-	public static async Task<object> AddCourse([FromServices] CourseStreamService service, CourseStreamAddDto courseStream)
+	public static async Task<object> AddCourse([FromServices] CourseStreamService service, [FromServices]IHttpClientFactory httpClientFactory , CourseStreamAddDto courseStream)
 	{
+		var client = httpClientFactory.CreateClient();
+		var response = await client.GetAsync("https://localhost:5204/courseTemplates/" + courseStream.TemplateId);
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new ArgumentException("Invalid data provided. Template does not exist.");
+		}
 		if (string.IsNullOrEmpty(courseStream.Name))
 		{
 			throw new ArgumentException("Invalid data provided. Course name is required.");
 		}
-
 		await service.AddAsync(courseStream);
 		return new { Message = "Course added successfully." };
 	}
@@ -31,5 +39,11 @@ internal static  class EndpointHandlers
 	{
 		await service.EnrollStudentAsync(studentId, courseStreamId);
 		return new { Message = "Enrolment successful." };
+	}
+
+	public static async Task<object> GetCourseStreamById([FromServices] CourseStreamService service, int id)
+	{
+		var course = await service.GetByIdAsync(id);
+		return course;
 	}
 }

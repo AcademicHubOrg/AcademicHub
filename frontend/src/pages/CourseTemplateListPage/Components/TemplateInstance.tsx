@@ -1,18 +1,32 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CSSProperties } from 'react';
+
+const cellStyle: CSSProperties = {
+    border: '1px solid black',
+    padding: '10px',
+    textAlign: 'center',
+};
 
 interface TemplateProps {
-    courseName: string;
-    courseID: string;
+    templateName: string;
+    templateId: string;
 }
 
-const TemplateInstance: React.FC<TemplateProps> = ({ courseName, courseID }) => {
+const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId }) => {
     // useEffect(()=>{console.log(courseName)})
+    const navigate = useNavigate();
+    const handleCreateClick = () => {
+        navigate(`/createCourse/${templateId}`);
+    }
     return (
-        <div>
-            <h1>{courseName}</h1>
-            <h1>{courseID}</h1>
-            <button onClick={() => alert(`Enrolled in ${courseName}`)}>Enroll</button>
-        </div>
+        <tr>
+            <td style={cellStyle}>{templateId}</td>
+            <td style={cellStyle}>{templateName}</td>
+            <td style={cellStyle}>
+                <button onClick={handleCreateClick}>Create course</button>
+            </td>
+        </tr>
     );
 };
 

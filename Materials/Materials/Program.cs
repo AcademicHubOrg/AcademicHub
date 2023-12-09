@@ -15,6 +15,7 @@ builder.Services.AddScoped<IMaterialsRepository, MaterialsRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 builder.Services.AddLogging();
 builder.Services.AddCors(options =>
 {
@@ -47,10 +48,14 @@ app.UseHttpsRedirection();
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
-app.MapGet("/materials/list", EndpointHandlers.ListOfCourseTemplates);
-app.MapGet("/materials/by-id/{id}", EndpointHandlers.GetMaterialByMaterialId);
+app.MapGet("/materials/list", EndpointHandlers.ListOfMaterials);
+app.MapGet("/materials/essentials-list", EndpointHandlers.ListOfEssentialMaterials);
+app.MapGet("/materials/by-id/{id}", EndpointHandlers.GetMaterialById);
+app.MapGet("/materials/by-essential-id/{id}", EndpointHandlers.GetEssentialMaterialById);
 app.MapGet("/materials/by-course/{courseId}", EndpointHandlers.GetMaterialsByCourseId);
+app.MapGet("/materials/by-template/{templateId}", EndpointHandlers.GetMaterialsByTemplateId);
 app.MapPost("/materials/add", EndpointHandlers.AddMaterial);
+app.MapPost("/materials/add-essential", EndpointHandlers.AddEssentialMaterial);
 
 // Apply EF Core Migrations
 using (var scope = app.Services.CreateScope())

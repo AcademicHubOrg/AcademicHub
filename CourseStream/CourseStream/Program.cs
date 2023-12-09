@@ -16,6 +16,7 @@ builder.Services.AddScoped<CourseStreamService>();
 builder.Services.AddScoped<ICourseStreamRepository, CourseStreamRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 builder.Services.AddLogging();
 builder.Services.AddCors(options =>
 {
@@ -51,6 +52,7 @@ app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/courseStreams/list", EndpointHandlers.ListOfCourseStreams);
+app.MapGet("/courseStreams/{id}", EndpointHandlers.GetCourseStreamById);
 app.MapPost("/courseStreams/add", EndpointHandlers.AddCourse);
 app.MapPost("courseStreams/enroll", EndpointHandlers.EnrollStudent);
 

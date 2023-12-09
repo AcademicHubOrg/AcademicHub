@@ -11,17 +11,19 @@ const cellStyle: CSSProperties = {
 interface CourseProps {
     courseName: string;
     courseID: string;
+    templateId: string;
 }
 
-const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID}) => {
+const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateId}) => {
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
     const handleDetailsClick = () => {
-        navigate(`/course/${courseID}`);
+        navigate(`/course/${courseID}/${templateId}`);
     }
     return (
         <tr>
             <td style={cellStyle}>{courseID}</td>
+            <td style={cellStyle}>{templateId}</td>
             <td style={cellStyle}>{courseName}</td>
             <td style={cellStyle}>
                 <button onClick={handleDetailsClick}>Details</button>
