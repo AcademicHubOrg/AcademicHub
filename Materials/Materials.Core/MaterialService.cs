@@ -3,15 +3,11 @@ using Materials.Data;
 
 namespace Materials.Core;
 
-using System.Security.Cryptography;
-
-
-
 public class MaterialDataDtoAdd
 {
     public string Name { get; set; } = null!;
     public string DataText { get; set; } = null!;
-    
+
     public string CourseId { get; set; } = null!;
 }
 
@@ -20,7 +16,7 @@ public class MaterialDataDtoShow
     public string Name { get; set; } = null!;
     public string Id { get; set; } = null!;
     public string DataText { get; set; } = null!;
-    
+
     public string CourseId { get; set; } = null!;
 }
 
@@ -28,32 +24,34 @@ public class MaterialDataDtoShow
 //some attributes may be missing depending on data type
 public class MaterialShowData
 {
-    public string Name { get; set; }
-    public string DataText { get; set; }
+    public string Name { get; set; } = null!;
+    public string DataText { get; set; } = null!;
 }
 
 public class MaterialService
 {
-    private readonly MaterialsRepository _repository;
-    public MaterialService()
+    private readonly IMaterialsRepository _repository;
+
+    public MaterialService(IMaterialsRepository repository)
     {
-        _repository = new MaterialsRepository();
+        _repository = repository;
     }
-  
+
     public async Task AddAsync(MaterialDataDtoAdd material)
     {
         var courseId = Convert.ToInt32(material.CourseId);
         var dbMaterials = await _repository.ListAsync();
         if (dbMaterials.Any(m => m.MaterialName == material.Name && m.CourseId == courseId))
         {
-            throw new ConflictException($"The course with id: '{courseId}' contains a material with the name '{material.Name}'");
+            throw new ConflictException(
+                $"The course with id: '{courseId}' contains a material with the name '{material.Name}'");
         }
-        
+
         await _repository.AddAsync(new MaterialData()
         {
             MaterialName = material.Name,
             DataText = material.DataText,
-            CourseId = Convert.ToInt32( material.CourseId)
+            CourseId = Convert.ToInt32(material.CourseId)
         });
     }
 
@@ -71,9 +69,10 @@ public class MaterialService
                 CourseId = materialData.CourseId.ToString()
             });
         }
+
         return result;
     }
-    
+
     public async Task<List<MaterialShowData>> ListByCourseIdAsync(int courseId)
     {
         var result = new List<MaterialShowData>();
@@ -89,13 +88,15 @@ public class MaterialService
                 });
             }
         }
+
         if (result.Count == 0)
         {
             throw new NotFoundException($"Material with course ID: '{courseId}'");
         }
+
         return result;
     }
-    
+
     public async Task<List<MaterialShowData>> ListByIdAsync(int materialId)
     {
         var result = new List<MaterialShowData>();
@@ -111,11 +112,12 @@ public class MaterialService
                 });
             }
         }
+
         if (result.Count == 0)
         {
             throw new NotFoundException($"Material with ID: '{materialId}'");
         }
+
         return result;
     }
-    
 }

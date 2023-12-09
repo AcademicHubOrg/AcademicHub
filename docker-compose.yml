@@ -53,7 +53,19 @@ services:
       - "52997:80"
     networks:
       - academic_hub_backend_vpn
-
+  
+  materials:
+    build:
+      context: .
+      dockerfile: Materials/Materials/Dockerfile
+    restart: always
+    container_name: academic_hub_materials
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52996:80"
+    networks:
+      - academic_hub_backend_vpn
 
 networks:
   academic_hub_backend_vpn:
