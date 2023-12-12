@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         corsPolicyBuilder =>
         {
-            corsPolicyBuilder.WithOrigins("http://localhost:3000") // Replace with the actual origin of your frontend
+            corsPolicyBuilder.WithOrigins("http://165.22.66.19:3000") // Replace with the actual origin of your frontend
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
