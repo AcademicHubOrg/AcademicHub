@@ -126,7 +126,8 @@ namespace CourseStream.UnitTests
         public void CourseStreamService_Constructor_InitializesRepository()
         {
             // Arrange & Act
-            var service = new CourseStreamService();
+            var mockRepo = new Mock<ICourseStreamRepository>();
+            var service = new CourseStreamService(mockRepo.Object);
 
             // Assert
 
@@ -169,7 +170,7 @@ namespace CourseStream.UnitTests
             var service = new CourseStreamService(mockRepo.Object);
 
             int courseId = 1;
-            mockRepo.Setup(r => r.GetByIdAsync(courseId)).ReturnsAsync((Data.CourseStream)null);
+            mockRepo.Setup(r => r.GetByIdAsync(courseId)).ReturnsAsync((Data.CourseStream)null!);
 
             // Act & Assert
             await Assert.ThrowsAsync<NotFoundException>(async () =>

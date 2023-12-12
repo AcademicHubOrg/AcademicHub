@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CourseStream.Data.Migrations
 {
-    [DbContext(typeof(CourseStreamDBContext))]
+    [DbContext(typeof(CourseStreamDbContext))]
     partial class CourseStreamDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

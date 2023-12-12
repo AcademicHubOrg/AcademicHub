@@ -2,15 +2,15 @@
 
 using Microsoft.EntityFrameworkCore;
 
-public class MaterialsRepository
+public class MaterialsRepository : IMaterialsRepository
 {
     private readonly MaterialsDbContext _context;
 
-    public MaterialsRepository()
+    public MaterialsRepository(MaterialsDbContext context)
     {
-        _context = new MaterialsDbContext();
+        _context = context;
     }
-  
+
     public async Task AddAsync(MaterialData materialData)
     {
         _context.Add(materialData);

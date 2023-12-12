@@ -23,10 +23,6 @@ public class CourseStreamAddDto
 public class CourseStreamService
 {
 	private readonly ICourseStreamRepository _repository;
-	public CourseStreamService()
-	{
-		_repository = new CourseStreamRepository();
-	}
 	public CourseStreamService(ICourseStreamRepository repository)
 	{
 		_repository = repository;

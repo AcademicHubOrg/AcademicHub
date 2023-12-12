@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: postgres-container
+    environment:
+      - POSTGRESQL_DATABASE=Identity
+      - POSTGRESQL_USER=identityuser
+      - POSTGRESQL_PASSWORD=identityuser
+    expose:
+      - "5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - academic_hub_backend_vpn
+
+  identity:
+    build:
+      context: .
+      dockerfile: Identity/Identity/Dockerfile
+    restart: always
+    container_name: academic_hub_identity
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52999:80"
+    networks:
+      - academic_hub_backend_vpn
+      
+  course-template:
+    build:
+      context: .
+      dockerfile: CourseTemplate/CourseTemplate/Dockerfile
+    restart: always
+    container_name: academic_hub_coursetemplate
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52998:80"
+    networks:
+      - academic_hub_backend_vpn
+  
+  course-stream:
+    build:
+      context: .
+      dockerfile: CourseStream/CourseStream/Dockerfile
+    restart: always
+    container_name: academic_hub_coursestream
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52997:80"
+    networks:
+      - academic_hub_backend_vpn
+  
+  materials:
+    build:
+      context: .
+      dockerfile: Materials/Materials/Dockerfile
+    restart: always
+    container_name: academic_hub_materials
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "52996:80"
+    networks:
+      - academic_hub_backend_vpn
+  
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: "no"
+    container_name: academic_hub_frontend   
+    ports:
+      - "3000:3000"
+    networks:
+      - academic_hub_backend_vpn
+
+networks:
+  academic_hub_backend_vpn:
+    name: academic_hub_backend_vpn
+    
+volumes:
+  postgres_data:

@@ -6,14 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 public class CourseStreamRepository : ICourseStreamRepository
 {
-    private readonly CourseStreamDBContext _context;
+    private readonly CourseStreamDbContext _context;
 
-    public CourseStreamRepository()
-    {
-         _context = new CourseStreamDBContext();
-    }
-
-    public CourseStreamRepository(CourseStreamDBContext context)
+    public CourseStreamRepository(CourseStreamDbContext context)
     {
         _context = context;
     }

@@ -16,7 +16,7 @@ internal static class EndpointHandlers
     public static async Task<object> ListOfUsers([FromServices] UsersService service)
     {
         var result = await service.ListAsync();
-        return new { Data = result };
+        return new {Data = result};
     }
 
     public static async Task<object> AddUser([FromServices] UsersService service, UserDto user)
@@ -32,7 +32,7 @@ internal static class EndpointHandlers
         }
 
         await service.AddAsync(user);
-        return new { Message = "User added successfully." };
+        return new {Message = "User added successfully."};
     }
 
     public static async Task<object> MakeAdmin([FromServices] UsersService service, string email, string password)
@@ -48,7 +48,7 @@ internal static class EndpointHandlers
         }
 
         await service.MakeAdminAsync(email, password);
-        return new { Message = "Admin assigned successfully." };
+        return new {Message = "Admin assigned successfully."};
     }
 
     public static async Task<IResult> Login(HttpContext httpContext)
