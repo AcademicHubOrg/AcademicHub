@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
 import { getCourseMaterials } from '../../api/getCourseMaterialService';
@@ -18,7 +17,8 @@ interface Material {
 const CoursePage: React.FC = () => {
     const [course, setCourse] = useState<Course | null>(null);
     const [materials, setMaterials] = useState<Material[]>([]);
-    const { jsonData, updateJsonData } = useMyContext();
+    //deleted updateJsonData
+    const { jsonData } = useMyContext();
     const courseId = jsonData.courseIDJSON;
     const templateId = jsonData.templateIDJSON; // take from context here
 

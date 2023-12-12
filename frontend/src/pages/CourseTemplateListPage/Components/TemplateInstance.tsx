@@ -17,7 +17,7 @@ interface TemplateProps {
 const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId }) => {
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
-    const { jsonData, updateJsonData } = useMyContext();
+    const { updateJsonData } = useMyContext();
     const handleCreateClick = () => {
         updateJsonData({
             templateIDJSON: templateId

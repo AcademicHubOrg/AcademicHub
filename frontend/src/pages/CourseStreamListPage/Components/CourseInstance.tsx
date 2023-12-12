@@ -18,7 +18,7 @@ interface CourseProps {
 const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateId}) => {
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
-    const { jsonData, updateJsonData } = useMyContext();
+    const { updateJsonData } = useMyContext();
     const handleDetailsClick = () => {
         updateJsonData({
             courseIDJSON: courseID,

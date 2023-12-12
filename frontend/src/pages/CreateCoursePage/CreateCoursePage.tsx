@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {useParams} from "react-router-dom";
 import { addCourseStream } from '../../api/addCourseStreamService';
 import { useMyContext } from '../../MyContext';
 
 const CreateCoursePage: React.FC = () => {
-    const { jsonData, updateJsonData } = useMyContext();
+    const { jsonData} = useMyContext();
     const templateId = jsonData.templateIDJSON;
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
