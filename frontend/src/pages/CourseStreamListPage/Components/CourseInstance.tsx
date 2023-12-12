@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
+import { useMyContext } from '../../../MyContext';
 
 const cellStyle: CSSProperties = {
     border: '1px solid black',
@@ -17,8 +18,13 @@ interface CourseProps {
 const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateId}) => {
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
+    const { updateJsonData } = useMyContext();
     const handleDetailsClick = () => {
-        navigate(`/course/${courseID}/${templateId}`);
+        updateJsonData({
+            courseIDJSON: courseID,
+            templateIDJSON: templateId
+        })
+        navigate(`/course`); // write to context
     }
     return (
         <tr>
