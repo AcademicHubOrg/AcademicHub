@@ -25,7 +25,7 @@ internal static class EndpointHandlers
 	public static async Task<object> AddMaterial([FromServices] MaterialService service, [FromServices]IHttpClientFactory httpClientFactory , MaterialDataDtoAdd material)
     {
 	    var client = httpClientFactory.CreateClient();
-	    var response = await client.GetAsync("http://localhost:52997/courseStreams/" + material.CourseId);
+	    var response = await client.GetAsync("http://course-stream:80/courseStreams/" + material.CourseId);
 	    if (!response.IsSuccessStatusCode)
 	    {
 		    throw new ArgumentException("Invalid data provided. Course Stream does not exist.");
@@ -51,7 +51,7 @@ internal static class EndpointHandlers
 	public static async Task<object> AddEssentialMaterial([FromServices] MaterialService service, [FromServices]IHttpClientFactory httpClientFactory , MaterialDataDtoAdd material)
 	{
 		var client = httpClientFactory.CreateClient();
-		var response = await client.GetAsync("http://localhost:52998/courseTemplates/" + material.CourseId);
+		var response = await client.GetAsync("http://course-template:80/courseTemplates/" + material.CourseId);
 		if (!response.IsSuccessStatusCode)
 		{
 			throw new ArgumentException("Invalid data provided. Template does not exist.");
