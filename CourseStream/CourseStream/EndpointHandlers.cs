@@ -22,7 +22,7 @@ internal static  class EndpointHandlers
 	public static async Task<object> AddCourse([FromServices] CourseStreamService service, [FromServices]IHttpClientFactory httpClientFactory , CourseStreamAddDto courseStream)
 	{
 		var client = httpClientFactory.CreateClient();
-		var response = await client.GetAsync("https://localhost:5204/courseTemplates/" + courseStream.TemplateId);
+		var response = await client.GetAsync("http://localhost:52998/courseTemplates/" + courseStream.TemplateId);
 		if (!response.IsSuccessStatusCode)
 		{
 			throw new ArgumentException("Invalid data provided. Template does not exist.");
