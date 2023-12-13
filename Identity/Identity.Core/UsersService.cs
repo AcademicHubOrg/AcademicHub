@@ -53,7 +53,7 @@ public class UsersService
         if (user == null)
         {
             // Create a new user if doesn't exist
-            user = new User {Email = email, Name = name, IsAdmin = false};
+            user = new User {Email = email, Name = name, Role = Roles.User};
             await AddAsync(new UserDto {Email = email, Name = name});
         }
 
@@ -67,6 +67,12 @@ public class UsersService
             return;
         }
 
-        await _repository.ChangeUserAsync(email);
+        await _repository.ChangeUserRoleToAdminAsync(email);
+    }
+
+    public async Task<Roles> GetUserRole(string email)
+    {
+        var role = await _repository.GetUserRole(email);
+        return role;
     }
 }
