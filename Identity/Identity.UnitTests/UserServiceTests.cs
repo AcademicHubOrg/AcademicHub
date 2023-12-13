@@ -108,7 +108,7 @@ public class UsersServiceTests
         await service.MakeAdminAsync(email, incorrectPassword);
 
         // Assert
-        mockRepo.Verify(repo => repo.ChangeUserAsync(It.IsAny<string>()), Times.Never);
+        mockRepo.Verify(repo => repo.ChangeUserRoleToAdminAsync(It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
@@ -120,12 +120,12 @@ public class UsersServiceTests
         var email = "user@example.com";
         var correctPassword = "admin";
 
-        mockRepo.Setup(repo => repo.ChangeUserAsync(email)).Returns(Task.CompletedTask).Verifiable();
+        mockRepo.Setup(repo => repo.ChangeUserRoleToAdminAsync(email)).Returns(Task.CompletedTask).Verifiable();
 
         // Act
         await service.MakeAdminAsync(email, correctPassword);
 
         // Assert
-        mockRepo.Verify(repo => repo.ChangeUserAsync(email), Times.Once);
+        mockRepo.Verify(repo => repo.ChangeUserRoleToAdminAsync(email), Times.Once);
     }
 }
