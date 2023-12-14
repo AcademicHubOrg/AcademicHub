@@ -81,6 +81,7 @@ services:
 networks:
   academic_hub_backend_vpn:
     name: academic_hub_backend_vpn
+    driver: bridge
     
 volumes:
   postgres_data:
