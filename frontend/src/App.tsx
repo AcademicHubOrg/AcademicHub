@@ -12,15 +12,11 @@ import CreateCoursePage from "./pages/CreateCoursePage/CreateCoursePage";
 import Profile from "./pages/ProfilePage/Profile";
 
 function App() {
-    // Define the state with the correct type
-    const [ws, setWs] = useState<WebSocket | null>(null);
-
     useEffect(() => {
         const socket = new WebSocket('wss://academichub.net/ws');
 
         socket.addEventListener('open', (event) => {
             console.log('WebSocket connection opened');
-            // socket.send('Hello Server!');
         });
 
         socket.addEventListener('message', (event) => {
@@ -34,9 +30,6 @@ function App() {
         socket.addEventListener('close', (event) => {
             console.log('WebSocket connection closed');
         });
-
-        // Set the WebSocket instance in state
-        setWs(socket);
 
         return () => {
             socket.close();
