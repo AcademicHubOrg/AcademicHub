@@ -70,9 +70,11 @@ public class UsersService
         await _repository.ChangeUserRoleToAdminAsync(email);
     }
 
-    public async Task<Roles> GetUserRole(string email)
+    public async Task<IEnumerable<string>> GetUserRolesAsync(string email)
     {
         var role = await _repository.GetUserRole(email);
-        return role;
+        
+        return new List<string> { role.ToString() };
     }
+
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity;
@@ -35,6 +36,8 @@ internal static class EndpointHandlers
         return new {Message = "User added successfully."};
     }
 
+    
+    [Authorize(Roles = "Admin")]
     public static async Task<object> MakeAdmin([FromServices] UsersService service, string email, string password)
     {
         if (string.IsNullOrEmpty(email))
