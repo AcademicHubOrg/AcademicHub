@@ -7,7 +7,5 @@ public interface IUsersRepository
 
     Task<User> FindByEmailAsync(string email);
 
-    Task ChangeUserRoleToAdminAsync(string email);
-
-    Task<Roles> GetUserRole(string email);
+    Task ChangeUserAsync(string email);
 }

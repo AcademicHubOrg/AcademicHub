@@ -29,16 +29,10 @@ public class UsersRepository : IUsersRepository
         return (await _context.Users.FirstOrDefaultAsync(u => u.Email == email))!;
     }
 
-    public async Task ChangeUserRoleToAdminAsync(string email)
+    public async Task ChangeUserAsync(string email)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-        user.Role = Roles.Admin;
+        user!.IsAdmin = true;
         await _context.SaveChangesAsync();
-    }
-
-    public async  Task<Roles> GetUserRole(string email)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-        return user.Role;
     }
 }

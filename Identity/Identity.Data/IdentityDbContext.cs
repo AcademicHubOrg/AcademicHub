@@ -18,5 +18,5 @@ public class User
     public string Name { get; set; } = null!;
     public string Email { get; set; } = null!;
 
-    public Roles Role { get; set; }
+    public bool IsAdmin { get; set; }
 }

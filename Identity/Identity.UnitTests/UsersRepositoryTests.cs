@@ -63,7 +63,7 @@ public class UsersRepositoryTests
 
             // Act
             await repository.AddAsync(user);
-            await repository.ChangeUserRoleToAdminAsync(user.Email);
+            await repository.ChangeUserAsync(user.Email);
             
         }
         // Assert
@@ -73,7 +73,7 @@ public class UsersRepositoryTests
             var dbUser = await context.Users.FirstOrDefaultAsync(u => u.Email == "test@example.com");
             Assert.NotNull(dbUser);
             Assert.Equal("Test User", dbUser.Name);
-            Assert.True(dbUser.Role == Roles.Admin);
+            Assert.True(dbUser.IsAdmin);
         }
     }
 }
