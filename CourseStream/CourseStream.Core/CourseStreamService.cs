@@ -30,7 +30,7 @@ public class CourseStreamService
 
 	public async Task AddAsync(CourseStreamAddDto courseStream)
 	{
-		var dbCourseStreams = await _repository.ListAsync();
+		var dbCourseStreams = await _repository.ListAsync(start_index: start_index, how_many: how_many);
 		if (dbCourseStreams.Any(m => m.CourseName == courseStream.Name))
 		{
 			throw new ConflictException($"Course with name '{courseStream.Name}' already exists");
