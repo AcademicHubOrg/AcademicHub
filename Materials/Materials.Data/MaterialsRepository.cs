@@ -22,7 +22,7 @@ public class MaterialsRepository : IMaterialsRepository
         _context.Add(essentialData);
         await _context.SaveChangesAsync();
     }
-    public async Task<List<MaterialData>> ListAsync(int start_index, int how_many)
+    public async Task<List<MaterialData>> ListAsync(int start_index = 0, int how_many = 10)
     {
         return await _context.Materials
             .Skip(start_index)

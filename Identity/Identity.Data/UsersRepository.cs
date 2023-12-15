@@ -18,7 +18,7 @@ public class UsersRepository : IUsersRepository
         _context.Add(user);
         await _context.SaveChangesAsync();
     }
-    public async Task<List<User>> ListAsync(int start_index, int how_many)
+    public async Task<List<User>> ListAsync(int start_index = 0, int how_many = 10)
     {
         return await _context.Users
             .Skip(start_index)
