@@ -36,23 +36,6 @@ public class CourseStreamRepository : ICourseStreamRepository
                 .ToListAsync();
         }
     }
-    public async Task<List<CourseStream>> ListAsync(int start_index, int how_many)
-    {
-        if(start_index >= 0 && how_many > start_index)
-        {
-            return await _context.CourseStream
-                .Skip(start_index)
-                .Take(how_many)
-                .ToListAsync();
-        }
-        else
-        {
-            return await _context.CourseStream
-                .Skip(0)
-                .Take(10)
-                .ToListAsync();
-        }
-    }
     public async Task EnrollStudentAsync(int studentId, int courseStreamId, DateTime currentTime)
     {
         var enrollment = new Enrollment
