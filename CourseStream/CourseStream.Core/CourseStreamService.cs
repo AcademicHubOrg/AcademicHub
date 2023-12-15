@@ -53,12 +53,11 @@ public class CourseStreamService
 		var currentTime = DateTime.UtcNow;
 		await _repository.EnrollStudentAsync(studentId, courseStreamId, currentTime);
 	}
-
-
+	
 	public async Task<List<CourseStreamShowDto>> ListAsync(int start_index = 0, int how_many = 10)
 	{
 		var result = new List<CourseStreamShowDto>();
-		var dbCourseStreams = await _repository.ListAsync();
+		var dbCourseStreams = await _repository.ListAsync(start_index, how_many);
 		foreach (var courseStream in dbCourseStreams)
 		{
 			result.Add(new CourseStreamShowDto()
@@ -70,7 +69,9 @@ public class CourseStreamService
 		}
 		return result;
 	}
-
+	
+	
+	
 	public async Task<CourseStreamShowDto> GetByIdAsync(int id)
 	{
 		var courseStream = await _repository.GetByIdAsync(id);
