@@ -19,9 +19,22 @@ public class CourseStreamRepository : ICourseStreamRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<CourseStream>> ListAsync()
+    public async Task<List<CourseStream>> ListAsync(int start_index, int how_many)
     {
-        return await _context.CourseStreams.ToListAsync();
+        if(start_index >= 0 && how_many > start_index)
+        {
+            return await _context.CourseStream
+                .Skip(start_index)
+                .Take(how_many)
+                .ToListAsync();
+        }
+        else
+        {
+            return await _context.CourseStream
+                .Skip(0)
+                .Take(10)
+                .ToListAsync();
+        }
     }
     public async Task EnrollStudentAsync(int studentId, int courseStreamId, DateTime currentTime)
     {
