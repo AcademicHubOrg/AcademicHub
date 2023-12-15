@@ -17,9 +17,22 @@ public class CourseTemplateRepository : ICourseTemplateRepository
 		await _context.SaveChangesAsync();
 	}
 
-	public async Task<List<CourseTemplate>> ListAsync()
+	public async Task<List<CourseTemplate>> ListAsync(int start_index, int how_many)
 	{
-		return await _context.CourseTemplates.ToListAsync();
+		if(start_index >= 0 && how_many > start_index)
+		{
+			return await _context.CourseTemplates
+				.Skip(start_index)
+				.Take(how_many)
+				.ToListAsync();
+		}
+		else
+		{
+			return await _context.CourseTemplates
+				.Skip(0)
+				.Take(10)
+				.ToListAsync();
+		}
 	}
 
 	public async Task<CourseTemplate?> GetByIdAsync(int id)

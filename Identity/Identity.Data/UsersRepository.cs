@@ -18,10 +18,22 @@ public class UsersRepository : IUsersRepository
         _context.Add(user);
         await _context.SaveChangesAsync();
     }
-
-    public async Task<List<User>> ListAsync()
+    public async Task<List<User>> ListAsync(int start_index, int how_many)
     {
-        return await _context.Users.ToListAsync();
+        if(start_index >= 0 && how_many > start_index)
+        {
+            return await _context.Users
+                .Skip(start_index)
+                .Take(how_many)
+                .ToListAsync();
+        }
+        else
+        {
+            return await _context.Users
+                .Skip(0)
+                .Take(10)
+                .ToListAsync();
+        }
     }
 
     public async Task<User> FindByEmailAsync(string email)
