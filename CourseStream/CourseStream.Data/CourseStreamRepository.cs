@@ -19,7 +19,7 @@ public class CourseStreamRepository : ICourseStreamRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<CourseStream>> ListAsync(int start_index =0, int how_many=10)
+    public async Task<List<CourseStream>> ListAsync(int start_index, int how_many)
     {
         return await _context.CourseStreams
             .Skip(start_index)
