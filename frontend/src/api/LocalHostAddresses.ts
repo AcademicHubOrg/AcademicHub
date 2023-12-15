@@ -1,8 +1,8 @@
 enum Addresses{
-    AUTH = "https://academichub.net:52999",
-    COURSESTREAMS = "https://academichub.net:52997",
-    COURSETEMPLATES = "https://academichub.net:52998",
-    MATERIALS = "https://academichub.net:52996"
+    AUTH = "https://academichub.net/auth",
+    COURSESTREAMS = "https://academichub.net/coursestreams",
+    COURSETEMPLATES = "https://academichub.net/coursetemplates",
+    MATERIALS = "https://academichub.net/materials"
 }
 export {Addresses};
 
