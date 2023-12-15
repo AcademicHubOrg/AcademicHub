@@ -17,7 +17,7 @@ public class CourseTemplateRepository : ICourseTemplateRepository
 		await _context.SaveChangesAsync();
 	}
 
-	public async Task<List<CourseTemplate>> ListAsync(int start_index, int how_many)
+	public async Task<List<CourseTemplate>> ListAsync(int start_index =0, int how_many=10)
 	{
 		if(start_index >= 0 && how_many > start_index)
 		{
