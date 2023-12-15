@@ -21,20 +21,10 @@ public class CourseStreamRepository : ICourseStreamRepository
 
     public async Task<List<CourseStream>> ListAsync(int start_index =0, int how_many=10)
     {
-        if(start_index >= 0 && how_many > start_index)
-        {
-            return await _context.CourseStreams
-                .Skip(start_index)
-                .Take(how_many)
-                .ToListAsync();
-        }
-        else
-        {
-            return await _context.CourseStreams
-                .Skip(0)
-                .Take(10)
-                .ToListAsync();
-        }
+        return await _context.CourseStreams
+            .Skip(start_index)
+            .Take(how_many)
+            .ToListAsync();
     }
     public async Task EnrollStudentAsync(int studentId, int courseStreamId, DateTime currentTime)
     {

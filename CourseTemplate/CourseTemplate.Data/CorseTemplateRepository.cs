@@ -19,20 +19,10 @@ public class CourseTemplateRepository : ICourseTemplateRepository
 
 	public async Task<List<CourseTemplate>> ListAsync(int start_index =0, int how_many=10)
 	{
-		if(start_index >= 0 && how_many > start_index)
-		{
-			return await _context.CourseTemplates
-				.Skip(start_index)
-				.Take(how_many)
-				.ToListAsync();
-		}
-		else
-		{
-			return await _context.CourseTemplates
-				.Skip(0)
-				.Take(10)
-				.ToListAsync();
-		}
+		return await _context.CourseTemplates
+			.Skip(start_index)
+			.Take(how_many)
+			.ToListAsync();
 	}
 
 	public async Task<CourseTemplate?> GetByIdAsync(int id)
