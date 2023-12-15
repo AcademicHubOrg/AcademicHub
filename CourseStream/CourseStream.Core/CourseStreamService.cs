@@ -55,7 +55,7 @@ public class CourseStreamService
 	}
 
 
-	public async Task<List<CourseStreamShowDto>> ListAsync()
+	public async Task<List<CourseStreamShowDto>> ListAsync(int start_index = 0, int how_many = 10)
 	{
 		var result = new List<CourseStreamShowDto>();
 		var dbCourseStreams = await _repository.ListAsync();
