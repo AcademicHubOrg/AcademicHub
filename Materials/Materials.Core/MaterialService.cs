@@ -70,7 +70,7 @@ public class MaterialService
         });
     }
 
-    public async Task<List<MaterialDataDtoShow>> ListAsync()
+    public async Task<List<MaterialDataDtoShow>> ListAsync(int start_index = 0, int how_many = 10)
     {
         var result = new List<MaterialDataDtoShow>();
         var dbMaterials = await _repository.ListAsync();

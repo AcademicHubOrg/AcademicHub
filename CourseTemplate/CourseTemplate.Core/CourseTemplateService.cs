@@ -40,7 +40,7 @@ namespace CourseTemplate.Core
             });
         }
 
-        public async Task<List<ViewCourseTemplateDto>> ListAsync()
+        public async Task<List<ViewCourseTemplateDto>> ListAsync(int start_index = 0, int how_many = 10)
         {
             var result = new List<ViewCourseTemplateDto>();
             var dbCourseTemplates = await _repository.ListAsync();
