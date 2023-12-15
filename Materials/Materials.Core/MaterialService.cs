@@ -38,7 +38,7 @@ public class MaterialService
     public async Task AddAsync(MaterialDataDtoAdd material)
     {
         var courseId = Convert.ToInt32(material.CourseId);
-        var dbMaterials = await _repository.ListAsync();
+        var dbMaterials = await _repository.ListAsync(start_index: start_index, how_many: how_many);
         if (dbMaterials.Any(m => m.MaterialName == material.Name && m.CourseId == courseId))
         {
             throw new ConflictException(
@@ -109,7 +109,7 @@ public class MaterialService
     public async Task<List<MaterialShowData>> ListByCourseIdAsync(int courseId)
     {
         var result = new List<MaterialShowData>();
-        var dbMaterials = await _repository.ListAsync();
+        var dbMaterials = await _repository.ListAsync(start_index: start_index, how_many: how_many);
         foreach (var materialData in dbMaterials)
         {
             if (courseId == materialData.CourseId)
@@ -153,7 +153,7 @@ public class MaterialService
     public async Task<List<MaterialShowData>> ListByIdAsync(int materialId)
     {
         var result = new List<MaterialShowData>();
-        var dbMaterials = await _repository.ListAsync();
+        var dbMaterials = await _repository.ListAsync(start_index: start_index, how_many: how_many);
         foreach (var materialData in dbMaterials)
         {
             if (materialId == materialData.Id)

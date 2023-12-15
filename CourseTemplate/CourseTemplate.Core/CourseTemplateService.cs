@@ -25,7 +25,7 @@ namespace CourseTemplate.Core
 
         public async Task AddAsync(CreateCourseTemplateDto createCourse)
         {
-            var dbCourseTemplates = await _repository.ListAsync();
+            var dbCourseTemplates = await _repository.ListAsync(start_index: start_index, how_many: how_many);
 
             // Check if a createCourse with the same name already exists
             if (dbCourseTemplates.Any(c => c.CourseName == createCourse.Name))
