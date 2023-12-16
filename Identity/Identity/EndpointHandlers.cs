@@ -79,8 +79,9 @@ internal static class EndpointHandlers
         }
 
         var userService = httpContext.RequestServices.GetRequiredService<UsersService>();
-        var user = await userService.FindOrCreateUser(email, name);
+        await userService.FindOrCreateUser(email, name);
 
-        return Results.Ok(user);
+        return Results.Redirect("https://academichub.net");
+
     }
 }
