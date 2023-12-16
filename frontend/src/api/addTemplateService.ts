@@ -2,7 +2,7 @@ import { Addresses } from './LocalHostAddresses';
 
 export const addCourseTemplate = async (courseTemplateName: string) => {
     try {
-        const response = await fetch(`${Addresses.COURSETEMPLATES}/courseTemplates/add`, {
+        const response = await fetch(`${Addresses.COURSETEMPLATES}/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
