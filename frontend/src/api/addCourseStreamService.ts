@@ -2,7 +2,7 @@ import { Addresses } from './LocalHostAddresses';
 
 export const addCourseStream = async (courseName: string, templateId: string) => {
     try {
-        const response = await fetch(`${Addresses.COURSESTREAMS}/courseStreams/add`, {
+        const response = await fetch(`${Addresses.COURSESTREAMS}/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
