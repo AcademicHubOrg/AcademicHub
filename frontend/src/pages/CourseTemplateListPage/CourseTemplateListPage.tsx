@@ -2,6 +2,22 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 
 import TemplateInstance from "./Components/TemplateInstance";
 import { getCourseTemplates } from '../../api/templateListService';
+import RichTextEditor from "../../pages/RichTextEditor";
+
+// Example using RichTextEditor:
+/*const YourPageComponent: React.FC = () => {
+    const handleFileUpload = (fileContent: string) => {
+        // Do something with the file content, e.g., save it or display it
+        console.log('File content:', fileContent);
+    };
+
+    return (
+        <div>
+            <h1>Your Page</h1>
+            <RichTextEditor onFileUpload={handleFileUpload} />
+        </div>
+    );
+};*/
 
 const tableStyle: CSSProperties = {
     width: '100%',      // Makes the table full-width

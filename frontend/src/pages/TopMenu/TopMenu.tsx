@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './TopMenu.css'; // Assuming you have a CSS file for styles
-
+import RichTextEditor from "../../pages/RichTextEditor";
 const TopMenu: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();

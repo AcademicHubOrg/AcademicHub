@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import RichTextEditor from "../../pages/RichTextEditor";
 function ProfilePage() {
 
     const [inputText1, setInputText1] = useState('');

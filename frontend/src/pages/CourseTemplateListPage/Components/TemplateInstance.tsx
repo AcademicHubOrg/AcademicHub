@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
 import { useMyContext } from '../../../MyContext';
 
+
 const cellStyle: CSSProperties = {
     border: '1px solid black',
     padding: '10px',

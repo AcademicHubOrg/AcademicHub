@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { addCourseStream } from '../../api/addCourseStreamService';
 import { useMyContext } from '../../MyContext';
-
+import RichTextEditor from "../../pages/RichTextEditor";
 const CreateCoursePage: React.FC = () => {
     const { jsonData} = useMyContext();
     const templateId = jsonData.templateIDJSON;
