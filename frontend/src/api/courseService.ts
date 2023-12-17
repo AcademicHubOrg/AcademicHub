@@ -1,4 +1,4 @@
-import { Addresses } from "./LocalHostAddresses";
+import { Addresses } from "./Addresses";
 
 export const getCourseDetails = async (courseId: string) => {
     const response = await fetch(`${Addresses.COURSESTREAMS}/list`);

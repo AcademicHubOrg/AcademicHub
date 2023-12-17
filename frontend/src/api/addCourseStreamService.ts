@@ -1,4 +1,4 @@
-import { Addresses } from './LocalHostAddresses';
+import { Addresses } from './Addresses';
 
 export const addCourseStream = async (courseName: string, templateId: string) => {
     try {
