@@ -2,7 +2,7 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 
 import CourseInstance from "./Components/CourseInstance";
 import { getCoursesList } from '../../api/coursesListService';
-import RichTextEditor from "../../pages/RichTextEditor";
+
 
 // TypeScript interfaces for type checking
 interface Course {

@@ -4,7 +4,7 @@ import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
 import { getCourseMaterials } from '../../api/getCourseMaterialService';
 import { useMyContext } from '../../MyContext';
-import RichTextEditor from "../../pages/RichTextEditor";
+
 interface Course {
     id: string;
     name: string;

@@ -1,5 +1,4 @@
-﻿// RichTextEditor.tsx
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 

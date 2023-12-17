@@ -2,7 +2,7 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 
 import TemplateInstance from "./Components/TemplateInstance";
 import { getCourseTemplates } from '../../api/templateListService';
-import RichTextEditor from "../../pages/RichTextEditor";
+//import RichTextEditor from "../../pages/RichTextEditor";
 
 // Example using RichTextEditor:
 /*const YourPageComponent: React.FC = () => {

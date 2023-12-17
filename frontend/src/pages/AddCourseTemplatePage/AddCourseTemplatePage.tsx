@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { addCourseTemplate } from '../../api/addTemplateService';
-import RichTextEditor from "../../pages/RichTextEditor";
+
 function AddCourseTemplatePage() {
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
