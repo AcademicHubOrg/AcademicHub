@@ -10,6 +10,10 @@ import CourseTemplateListPage from "./pages/CourseTemplateListPage/CourseTemplat
 import CoursePage from "./pages/CoursePage/CoursePage";
 import CreateCoursePage from "./pages/CreateCoursePage/CreateCoursePage";
 import Profile from "./pages/ProfilePage/Profile";
+import ViewCourseMaterials from "./pages/ViewCourseMaterialsPage/ViewCourseMaterials";
+import ViewTemplateMaterials from "./pages/ViewTemplateMaterialsPage/ViewTemplateMaterials";
+import AddMaterialPage from "./pages/AddMaterialPage/AddMaterialPage";
+import AddEssentialMaterialPage from "./pages/AddEssentialMaterialPage/AddEssentialMaterialPage";
 
 function App() {
     useEffect(() => {
@@ -47,6 +51,10 @@ function App() {
                 <Route path="/course" element={<CoursePage />} />
                 <Route path="/createCourse" element={<CreateCoursePage />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/viewCourseMaterials" element={<ViewCourseMaterials />} />
+                <Route path="/viewTemplateMaterials" element={<ViewTemplateMaterials />} />
+                <Route path="/addMaterial" element={<AddMaterialPage />} />
+                <Route path="/addEssentialMaterial" element={<AddEssentialMaterialPage />} />
             </Routes>
         </Router>
     );
