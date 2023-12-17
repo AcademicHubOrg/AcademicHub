@@ -36,7 +36,8 @@ const CourseTemplateListPage = () => {
                 <tr>
                     <th>TemplateID</th>
                     <th>Name</th>
-                    <th>Create</th>
+                    <th>Edit Materials</th>
+                    <th>Create Stream</th>
                 </tr>
                 </thead>
                 <tbody>

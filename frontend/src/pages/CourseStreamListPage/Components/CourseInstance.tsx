@@ -26,11 +26,20 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
         })
         navigate(`/course`); // write to context
     }
+    const handleMaterialsClick = () => {
+        updateJsonData({
+            courseIDJSON: courseID
+        })
+        navigate(`/viewCourseMaterials`); // write to context
+    }
     return (
         <tr>
             <td style={cellStyle}>{courseID}</td>
             <td style={cellStyle}>{templateId}</td>
             <td style={cellStyle}>{courseName}</td>
+            <td style={cellStyle}>
+                <button onClick={handleMaterialsClick}>Materials</button>
+            </td>
             <td style={cellStyle}>
                 <button onClick={handleDetailsClick}>Details</button>
             </td>
