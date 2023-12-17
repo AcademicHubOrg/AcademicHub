@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getCourseDetails } from '../../api/courseService';
 import { getTemplateMaterials } from '../../api/getMaterialsService';
 import { useMyContext } from '../../MyContext';
 import {useNavigate} from "react-router-dom";
