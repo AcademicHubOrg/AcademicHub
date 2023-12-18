@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -16,30 +15,6 @@ import AddMaterialPage from "./pages/AddMaterialPage/AddMaterialPage";
 import AddEssentialMaterialPage from "./pages/AddEssentialMaterialPage/AddEssentialMaterialPage";
 
 function App() {
-    useEffect(() => {
-        const socket = new WebSocket('wss://academichub.net/ws');
-
-        socket.addEventListener('open', (event) => {
-            console.log('WebSocket connection opened');
-        });
-
-        socket.addEventListener('message', (event) => {
-            console.log('Message from server ', event.data);
-        });
-
-        socket.addEventListener('error', (error) => {
-            console.error('WebSocket error:', error);
-        });
-
-        socket.addEventListener('close', (event) => {
-            console.log('WebSocket connection closed');
-        });
-
-        return () => {
-            socket.close();
-        };
-    }, []);
-
     return (
         <Router>
             <TopMenu />
