@@ -5,10 +5,12 @@ on:
     branches: [ "main" ]
     paths:
       - 'Identity/**'
+      - 'AcademicHub.Common/**'
   pull_request:
     branches: [ "main" ]
     paths:
       - 'Identity/**'
+      - 'AcademicHub.Common/**'
 
 jobs:
   build-and-test-identity:
