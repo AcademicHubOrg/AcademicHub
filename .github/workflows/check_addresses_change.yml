@@ -12,12 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
+
       - name: Check for changes in Addresses.ts
         run: |
-          CHANGES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'frontend/src/api/Addresses.ts')
+          CHANGES=$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | grep 'frontend/src/api/Addresses.ts')
           if [ ! -z "$CHANGES" ]; then
             echo "Changes in Addresses.ts are not allowed."
             exit 1
           fi
+
 
