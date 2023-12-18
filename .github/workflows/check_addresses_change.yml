@@ -1,10 +1,9 @@
 name: Check Addresses.ts for Changes
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    paths:
+      - 'frontend/**'
     
 
 jobs:
