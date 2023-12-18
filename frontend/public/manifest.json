@@ -3,9 +3,9 @@
   "name": "Academic Hub | Learning Management System",
   "icons": [
     {
-      "src": "AcademicHubLogo.jpeg",
-      "type": "image/jpeg",
-      "sizes": "619x619"
+      "src": "LogoCircle.png",
+      "type": "image/png",
+      "sizes": "597x597"
     }
   ],
   "start_url": ".",
