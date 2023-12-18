@@ -24,7 +24,7 @@ builder.Services.AddLogging();
 // {
 //     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 // });
-
+//
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
