@@ -6,6 +6,7 @@ using CourseStream.Data;
 using CustomExceptions;
 using Moq;
 using Xunit;
+using CustomExceptions;
 
 namespace CourseStream.UnitTests
 {
@@ -177,8 +178,18 @@ namespace CourseStream.UnitTests
                 await service.GetByIdAsync(courseId));
         }
 
+        [Fact]
+        public async Task AcademicHubUrl_ShouldEqual_ExpectedValue()
+        {
+            // Arrange
+            var expected = "https://academichub.net/";
 
+            // Act
+            var actual = Address.academichuburl;
 
+            // Assert
+            Assert.Equal(expected, actual);
+        }
 
     }
 }

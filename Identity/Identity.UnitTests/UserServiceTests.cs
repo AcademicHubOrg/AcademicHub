@@ -1,6 +1,7 @@
 using Moq;
 using Identity.Core;
 using Identity.Data;
+using CustomExceptions;
 
 
 namespace Identity.UnitTests;
@@ -127,5 +128,18 @@ public class UsersServiceTests
 
         // Assert
         mockRepo.Verify(repo => repo.ChangeUserAsync(email), Times.Once);
+    }
+
+    [Fact]
+    public async Task AcademicHubUrl_ShouldEqual_ExpectedValue()
+    {
+        // Arrange
+        var expected = "https://academichub.net/";
+
+        // Act
+        var actual = Address.academichuburl;
+
+        // Assert
+        Assert.Equal(expected, actual);
     }
 }

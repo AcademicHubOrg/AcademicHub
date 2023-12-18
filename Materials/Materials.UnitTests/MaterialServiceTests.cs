@@ -403,24 +403,18 @@ public class MaterialServiceTests
         Assert.Equal(newMaterial.Id, "123");
     }
 
+    [Fact]
+    public async Task AcademicHubUrl_ShouldEqual_ExpectedValue()
+    {
+        // Arrange
+        var expected = "https://academichub.net/";
 
+        // Act
+        var actual = Address.academichuburl;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // Assert
+        Assert.Equal(expected, actual);
+    }
 
 
 
