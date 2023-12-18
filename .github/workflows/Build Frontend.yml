@@ -28,3 +28,11 @@ jobs:
     - name: Build
       run: npm run build
       working-directory: ./frontend 
+      
+    - name: Check for changes in Addresses.ts
+      run: |
+        git fetch origin main:main
+        if git diff --name-only origin/main...HEAD | grep -q 'frontend/src/api/Addresses.ts'; then
+          echo "::error::Changes in Addresses.ts are not allowed."
+          exit 1
+        fi
