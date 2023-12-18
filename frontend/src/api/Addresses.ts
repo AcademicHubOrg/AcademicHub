@@ -4,6 +4,7 @@ enum Addresses{
     COURSETEMPLATES = "https://academichub.net/coursetemplates",
     MATERIALS = "https://academichub.net/materials"
 }
+// check addresses workflow
 export {Addresses};
 
 // enum Addresses{
