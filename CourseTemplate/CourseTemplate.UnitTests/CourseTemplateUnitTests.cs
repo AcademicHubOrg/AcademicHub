@@ -93,7 +93,7 @@ namespace CourseTemplate.UnitTests
         }
 
         [Fact]
-        public async Task AcademicHubUrl_ShouldEqual_ExpectedValue()
+        public Task AcademicHubUrl_ShouldEqual_ExpectedValue()
         {
             // Arrange
             var expected = "https://academichub.net/";
@@ -103,6 +103,7 @@ namespace CourseTemplate.UnitTests
 
             // Assert
             Assert.Equal(expected, actual);
+            return Task.CompletedTask;
         }
     }
 

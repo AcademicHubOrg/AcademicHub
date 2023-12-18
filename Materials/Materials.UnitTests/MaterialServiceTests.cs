@@ -1,7 +1,7 @@
 namespace Materials.UnitTests;
 using System;
-using Materials.Data;
-using Materials.Core;
+using Data;
+using Core;
 using CustomExceptions;
 using Moq;
 
@@ -390,7 +390,7 @@ public class MaterialServiceTests
     }
 
     [Fact]
-    public async Task TestAddAndGetMaterialDataDtoShowById()
+    public Task TestAddAndGetMaterialDataDtoShowById()
     {
         var newMaterial = new MaterialDataDtoShow
         {
@@ -400,11 +400,12 @@ public class MaterialServiceTests
             Id = "123"
         };
 
-        Assert.Equal(newMaterial.Id, "123");
+        Assert.Equal("123", newMaterial.Id);
+        return Task.CompletedTask;
     }
 
     [Fact]
-    public async Task AcademicHubUrl_ShouldEqual_ExpectedValue()
+    public Task AcademicHubUrl_ShouldEqual_ExpectedValue()
     {
         // Arrange
         var expected = "https://academichub.net/";
@@ -414,10 +415,6 @@ public class MaterialServiceTests
 
         // Assert
         Assert.Equal(expected, actual);
+        return Task.CompletedTask;
     }
-
-
-
-
-
 }
