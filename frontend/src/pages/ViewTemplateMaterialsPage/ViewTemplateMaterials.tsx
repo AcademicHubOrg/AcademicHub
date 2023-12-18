@@ -17,6 +17,9 @@ const ViewTemplateMaterials: React.FC = () => {
     const handleMaterialsClick = () => {
         navigate(`/addEssentialMaterial`);
     }
+    const handleDeleteClick = () => {
+        //call delete material endpoint
+    }
     // Fetch data from the backend
     useEffect(() => {
         getTemplateMaterials(templateId as string)
@@ -33,7 +36,7 @@ const ViewTemplateMaterials: React.FC = () => {
                         <div key={material.name}>
                             <h3>{material.name}</h3>
                             <p>{material.dataText}</p>
-                            <button>Delete</button>
+                            <button onClick={handleDeleteClick}>Delete</button>
                         </div>
                     ))
                 ) : (

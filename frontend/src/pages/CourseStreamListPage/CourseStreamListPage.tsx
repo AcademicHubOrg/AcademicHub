@@ -38,6 +38,7 @@ const CourseStreamListPage = () => {
                         <th>Name</th>
                         <th>Edit Materials</th>
                         <th>Details</th>
+                        <th>Delete Stream</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -30,6 +30,12 @@ const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId })
         })
         navigate(`/viewTemplateMaterials`);
     }
+    const handleDeleteClick = () => {
+        updateJsonData({
+            templateIDJSON: templateId
+        })
+        //call delete template endpoint
+    }
     return (
         <tr>
             <td style={cellStyle}>{templateId}</td>
@@ -39,6 +45,9 @@ const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId })
             </td>
             <td style={cellStyle}>
                 <button onClick={handleCreateClick}>Create course</button>
+            </td>
+            <td style={cellStyle}>
+                <button onClick={handleDeleteClick}>Delete template</button>
             </td>
         </tr>
     );

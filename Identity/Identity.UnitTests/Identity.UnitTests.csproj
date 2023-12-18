@@ -16,7 +16,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-        <PackageReference Include="Moq" Version="4.20.69" />
+        <PackageReference Include="Moq" Version="4.20.70" />
         <PackageReference Include="xunit" Version="2.4.2" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\AcademicHub.Common\CustomExceptions\CustomExceptions.csproj" />
       <ProjectReference Include="..\Identity.Core\Identity.Core.csproj" />
       <ProjectReference Include="..\Identity.Data\Identity.Data.csproj" />
     </ItemGroup>

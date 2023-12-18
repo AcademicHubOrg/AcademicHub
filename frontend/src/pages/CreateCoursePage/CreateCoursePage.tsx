@@ -23,7 +23,7 @@ const CreateCoursePage: React.FC = () => {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Course Stream Name"
             />
-            <button onClick={handleButtonClick}>Display Text</button>
+            <button onClick={handleButtonClick}>Create</button>
             {displayedText &&<p>{displayedText}</p>}
         </div>
 
