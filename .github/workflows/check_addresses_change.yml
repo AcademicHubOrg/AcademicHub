@@ -1,9 +1,11 @@
 name: Check Addresses.ts for Changes
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
-    paths:
-      - 'frontend/src/api/Addresses.ts'
+    branches: [ main ]
+    
 
 jobs:
   check-addresses-file:
