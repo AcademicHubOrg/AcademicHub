@@ -14,14 +14,10 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Check for changes in Addresses.ts
-        id: check_changes
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'frontend/src/api/Addresses.ts'; then
-            echo "::error::Changes in Addresses.ts are not allowed."
-            echo "CHANGED=true" >> $GITHUB_ENV
-          else
-            echo "CHANGED=false" >> $GITHUB_ENV
-          
-      - name: Fail if changes detected
-        if: env.CHANGED == 'true'
-        run: exit 1
+          CHANGES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'frontend/src/api/Addresses.ts')
+          if [ ! -z "$CHANGES" ]; then
+            echo "Changes in Addresses.ts are not allowed."
+            exit 1
+          fi
+
