@@ -30,9 +30,18 @@ jobs:
       working-directory: ./frontend 
       
     - name: Check for changes in Addresses.ts
+      id: check_changes
       run: |
-        git fetch origin main:main
-        if git diff --name-only origin/main...HEAD | grep -q 'frontend/src/api/Addresses.ts'; then
-          echo "::error::Changes in Addresses.ts are not allowed."
-          exit 1
+        git fetch origin main
+        CHANGED=$(git diff --name-only origin/main..HEAD -- 'frontend/src/api/Addresses.ts')
+        if [ -z "$CHANGED" ]; then
+          echo "No changes in Addresses.ts"
+          echo "::set-output name=status::success"
+        else
+          echo "Changes detected in Addresses.ts"
+          echo "::set-output name=status::failure"
         fi
+
+    - name: Set job status
+      if: steps.check_changes.outputs.status == 'failure'
+      run: exit 1
