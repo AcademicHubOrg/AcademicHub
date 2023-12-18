@@ -2,21 +2,26 @@ name: Check Addresses.ts for Changes
 
 on:
   pull_request:
-    branches: [ main ]
-    paths-ignore:
-      - 'frontend/src/api/Addresses.ts'
+    branches:
+      - main
 
 jobs:
-  check-addresses-file:
+  check-file:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Check for changes in Addresses.ts
-      run: |
-        git fetch origin main:main
-        if git diff --name-only origin/main...HEAD | grep -q 'frontend/src/api/Addresses.ts'; then
-          echo "::error::Changes in Addresses.ts are not allowed."
-          exit 1
-        fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Check for changes in Addresses.ts
+        id: check_changes
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'frontend/src/api/Addresses.ts'; then
+            echo "::error::Changes in Addresses.ts are not allowed."
+            echo "CHANGED=true" >> $GITHUB_ENV
+          else
+            echo "CHANGED=false" >> $GITHUB_ENV
+          
+      - name: Fail if changes detected
+        if: env.CHANGED == 'true'
+        run: exit 1
