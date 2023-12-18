@@ -32,7 +32,9 @@ jobs:
     - name: Check for changes in Addresses.ts
       id: check_changes
       run: |
-        git fetch origin main:main
+        git fetch origin main
+        git checkout main
+        git checkout ${{ github.sha }}
         CHANGED=$(git diff --name-only main...HEAD -- 'frontend/src/api/Addresses.ts')
         if [ -z "$CHANGED" ]; then
           echo "No changes in Addresses.ts"
