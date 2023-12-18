@@ -2,8 +2,7 @@ name: Check Addresses.ts for Changes
 
 on:
   pull_request:
-    branches: [ main ]
-    paths-ignore:
+    paths:
       - 'frontend/src/api/Addresses.ts'
 
 jobs:
