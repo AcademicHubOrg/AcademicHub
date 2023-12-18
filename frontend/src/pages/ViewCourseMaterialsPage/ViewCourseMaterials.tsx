@@ -17,6 +17,9 @@ const ViewCourseMaterials: React.FC = () => {
     const handleMaterialsClick = () => {
         navigate(`/addMaterial`);
     }
+    const handleDeleteClick = () => {
+        //call delete material endpoint
+    }
 
     // Fetch data from the backend
     useEffect(() => {
@@ -34,7 +37,7 @@ const ViewCourseMaterials: React.FC = () => {
                         <div key={material.name}>
                             <h3>{material.name}</h3>
                             <p>{material.dataText}</p>
-                            <button>Delete</button>
+                            <button onClick={handleDeleteClick}>Delete</button>
                         </div>
                     ))
                 ) : (

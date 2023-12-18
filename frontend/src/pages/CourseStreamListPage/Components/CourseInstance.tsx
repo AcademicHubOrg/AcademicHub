@@ -32,6 +32,13 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
         })
         navigate(`/viewCourseMaterials`); // write to context
     }
+    const handleDeleteClick = () => {
+        updateJsonData({
+            courseIDJSON: courseID
+        })
+        //call delete course stream endpoint
+    }
+
     return (
         <tr>
             <td style={cellStyle}>{courseID}</td>
@@ -42,6 +49,9 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
             </td>
             <td style={cellStyle}>
                 <button onClick={handleDetailsClick}>Details</button>
+            </td>
+            <td style={cellStyle}>
+                <button onClick={handleDeleteClick}>Details</button>
             </td>
         </tr>
     );
