@@ -16,6 +16,7 @@ services:
       - academic_hub_backend_vpn
 
   identity:
+    image: yaroslavkse/identity:latest
     build:
       context: .
       dockerfile: Identity/Identity/Dockerfile
@@ -29,6 +30,7 @@ services:
       - academic_hub_backend_vpn
       
   course-template:
+    image: yaroslavkse/course-template:latest
     build:
       context: .
       dockerfile: CourseTemplate/CourseTemplate/Dockerfile
@@ -42,6 +44,7 @@ services:
       - academic_hub_backend_vpn
   
   course-stream:
+    image: yaroslavkse/course-stream:latest
     build:
       context: .
       dockerfile: CourseStream/CourseStream/Dockerfile
@@ -55,6 +58,7 @@ services:
       - academic_hub_backend_vpn
   
   materials:
+    image: yaroslavkse/materials:latest
     build:
       context: .
       dockerfile: Materials/Materials/Dockerfile
@@ -68,6 +72,7 @@ services:
       - academic_hub_backend_vpn
   
   web:
+    image: yaroslavkse/web:latest
     build:
       context: ./frontend
       dockerfile: Dockerfile
