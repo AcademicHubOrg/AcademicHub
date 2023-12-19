@@ -194,4 +194,28 @@ public class MaterialService
         return result;
     }
     
+    public async Task DeleteMaterialAsync(int materialId)
+    {
+        var material = await _repository.GetAsync(materialId);
+
+        if (material == null)
+        {
+            throw new NotFoundException($"Material with ID: '{materialId}' not found");
+        }
+
+        await _repository.DeleteAsync(material);
+    }
+
+    public async Task DeleteEssentialMaterialAsync(int essentialId)
+    {
+        var essentialMaterial = await _repository.GetEssentialAsync(essentialId);
+
+        if (essentialMaterial == null)
+        {
+            throw new NotFoundException($"Essential material with ID: '{essentialId}' not found");
+        }
+
+        await _repository.DeleteEssentialAsync(essentialMaterial);
+    }
+    
 }

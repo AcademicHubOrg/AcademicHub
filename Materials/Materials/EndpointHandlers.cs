@@ -111,4 +111,30 @@ internal static class EndpointHandlers
 
 		return await service.ListByTemplateIdAsync(templateId.Value);
 	}
+	
+	public static async Task<object> DeleteMaterial([FromServices] MaterialService service, int materialId)
+	{
+		try
+		{
+			await service.DeleteMaterialAsync(materialId);
+			return new { Message = "Material deleted successfully." };
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+	}
+	
+	public static async Task<object> DeleteEssentialMaterial([FromServices] MaterialService service, int essentialId)
+	{
+		try
+		{
+			await service.DeleteEssentialMaterialAsync(essentialId);
+			return new { Message = "Essential material deleted successfully." };
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+	}
 }

@@ -56,7 +56,8 @@ app.MapGet("/materials/by-course/{courseId}", EndpointHandlers.GetMaterialsByCou
 app.MapGet("/materials/by-template/{templateId}", EndpointHandlers.GetMaterialsByTemplateId);
 app.MapPost("/materials/add", EndpointHandlers.AddMaterial);
 app.MapPost("/materials/add-essential", EndpointHandlers.AddEssentialMaterial);
-
+app.MapPost("/materials/delete/{materialId}", EndpointHandlers.DeleteMaterial);
+app.MapDelete("/materials/delete-essential/{essentialId}", EndpointHandlers.DeleteEssentialMaterial);
 // Apply EF Core Migrations
 using (var scope = app.Services.CreateScope())
 {
