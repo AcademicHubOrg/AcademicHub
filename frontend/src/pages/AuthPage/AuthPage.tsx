@@ -1,13 +1,18 @@
 import React from 'react';
-import {Addresses} from '../../api/Addresses';
+import LoginButton from "../../components/auth0Login";
+import Profile from "../../components/authProfile";
+import LogoutButton from "../../components/auth0Logout";
 
 const AuthPage: React.FC = () => {
-    const redirectToUrl = () => {
-        window.location.href = `${Addresses.AUTH}/login`; // Replace with your specific URL
-    };
+
 
     return (
-        <button onClick={redirectToUrl}>google auth</button>
+
+        <div>
+            <Profile></Profile>
+            <LoginButton></LoginButton>
+            <LogoutButton></LogoutButton>
+        </div>
     );
 };
 
