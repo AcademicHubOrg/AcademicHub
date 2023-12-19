@@ -3,6 +3,7 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 import CourseInstance from "./Components/CourseInstance";
 import { getCoursesList } from '../../api/coursesListService';
 
+
 // TypeScript interfaces for type checking
 interface Course {
     id: string;

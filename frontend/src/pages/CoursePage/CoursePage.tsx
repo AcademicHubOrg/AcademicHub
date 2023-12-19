@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { useEffect, useState } from 'react';
 import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
