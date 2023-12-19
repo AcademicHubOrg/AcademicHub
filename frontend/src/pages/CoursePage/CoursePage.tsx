@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
-import { getCourseMaterials } from '../../api/getCourseMaterialService';
+import { getCourseMaterials } from '../../api/getMaterialsService';
 import { useMyContext } from '../../MyContext';
 
 interface Course {

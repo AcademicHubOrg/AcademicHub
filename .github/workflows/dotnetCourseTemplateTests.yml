@@ -5,10 +5,12 @@ on:
     branches: [ "main" ]
     paths:
       - 'CourseTemplate/**'
+      - 'AcademicHub.Common/**'
   pull_request:
     branches: [ "main" ]
     paths:
       - 'CourseTemplate/**'
+      - 'AcademicHub.Common/**'
 
 jobs:
   build-and-test-courseTemplate:

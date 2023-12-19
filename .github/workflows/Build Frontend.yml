@@ -28,3 +28,20 @@ jobs:
     - name: Build
       run: npm run build
       working-directory: ./frontend 
+      
+    - name: Check for changes in Addresses.ts
+      id: check_changes
+      run: |
+        git fetch origin main
+        CHANGED=$(git diff --name-only origin/main..HEAD -- 'frontend/src/api/Addresses.ts')
+        if [ -z "$CHANGED" ]; then
+          echo "No changes in Addresses.ts"
+          echo "::set-output name=status::success"
+        else
+          echo "Changes detected in Addresses.ts"
+          echo "::set-output name=status::failure"
+        fi
+
+    - name: Set job status
+      if: steps.check_changes.outputs.status == 'failure'
+      run: exit 1

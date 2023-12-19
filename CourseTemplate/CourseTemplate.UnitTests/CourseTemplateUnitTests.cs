@@ -91,6 +91,20 @@ namespace CourseTemplate.UnitTests
             // Act and Assert
             await Assert.ThrowsAsync<NotFoundException>(() => _service.GetByIdAsync(1));
         }
+
+        [Fact]
+        public Task AcademicHubUrl_ShouldEqual_ExpectedValue()
+        {
+            // Arrange
+            var expected = "https://academichub.net/";
+
+            // Act
+            var actual = Address.academichuburl;
+
+            // Assert
+            Assert.Equal(expected, actual);
+            return Task.CompletedTask;
+        }
     }
 
     public class CourseTemplateTestData : IEnumerable<object[]>
