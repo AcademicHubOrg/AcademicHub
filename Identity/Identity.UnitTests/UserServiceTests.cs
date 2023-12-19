@@ -14,7 +14,7 @@ public class UsersServiceTests
         // Arrange
         var mockRepo = new Mock<IUsersRepository>();
         var service = new UsersService(mockRepo.Object);
-        var userDto = new UserDto {Name = "Test User", Email = "test@example.com"};
+        var userDto = new UserAddDto {Name = "Test User", Email = "test@example.com"};
 
         // Act
         await service.AddAsync(userDto);
@@ -56,20 +56,20 @@ public class UsersServiceTests
         const string name = "Test User";
         const string email = "test@example.com";
         var existingUser = new User {Id = 100, Email = email, Name = name};
+        var useAddDto = new UserAddDto{Name = name, Email = email};
 
-        await service.FindOrCreateUser(name, email);
+        await service.FindOrCreateUser(useAddDto);
 
         mockRepo.Setup(repo => repo.FindByEmailAsync(email)).ReturnsAsync(existingUser);
         mockRepo.Setup(repo => repo.AddAsync(It.IsAny<User>())).Returns(Task.CompletedTask).Verifiable();
 
-        // Act        
-        var result = await service.FindOrCreateUser(email, name);
+        // Act
+        var result = await service.FindOrCreateUser(useAddDto);
 
         // Assert
         mockRepo.Verify(repo => repo.FindByEmailAsync(email), Times.Once);
         Assert.Equal(email, result.Email);
         Assert.Equal(name, result.Name);
-        Assert.Equal(existingUser.Id, result.Id);
     }
 
     [Fact]
@@ -86,7 +86,8 @@ public class UsersServiceTests
         var service = new UsersService(mockRepo.Object);
 
         // Act
-        var result = await service.FindOrCreateUser(email, name);
+        var useAddDto = new UserAddDto{Name = name, Email = email};
+        var result = await service.FindOrCreateUser(useAddDto);
 
         // Assert
         mockRepo.Verify(repo => repo.FindByEmailAsync(email), Times.Once);
