@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import CourseStreamListPage from './pages/CourseStreamListPage/CourseStreamListPage';
-import AuthPage from './pages/AuthPage/AuthPage';
 import AddCourseTemplatePage from "./pages/AddCourseTemplatePage/AddCourseTemplatePage";
 import TopMenu from "./pages/TopMenu/TopMenu";
 import CourseTemplateListPage from "./pages/CourseTemplateListPage/CourseTemplateListPage";
@@ -13,6 +12,7 @@ import ViewCourseMaterials from "./pages/ViewCourseMaterialsPage/ViewCourseMater
 import ViewTemplateMaterials from "./pages/ViewTemplateMaterialsPage/ViewTemplateMaterials";
 import AddMaterialPage from "./pages/AddMaterialPage/AddMaterialPage";
 import AddEssentialMaterialPage from "./pages/AddEssentialMaterialPage/AddEssentialMaterialPage";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
     return (
@@ -20,7 +20,6 @@ function App() {
             <TopMenu />
             <Routes>
                 <Route path="/courselist" element={<CourseStreamListPage />} />
-                <Route path="/auth" element={<AuthPage />} />
                 <Route path="/template" element={<AddCourseTemplatePage />} />
                 <Route path="/templatelist" element={<CourseTemplateListPage />} />
                 <Route path="/course" element={<CoursePage />} />
@@ -30,6 +29,7 @@ function App() {
                 <Route path="/viewTemplateMaterials" element={<ViewTemplateMaterials />} />
                 <Route path="/addMaterial" element={<AddMaterialPage />} />
                 <Route path="/addEssentialMaterial" element={<AddEssentialMaterialPage />} />
+                <Route path="/" element={<HomePage />} />
             </Routes>
         </Router>
     );
