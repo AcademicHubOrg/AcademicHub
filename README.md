@@ -6,7 +6,7 @@ The course of Software Engineering Practices Project
 git clone https://github.com/AcademicHubOrg/AcademicHub.git
 ```
 
-## How to start working with the AcademicHub services(Identity, CourseTemplate, CourseStream and others)?
+## How to start working with the AcademicHub services?
 
 ## Infrastructure Setup
 
@@ -53,3 +53,10 @@ This command will build the image for the identity service and start it up in th
 > [!NOTE]
 > Always check that the postgres-container is up and running before starting any single service. 
 > Failing to do so will result in error on starting your service.
+
+
+## Ports mapping
+For more details, see the [Port Mapping documentation](./docs/Ports%20Mapping.md).
+
+## API documentation
+For API documentation, see the [API documentation](./docs/API.md).
