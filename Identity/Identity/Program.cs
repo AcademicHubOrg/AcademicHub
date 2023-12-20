@@ -1,9 +1,7 @@
 using CustomExceptions;
 using Identity;
-using Microsoft.AspNetCore.Authentication.Google;
 using Identity.Core;
 using Identity.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,23 +34,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Register authentication services
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-    })
-    .AddCookie(options =>
-    {
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.LoginPath = "/login"; // Specify the login path
-    })
-    .AddGoogle(googleOptions =>
-    {
-        googleOptions.ClientId = builder.Configuration["Auth:Google:ClientID"]!;
-        googleOptions.ClientSecret = builder.Configuration["Auth:Google:ClientSecret"]!;
-        googleOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    });
+
 
 // Register authorization services
 builder.Services.AddAuthorization();
@@ -77,24 +59,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-// app.UseSession();
-// Use Cookie Policy with Lax same-site policy
-app.UseCookiePolicy(new CookiePolicyOptions
-{
-    MinimumSameSitePolicy = SameSiteMode.Lax
-});
-
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/users/list", EndpointHandlers.ListOfUsers);
 app.MapPost("/users/add", EndpointHandlers.AddUser);
+app.MapPost("/users/login", EndpointHandlers.Login);
 app.MapPost("/users/makeAdmin", EndpointHandlers.MakeAdmin);
-app.MapGet("/login", EndpointHandlers.Login);
-app.MapGet("/after-signin", EndpointHandlers.AfterSignIn);
 
 // Apply EF Core Migrations
 using (var scope = app.Services.CreateScope())

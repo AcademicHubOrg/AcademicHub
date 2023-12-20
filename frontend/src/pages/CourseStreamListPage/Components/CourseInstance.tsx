@@ -45,13 +45,13 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
             <td style={cellStyle}>{templateId}</td>
             <td style={cellStyle}>{courseName}</td>
             <td style={cellStyle}>
-                <button onClick={handleMaterialsClick}>Materials</button>
+                <button onClick={handleMaterialsClick}>Edit Materials</button>
             </td>
             <td style={cellStyle}>
-                <button onClick={handleDetailsClick}>Details</button>
+                <button onClick={handleDetailsClick}>View Course</button>
             </td>
             <td style={cellStyle}>
-                <button onClick={handleDeleteClick}>Details</button>
+                <button onClick={handleDeleteClick}>Delete</button>
             </td>
         </tr>
     );
