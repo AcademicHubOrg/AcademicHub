@@ -44,10 +44,10 @@ const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId })
                 <button onClick={handleMaterialsClick}>Materials</button>
             </td>
             <td style={cellStyle}>
-                <button onClick={handleCreateClick}>Create course</button>
+                <button onClick={handleCreateClick}>New Stream</button>
             </td>
             <td style={cellStyle}>
-                <button onClick={handleDeleteClick}>Delete template</button>
+                <button onClick={handleDeleteClick}>Delete Template</button>
             </td>
         </tr>
     );

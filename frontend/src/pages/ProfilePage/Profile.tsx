@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
+import {useAuth0} from "@auth0/auth0-react";
 
 function ProfilePage() {
 
     const [inputText1, setInputText1] = useState('');
     const [inputText2, setInputText2] = useState('');
     const [displayedText, setDisplayedText] = useState('');
+    const { user, isAuthenticated, loginWithRedirect} = useAuth0();
 
+    if (!isAuthenticated || !user) {
+        loginWithRedirect()
+        return <div>Not authenticated</div>;
+    }
     const handleButtonClick = () => {
         setDisplayedText(`Name: ${inputText1}<br>Last name: ${inputText2}`);
     };

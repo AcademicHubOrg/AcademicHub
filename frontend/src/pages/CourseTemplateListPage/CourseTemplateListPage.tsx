@@ -2,6 +2,7 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 
 import TemplateInstance from "./Components/TemplateInstance";
 import { getCourseTemplates } from '../../api/templateListService';
+import {useAuth0} from "@auth0/auth0-react";
 
 const tableStyle: CSSProperties = {
     width: '100%',      // Makes the table full-width
@@ -18,13 +19,18 @@ interface CourseTemplate {
 
 const CourseTemplateListPage = () => {
     const [courseTemplates, setCourses] = useState<CourseTemplate[]>([]);
-
+    const { user, isAuthenticated, loginWithRedirect} = useAuth0();
     // Fetch data from the backend
     useEffect(() => {
         getCourseTemplates()
             .then(templates => setCourses(templates))
             .catch(error => console.error('Error fetching templates data: ', error));
     }, []);
+
+    if (!isAuthenticated || !user) {
+        loginWithRedirect()
+        return <div>Not authenticated</div>;
+    }
 
     return (
         <div>

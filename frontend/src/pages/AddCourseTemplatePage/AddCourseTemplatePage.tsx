@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { addCourseTemplate } from '../../api/addTemplateService';
+import {useAuth0} from "@auth0/auth0-react";
 
 function AddCourseTemplatePage() {
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
+    const { user, isAuthenticated, loginWithRedirect} = useAuth0();
+    if (!isAuthenticated || !user) {
+        loginWithRedirect()
+        return <div>Not authenticated</div>;
+    }
 
     // Function to handle the POST request
     const handleButtonClick = () => {

@@ -2,6 +2,7 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 
 import CourseInstance from "./Components/CourseInstance";
 import { getCoursesList } from '../../api/coursesListService';
+import {useAuth0} from "@auth0/auth0-react";
 
 // TypeScript interfaces for type checking
 interface Course {
@@ -19,13 +20,18 @@ const tableStyle: CSSProperties = {
 
 const CourseStreamListPage = () => {
     const [courses, setCourses] = useState<Course[]>([]);
-
+    const { user, isAuthenticated, loginWithRedirect} = useAuth0();
     // Fetch data from the backend
     useEffect(() => {
         getCoursesList()
             .then(courses => setCourses(courses))
             .catch(error => console.error('Error fetching courses data: ', error));
     }, []);
+
+    if (!isAuthenticated || !user) {
+        loginWithRedirect()
+        return <div>Not authenticated</div>;
+    }
 
     return (
         <div>
