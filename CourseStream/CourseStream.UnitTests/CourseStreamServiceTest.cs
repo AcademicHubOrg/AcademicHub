@@ -236,5 +236,20 @@ public class CourseStreamServiceTest
         mockRepo.Verify(r => r.GetByIdAsync(streamId), Times.Once);
         mockRepo.Verify(r => r.DeleteAsync(It.Is<Data.CourseStream>(c => c.Id == streamId)), Times.Once);
     }
+    
+    [Fact]
+    public async Task DeleteAsync_WhenCourseStreamNotFound_ThrowsNotFoundException()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
+
+        int streamId = 1;
+        mockRepo.Setup(r => r.GetByIdAsync(streamId)).ReturnsAsync((Data.CourseStream)null);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<NotFoundException>(async () =>
+            await service.DeleteCourseStreamAsync(streamId));
+    }
 
 }
