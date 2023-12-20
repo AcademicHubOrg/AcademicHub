@@ -11,7 +11,7 @@ const TopMenu: React.FC = () => {
 
     return (
         <div className="topMenu">
-            <button className={isActive('/home') ? 'active' : ''} onClick={() => navigate('/home')}>Home</button>
+            <button className={isActive('/') ? 'active' : ''} onClick={() => navigate('/')}>Home</button>
             <button className={isActive('/profile') ? 'active' : ''} onClick={() => navigate('/profile')}>Profile Page</button>
             <button className={isActive('/courselist') ? 'active' : ''} onClick={() => navigate('/courselist')}>Courses stream List</button>
             <button className={isActive('/templateList') ? 'active' : ''} onClick={() => navigate('/templateList')}>Courses template List</button>

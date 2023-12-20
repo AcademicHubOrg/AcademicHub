@@ -29,7 +29,7 @@ function App() {
                 <Route path="/viewTemplateMaterials" element={<ViewTemplateMaterials />} />
                 <Route path="/addMaterial" element={<AddMaterialPage />} />
                 <Route path="/addEssentialMaterial" element={<AddEssentialMaterialPage />} />
-                <Route path="/home" element={<HomePage />} />
+                <Route path="/" element={<HomePage />} />
             </Routes>
         </Router>
     );
