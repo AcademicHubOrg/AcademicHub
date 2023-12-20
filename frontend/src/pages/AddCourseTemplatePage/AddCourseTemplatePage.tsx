@@ -5,7 +5,12 @@ import {useAuth0} from "@auth0/auth0-react";
 function AddCourseTemplatePage() {
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
-    const { user, isAuthenticated, loginWithRedirect} = useAuth0();
+    const { user, isAuthenticated, isLoading, loginWithRedirect} = useAuth0();
+
+    if (isLoading) {
+        return <div>Loading ...</div>;
+    }
+
     if (!isAuthenticated || !user) {
         loginWithRedirect()
         return <div>Not authenticated</div>;

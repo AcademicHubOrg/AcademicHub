@@ -19,13 +19,17 @@ interface CourseTemplate {
 
 const CourseTemplateListPage = () => {
     const [courseTemplates, setCourses] = useState<CourseTemplate[]>([]);
-    const { user, isAuthenticated, loginWithRedirect} = useAuth0();
+    const { user, isAuthenticated, isLoading, loginWithRedirect} = useAuth0();
     // Fetch data from the backend
     useEffect(() => {
         getCourseTemplates()
             .then(templates => setCourses(templates))
             .catch(error => console.error('Error fetching templates data: ', error));
     }, []);
+
+    if (isLoading) {
+        return <div>Loading ...</div>;
+    }
 
     if (!isAuthenticated || !user) {
         loginWithRedirect()
