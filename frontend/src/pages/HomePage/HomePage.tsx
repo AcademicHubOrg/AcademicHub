@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Profile from "../../components/authProfile";
+import Profile from "../../auth0components/authProfile";
 
 function HomePage() {
     return (

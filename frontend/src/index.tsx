@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MyProvider } from './MyContext';
+import {Auth0Addresses} from "./auth0components/Auth0Addresses";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,8 +13,8 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <Auth0Provider
-            domain="dev-jwelisx6nixm5e0g.us.auth0.com"
-            clientId="jk5S9hWkgxu0eJwxfbRoPuwNnbzNHOIb"
+            domain={Auth0Addresses.AUTH0DOMAIN}
+            clientId={Auth0Addresses.AUTH0CLIENTID}
             authorizationParams={{
                 redirect_uri: window.location.origin
             }}

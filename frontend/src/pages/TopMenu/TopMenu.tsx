@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './TopMenu.css';
-import LogoutButton from "../../components/auth0Logout";
+import LogoutButton from "../../auth0components/auth0Logout";
 
 
 const TopMenu: React.FC = () => {

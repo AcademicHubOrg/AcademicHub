@@ -3,6 +3,7 @@ import React, {CSSProperties, useEffect, useState} from 'react';
 import TemplateInstance from "./Components/TemplateInstance";
 import { getCourseTemplates } from '../../api/templateListService';
 import {useAuth0} from "@auth0/auth0-react";
+import LoginButton from "../../auth0components/auth0Login";
 
 const tableStyle: CSSProperties = {
     width: '100%',      // Makes the table full-width
@@ -32,12 +33,11 @@ const CourseTemplateListPage = () => {
     }
 
     if (!isAuthenticated || !user) {
-        loginWithRedirect({
-            appState: {
-                returnTo: `${window.location.origin}${window.location.pathname}`
-            }
-        })
-        return <div>Not authenticated</div>;
+        return(
+            <div>
+                <p>You are not authenticated. Please login</p>
+                <LoginButton></LoginButton>
+            </div>);
     }
 
     return (

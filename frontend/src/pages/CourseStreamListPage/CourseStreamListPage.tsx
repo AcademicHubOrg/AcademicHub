@@ -2,6 +2,7 @@ import React, { CSSProperties, useEffect, useState } from 'react';
 import CourseInstance from "./Components/CourseInstance";
 import { getCoursesList } from '../../api/coursesListService';
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../../auth0components/auth0Login";
 
 // TypeScript interfaces for type checking
 interface Course {
@@ -32,12 +33,11 @@ const CourseStreamListPage = () => {
     }
 
     if (!isAuthenticated || !user) {
-        loginWithRedirect({
-            appState: {
-                returnTo: `${window.location.origin}${window.location.pathname}`
-            }
-        });
-        return <div>Redirecting for authentication...</div>;
+        return(
+            <div>
+                <p>You are not authenticated. Please login</p>
+                <LoginButton></LoginButton>
+            </div>);
     }
 
     return (

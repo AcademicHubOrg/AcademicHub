@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addCourseTemplate } from '../../api/addTemplateService';
 import {useAuth0} from "@auth0/auth0-react";
+import LoginButton from "../../auth0components/auth0Login";
 
 function AddCourseTemplatePage() {
     const [inputText, setInputText] = useState('');
@@ -12,12 +13,11 @@ function AddCourseTemplatePage() {
     }
 
     if (!isAuthenticated || !user) {
-        loginWithRedirect({
-            appState: {
-                returnTo: `${window.location.origin}${window.location.pathname}`
-            }
-        })
-        return <div>Not authenticated</div>;
+        return(
+            <div>
+                <p>You are not authenticated. Please login</p>
+                <LoginButton></LoginButton>
+            </div>);
     }
 
     // Function to handle the POST request
