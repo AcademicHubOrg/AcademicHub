@@ -3,6 +3,7 @@ using CourseStream.Data;
 using CustomExceptions;
 using Moq;
 
+
 namespace CourseStream.UnitTests;
 
 public class CourseStreamServiceTest
@@ -187,4 +188,29 @@ public class CourseStreamServiceTest
         Assert.Equal(expected, actual);
         return Task.CompletedTask;
     }
+    
+    [Fact]
+    public async Task DeleteAsync_CallsDeleteOnRepository_WithCourseStream()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
+
+        var courseId = 1;
+        var dbCourseStream = new Data.CourseStream
+        {
+            Id = courseId,
+            CourseName = "Test Course",
+            TemplateId = 101
+        };
+
+        mockRepo.Setup(r => r.GetByIdAsync(courseId)).ReturnsAsync(dbCourseStream);
+
+        // Act
+        await service.DeleteCourseStreamAsync(courseId);
+
+        // Assert
+        mockRepo.Verify(r => r.DeleteAsync(It.Is<Data.CourseStream>(c => c.Id == courseId)), Times.Once);
+    }
+    
 }
