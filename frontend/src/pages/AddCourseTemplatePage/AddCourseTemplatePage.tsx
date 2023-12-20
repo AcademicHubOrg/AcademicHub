@@ -6,7 +6,7 @@ import LoginButton from "../../auth0components/auth0Login";
 function AddCourseTemplatePage() {
     const [inputText, setInputText] = useState('');
     const [displayedText, setDisplayedText] = useState('');
-    const { user, isAuthenticated, isLoading, loginWithRedirect} = useAuth0();
+    const { user, isAuthenticated, isLoading} = useAuth0();
 
     if (isLoading) {
         return <div>Loading ...</div>;

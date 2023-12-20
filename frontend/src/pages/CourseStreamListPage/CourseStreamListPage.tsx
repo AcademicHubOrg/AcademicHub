@@ -20,7 +20,7 @@ const tableStyle: CSSProperties = {
 
 const CourseStreamListPage = () => {
     const [courses, setCourses] = useState<Course[]>([]);
-    const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+    const { user, isAuthenticated, isLoading} = useAuth0();
 
     useEffect(() => {
         getCoursesList()

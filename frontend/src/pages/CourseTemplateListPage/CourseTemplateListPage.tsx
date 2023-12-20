@@ -20,7 +20,7 @@ interface CourseTemplate {
 
 const CourseTemplateListPage = () => {
     const [courseTemplates, setCourses] = useState<CourseTemplate[]>([]);
-    const { user, isAuthenticated, isLoading, loginWithRedirect} = useAuth0();
+    const { user, isAuthenticated, isLoading} = useAuth0();
     // Fetch data from the backend
     useEffect(() => {
         getCourseTemplates()

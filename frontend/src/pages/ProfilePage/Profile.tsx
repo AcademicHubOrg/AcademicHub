@@ -7,7 +7,7 @@ function ProfilePage() {
     const [inputText1, setInputText1] = useState('');
     const [inputText2, setInputText2] = useState('');
     const [displayedText, setDisplayedText] = useState('');
-    const { user, isAuthenticated, isLoading , loginWithRedirect} = useAuth0();
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     if (isLoading) {
         return <div>Loading ...</div>;
