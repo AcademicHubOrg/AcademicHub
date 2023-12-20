@@ -13,7 +13,11 @@ function ProfilePage() {
     }
 
     if (!isAuthenticated || !user) {
-        loginWithRedirect()
+        loginWithRedirect({
+            appState: {
+                returnTo: `${window.location.origin}${window.location.pathname}`
+            }
+        })
         return <div>Not authenticated</div>;
     }
     const handleButtonClick = () => {

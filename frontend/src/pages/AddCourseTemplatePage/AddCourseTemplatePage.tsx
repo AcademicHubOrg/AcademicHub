@@ -12,7 +12,11 @@ function AddCourseTemplatePage() {
     }
 
     if (!isAuthenticated || !user) {
-        loginWithRedirect()
+        loginWithRedirect({
+            appState: {
+                returnTo: `${window.location.origin}${window.location.pathname}`
+            }
+        })
         return <div>Not authenticated</div>;
     }
 

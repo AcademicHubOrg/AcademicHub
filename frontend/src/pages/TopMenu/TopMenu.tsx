@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './TopMenu.css';
-import LoginButton from "../../components/auth0Login";
+import LogoutButton from "../../components/auth0Logout";
 
 
 const TopMenu: React.FC = () => {
@@ -16,7 +16,7 @@ const TopMenu: React.FC = () => {
             <button className={isActive('/courselist') ? 'active' : ''} onClick={() => navigate('/courselist')}>Courses stream List</button>
             <button className={isActive('/templateList') ? 'active' : ''} onClick={() => navigate('/templateList')}>Courses template List</button>
             <button className={isActive('/template') ? 'active' : ''} onClick={() => navigate('/template')}>Add Template</button>
-            <LoginButton></LoginButton>
+            <LogoutButton></LogoutButton>
         </div>
     );
 };
