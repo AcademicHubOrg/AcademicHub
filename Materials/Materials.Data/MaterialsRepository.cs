@@ -54,4 +54,32 @@ public class MaterialsRepository : IMaterialsRepository
         _context.EssentialMaterials.Remove(essentialMaterial);
         await _context.SaveChangesAsync();
     }
+    
+    
+    public async Task DeleteByCourseAsync(int courseId)
+    {
+        var materialsToDelete = await _context.Materials
+            .Where(material => material.CourseId == courseId)
+            .ToListAsync();
+
+        _context.Materials.RemoveRange(materialsToDelete);
+        await _context.SaveChangesAsync();
+    }      
+    
+    public async Task DeleteByTemplateAsync(int templateId)
+    {
+        var materialsToDelete = await _context.Materials
+            .Where(material => material.CourseId == templateId)
+            .ToListAsync();
+
+        _context.Materials.RemoveRange(materialsToDelete);
+    
+        var essentialsToDelete = await _context.EssentialMaterials
+            .Where(essential => essential.TemplateId == templateId)
+            .ToListAsync();
+
+        _context.EssentialMaterials.RemoveRange(essentialsToDelete);
+
+        await _context.SaveChangesAsync();
+    } 
 }

@@ -1,7 +1,7 @@
 using CourseStream.Core;
 using CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
-
+using CustomExceptions;
 
 namespace CourseStream;
 
@@ -46,5 +46,22 @@ internal static  class EndpointHandlers
 	{
 		var course = await service.GetByIdAsync(id);
 		return course;
+	}
+	
+	public static async Task<object> DeleteCourseStream([FromServices] CourseStreamService service, int streamId)
+	{
+		try
+		{
+			await service.DeleteCourseStreamAsync(streamId);
+			return new { Message = "Course stream and associated materials deleted successfully." };
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+		catch (Exception ex)
+		{
+			return new { Error = "An error occurred while processing the request." };
+		}
 	}
 }

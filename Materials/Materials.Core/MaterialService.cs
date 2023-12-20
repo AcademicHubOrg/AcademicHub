@@ -218,4 +218,12 @@ public class MaterialService
         await _repository.DeleteEssentialAsync(essentialMaterial);
     }
     
+    public async Task DeleteMaterialByCourseAsync(int сourseID)
+    {
+        await _repository.DeleteByCourseAsync(сourseID);
+    }
+    public async Task DeleteEssentialMaterialByTemplateId(int templateId)
+    {
+        await _repository.DeleteByTemplateAsync(templateId);
+    }
 }

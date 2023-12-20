@@ -10,4 +10,8 @@ public interface IMaterialsRepository
     Task DeleteAsync(MaterialData material);
     Task<EssentialMaterial> GetEssentialAsync(int essentialId);
     Task DeleteEssentialAsync(EssentialMaterial essentialMaterial);
+    Task DeleteByCourseAsync(int courseId);
+    Task DeleteByTemplateAsync(int templateId);
+    
+        
 }

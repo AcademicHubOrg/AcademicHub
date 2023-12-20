@@ -68,5 +68,10 @@ namespace CourseTemplate.Core
                 Id = courseTemplate.Id.ToString(),
             };
         }
+        
+        public async Task DeleteCourseAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
     }
 }

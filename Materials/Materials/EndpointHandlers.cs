@@ -1,5 +1,6 @@
 using Materials.Core;
 using Microsoft.AspNetCore.Mvc;
+using CustomExceptions;
 
 namespace Materials;
 
@@ -137,4 +138,31 @@ internal static class EndpointHandlers
 			return new { Error = ex.Message };
 		}
 	}
+    
+	public static async Task<object> DeleteMaterialByCourseId([FromServices] MaterialService service, int courseId)
+	{
+		try
+		{
+			await service.DeleteMaterialByCourseAsync(courseId);
+			return new { Message = "Material deleted successfully." };
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+	}
+
+	public static async Task<object> DeleteEssentialMaterialByTemplateId([FromServices] MaterialService service, int templateId)
+	{
+		try
+		{
+			await service.DeleteEssentialMaterialByTemplateId(templateId);
+			return new { Message = "Essential material deleted successfully." };
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+	}
+	
 }

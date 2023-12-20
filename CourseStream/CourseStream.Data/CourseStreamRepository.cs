@@ -41,10 +41,18 @@ public class CourseStreamRepository : ICourseStreamRepository
         return await _context.Enrollments
             .AnyAsync(e =>  e.CourseStreamId == courseStreamId && e.StudentId == studentId );
     }
+    
 
     public async Task<CourseStream?> GetByIdAsync(int id)
     {
         return await _context.CourseStreams.FindAsync(id);
     }
+    
+    
 
+    public async Task DeleteAsync(CourseStream courseStream)
+    {
+        _context.CourseStreams.Remove(courseStream);
+        await _context.SaveChangesAsync();
+    }
 }

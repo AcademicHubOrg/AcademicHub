@@ -1,5 +1,5 @@
 using CourseTemplate.Core;
-
+using CustomExceptions;
 namespace CourseTemplate;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,5 +31,22 @@ internal static class EndpointHandlers
 	{
 		var course = await service.GetByIdAsync(id);
 		return course;
+	}
+	
+	public static async Task<object> DeleteCourseTemplate([FromServices] CourseTemplateService service, int id)
+	{
+		try
+		{
+			await service.DeleteCourseAsync(id);
+			return new { Message = "Course template deleted successfully." };
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+		catch (Exception ex)
+		{
+			return new { Error = "An error occurred while deleting the course template." };
+		}
 	}
 }

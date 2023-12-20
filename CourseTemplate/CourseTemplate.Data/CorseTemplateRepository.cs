@@ -26,4 +26,17 @@ public class CourseTemplateRepository : ICourseTemplateRepository
 	{
 		return await _context.CourseTemplates.FindAsync(id);
 	}
+	
+	public async Task DeleteAsync(int id)
+	{
+		var courseTemplate = await _context.CourseTemplates.FindAsync(id);
+
+		if (courseTemplate != null)
+		{
+			
+			_context.CourseTemplates.Remove(courseTemplate);
+			
+			await _context.SaveChangesAsync();
+		}
+	}
 }
