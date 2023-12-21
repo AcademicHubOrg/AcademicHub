@@ -1,4 +1,7 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
+/*using CourseStream.Core;
+using CustomExceptions;
+using Microsoft.AspNetCore.Mvc;*/
 
 namespace CourseStream.Data;
 
@@ -55,4 +58,25 @@ public class CourseStreamRepository : ICourseStreamRepository
         _context.CourseStreams.Remove(courseStream);
         await _context.SaveChangesAsync();
     }
+    public async Task <List <int> > DeleteAllStreamsByTemplateId(int templateId )
+    {
+        var streamsToDelete = await _context.CourseStreams
+            .Where(CourseStream => CourseStream.TemplateId == templateId)
+            .ToListAsync();
+
+
+        List<int> streamsId = new List<int>();
+        
+        for (var i = 0; i < streamsToDelete.Count; i++)
+        {
+            streamsId.Add(streamsToDelete[i].Id);
+            
+        }
+        
+        _context.CourseStreams.RemoveRange(streamsToDelete);
+        await _context.SaveChangesAsync();
+        return streamsId;
+    }
+    
+    
 }

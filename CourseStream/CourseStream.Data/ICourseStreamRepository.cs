@@ -8,4 +8,7 @@ public interface ICourseStreamRepository
     Task<bool> IsStudentEnrolledAsync(int studentId, int courseStreamId);
     Task<CourseStream?> GetByIdAsync(int id);
     Task DeleteAsync(CourseStream courseStream);
+    
+    Task <List<int>> DeleteAllStreamsByTemplateId(int templateId);
+    
 }

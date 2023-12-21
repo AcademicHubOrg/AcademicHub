@@ -1,3 +1,4 @@
+
 using CourseStream.Core;
 using CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -48,13 +49,23 @@ internal static  class EndpointHandlers
 		return course;
 	}
 	
-	public static async Task<object> DeleteCourseStream([FromServices] CourseStreamService service, int streamId)
+	public static async Task<object> DeleteCourseStream([FromServices] CourseStreamService service,[FromServices]IHttpClientFactory httpClientFactory,  int streamId)
 	{
+		var client = httpClientFactory.CreateClient();
+		var response = await client.DeleteAsync("http://materials:80/materials/delete-by-course-id/" + streamId);
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new ArgumentException("Invalid data provided. Course Stream does not exist.");
+		}
+		
 		try
 		{
+			Console.WriteLine("pudge");
 			await service.DeleteCourseStreamAsync(streamId);
 			return new { Message = "Course stream and associated materials deleted successfully." };
 		}
+		
+		
 		catch (NotFoundException ex)
 		{
 			return new { Error = ex.Message };
@@ -64,4 +75,31 @@ internal static  class EndpointHandlers
 			return new { Error = "An error occurred while processing the request." };
 		}
 	}
+    
+	public static async Task<object> DeleteAllStreamsByTemplateId([FromServices] CourseStreamService service,[FromServices]IHttpClientFactory httpClientFactory, int id)
+	{
+		var client = httpClientFactory.CreateClient();
+		/*var response = await client.DeleteAsync("http://materials:80/materials/delete-by-course-id/" + id);#1#*/
+		/*if (!response.IsSuccessStatusCode)
+		{
+			throw new ArgumentException("Invalid data provided. Course Template does not exist.");
+		}*/
+
+		try
+		{
+			List<int> CourseStreams = await service.DeleteAllStreamsByTemplateId(id );
+			foreach (var i in CourseStreams)
+			{
+				var response = await client.DeleteAsync("http://materials:80/materials/delete-by-course-id/" + i);
+			}
+			return new { Message = "Essential material deleted successfully." };
+			
+			
+		}
+		catch (NotFoundException ex)
+		{
+			return new { Error = ex.Message };
+		}
+	}
+	
 }

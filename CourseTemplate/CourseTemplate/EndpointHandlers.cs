@@ -2,6 +2,8 @@ using CourseTemplate.Core;
 using CustomExceptions;
 namespace CourseTemplate;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 
 internal static class EndpointHandlers
 {
@@ -33,8 +35,16 @@ internal static class EndpointHandlers
 		return course;
 	}
 	
-	public static async Task<object> DeleteCourseTemplate([FromServices] CourseTemplateService service, int id)
+	public static async Task<object> DeleteCourseTemplate([FromServices] CourseTemplateService service,[FromServices]IHttpClientFactory httpClientFactory, int id)
 	{
+		
+		var client = httpClientFactory.CreateClient();
+		var response = await client.DeleteAsync("http://course-stream:80/courseStreams/delete/" + id);
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new ArgumentException("Invalid data provided. Course Stream does not exist.");
+		}
+		
 		try
 		{
 			await service.DeleteCourseAsync(id);
@@ -43,10 +53,11 @@ internal static class EndpointHandlers
 		catch (NotFoundException ex)
 		{
 			return new { Error = ex.Message };
-		}
+		}		
 		catch (Exception ex)
 		{
 			return new { Error = "An error occurred while deleting the course template." };
 		}
+		
 	}
 }

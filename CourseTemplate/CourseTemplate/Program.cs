@@ -13,7 +13,7 @@ builder.Services.AddDbContext<CourseTemplateDbContext>(options =>
 	options.UseNpgsql(connectionString));
 builder.Services.AddScoped<CourseTemplateService>();
 builder.Services.AddScoped<ICourseTemplateRepository, CourseTemplateRepository>();
-
+builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
@@ -60,6 +60,7 @@ app.MapGet("/courseTemplates/list", EndpointHandlers.ListOfCourseTemplates);
 app.MapPost("/courseTemplates/add", EndpointHandlers.AddCourse);
 app.MapGet("/courseTemplates/{id}", EndpointHandlers.GetCourseById);
 app.MapDelete("/courseDeleteTemplates/{id}", EndpointHandlers.DeleteCourseTemplate);
+
 // Apply EF Core Migrations
 using (var scope = app.Services.CreateScope())
 {

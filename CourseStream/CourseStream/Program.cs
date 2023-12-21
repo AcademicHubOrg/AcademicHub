@@ -56,7 +56,7 @@ app.MapGet("/courseStreams/{id}", EndpointHandlers.GetCourseStreamById);
 app.MapPost("/courseStreams/add", EndpointHandlers.AddCourse);
 app.MapPost("courseStreams/enroll", EndpointHandlers.EnrollStudent);
 app.MapDelete("/courseStreams/delete/{streamId}", EndpointHandlers.DeleteCourseStream);
-
+app.MapDelete("/courseStreams/delete-all-by/{streamTemplateId}", EndpointHandlers.DeleteAllStreamsByTemplateId); 
 
 // Apply EF Core Migrations
 

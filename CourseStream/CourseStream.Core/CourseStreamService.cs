@@ -100,4 +100,9 @@ public class CourseStreamService
 		await _repository.DeleteAsync(courseStream);
 	}
 	
+	public async Task<List<int>> DeleteAllStreamsByTemplateId(int templateId )
+	{
+		
+		return await _repository.DeleteAllStreamsByTemplateId(templateId );
+	}
 }
