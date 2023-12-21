@@ -19,7 +19,7 @@ internal static class EndpointHandlers
 	public static async Task<object> ListOfEssentialMaterials([FromServices] MaterialService service)
 	{
 		var result = await service.ListEssentialsAsync();
-		return new { Data = result };
+		return new Response<List<MaterialDataDtoShow>> {IsSuccess = true, Data = result};
 	}
     
 	public static async Task<object> AddMaterial([FromServices] MaterialService service, [FromServices]IHttpClientFactory httpClientFactory , MaterialDataDtoAdd material)
@@ -45,7 +45,7 @@ internal static class EndpointHandlers
     	}
     
     	await service.AddAsync(material);
-    	return new { Message = "Material added successfully." };
+	    return new Response<string> {IsSuccess = true, Data = "Material added successfully."};
     }
 
 	public static async Task<object> AddEssentialMaterial([FromServices] MaterialService service, [FromServices]IHttpClientFactory httpClientFactory , MaterialDataDtoAdd material)
@@ -71,7 +71,7 @@ internal static class EndpointHandlers
 		}
 
 		await service.AddEssentialAsync(material);
-		return new { Message = "Material added successfully." };
+		return new Response<string> {IsSuccess = true, Data = "Material added successfully."};
 	}
     
 	public static async Task<object> GetMaterialById([FromServices] MaterialService service, int? materialId)
@@ -80,7 +80,8 @@ internal static class EndpointHandlers
     	{
     		throw new ArgumentException("Invalid data provided. Material Id is required.");
     	}
-    	return await service.ListByIdAsync(materialId.Value);
+    	var result = await service.ListByIdAsync(materialId.Value);
+	    return new Response<List<MaterialShowData>> {IsSuccess = true, Data = result};
     }
 
 	public static async Task<object> GetEssentialMaterialById([FromServices] MaterialService service, int? essentialId)
@@ -89,7 +90,8 @@ internal static class EndpointHandlers
 		{
 			throw new ArgumentException("Invalid data provided. Material Id is required.");
 		}
-		return await service.ListEssentialsByIdAsync(essentialId.Value);
+		var result = await service.ListEssentialsByIdAsync(essentialId.Value);
+		return new Response<List<MaterialShowData>> {IsSuccess = true, Data = result};
 	}
     
 	public static async Task<object> GetMaterialsByCourseId([FromServices] MaterialService service, int? courseId)
@@ -99,7 +101,8 @@ internal static class EndpointHandlers
     		throw new ArgumentException("Invalid data provided. Course Id is required.");
     	}
     
-    	return await service.ListByCourseIdAsync(courseId.Value);
+    	var result = await service.ListByCourseIdAsync(courseId.Value);
+	    return new Response<List<MaterialShowData>> {IsSuccess = true, Data = result};
     }
 
 	public static async Task<object> GetMaterialsByTemplateId([FromServices] MaterialService service, int? templateId)
@@ -109,6 +112,7 @@ internal static class EndpointHandlers
 			throw new ArgumentException("Invalid data provided. Course Id is required.");
 		}
 
-		return await service.ListByTemplateIdAsync(templateId.Value);
+		var result = await service.ListByTemplateIdAsync(templateId.Value);
+		return new Response<List<MaterialShowData>> {IsSuccess = true, Data = result};
 	}
 }

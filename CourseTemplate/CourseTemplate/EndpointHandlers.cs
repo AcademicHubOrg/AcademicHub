@@ -13,7 +13,7 @@ internal static class EndpointHandlers
 	public static async Task<object> ListOfCourseTemplates([FromServices] CourseTemplateService service)
 	{
 		var result = await service.ListAsync();
-		return new { Data = result };
+		return new Response<List<ViewCourseTemplateDto>> {IsSuccess = true, Data = result};
 	}
 
 	public static async Task<object> AddCourse([FromServices] CourseTemplateService service, CreateCourseTemplateDto courseTemplate)
@@ -24,12 +24,12 @@ internal static class EndpointHandlers
 		}
 
 		await service.AddAsync(courseTemplate);
-		return new { Message = "Course added successfully." };
+		return new Response<string> {IsSuccess = true, Data = "Course added successfully."};
 	}
 
 	public static async Task<object> GetCourseById([FromServices] CourseTemplateService service, int id)
 	{
 		var course = await service.GetByIdAsync(id);
-		return course;
+		return new Response<ViewCourseTemplateDto> {IsSuccess = true, Data = course};
 	}
 }
