@@ -1,8 +1,17 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./auth0Login";
+import {useEffect} from "react";
+import {loginService} from "../api/loginService";
 
 const Profile = () => {
     const { user, isAuthenticated, isLoading} = useAuth0();
+
+    useEffect(() => {
+        if (isAuthenticated && user && user.name && user.email) {
+            loginService(user.name, user.email)
+                .catch(error => console.error('POST request failed: ', error));
+        }
+    }, [isAuthenticated, user]);
 
     if (isLoading) {
         return <div>Loading ...</div>;
