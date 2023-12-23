@@ -3,9 +3,6 @@ import CourseDetails from "./Components/CourseDetails";
 import { getCourseDetails } from '../../api/courseService';
 import { getCourseMaterials } from '../../api/getMaterialsService';
 import { useMyContext } from '../../MyContext';
-import {useAuth0} from "@auth0/auth0-react";
-import LoginButton from "../../auth0components/auth0Login";
-import {addCourseTemplate} from "../../api/addTemplateService";
 
 interface Course {
     id: string;

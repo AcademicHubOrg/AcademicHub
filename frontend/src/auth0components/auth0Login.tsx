@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import {loginService} from "../api/loginService";
-import React, {useEffect} from "react";
+import React from "react";
 
 const LoginButton = () => {
     const {loginWithRedirect} = useAuth0();
