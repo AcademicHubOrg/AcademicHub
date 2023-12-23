@@ -1,4 +1,4 @@
-//AcademicHub Application
+//AcademicHub Deploy
 
 enum Auth0Addresses{
     AUTH0DOMAIN = "dev-jwelisx6nixm5e0g.us.auth0.com",
@@ -7,7 +7,7 @@ enum Auth0Addresses{
 export {Auth0Addresses};
 
 
-//AcademicHubLocal Application
+//AcademicHub Local
 
 // enum Auth0Addresses{
 //     AUTH0DOMAIN = "dev-jwelisx6nixm5e0g.us.auth0.com",

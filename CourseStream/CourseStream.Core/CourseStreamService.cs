@@ -19,6 +19,13 @@ public class CourseStreamAddDto
 	public int TemplateId { get; set; }
 }
 
+public class EnrollmentShowDto
+{
+	public string Id { get; set; } = null!;
+	public string StudentId { get; set; } = null!;
+	public string CourseStreamId { get; set; } = null!;
+}
+
 
 public class CourseStreamService
 {
@@ -70,6 +77,23 @@ public class CourseStreamService
 		}
 		return result;
 	}
+
+	public async Task<List<EnrollmentShowDto>> GetEnrollments(int courseId)
+	{
+		var result = new List<EnrollmentShowDto>();
+		var dbCourseEnrollments = await _repository.GetEnrollments(courseId);
+		foreach (var enrollment in dbCourseEnrollments)
+		{
+			result.Add(new EnrollmentShowDto()
+			{
+				Id = enrollment.Id.ToString(),
+				StudentId = enrollment.StudentId.ToString(),
+				CourseStreamId = enrollment.CourseStreamId.ToString()
+			});
+		}
+		return result;
+	}
+
 
 	public async Task<CourseStreamShowDto> GetByIdAsync(int id)
 	{

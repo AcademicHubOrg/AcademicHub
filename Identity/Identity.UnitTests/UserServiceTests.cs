@@ -143,4 +143,24 @@ public class UsersServiceTests
         Assert.Equal(expected, actual);
         return Task.CompletedTask;
     }
+
+    [Fact]
+    public async Task GetByEmailAsync_ReturnsCorrectUserDto_WhenUserExists()
+    {
+        // Arrange
+        var mockRepo = new Mock<IUsersRepository>();
+        var service = new UsersService(mockRepo.Object);
+        const string email = "existing@example.com";
+        var user = new User { Id = 1, Email = email, Name = "Existing User" };
+        mockRepo.Setup(repo => repo.FindByEmailAsync(email)).ReturnsAsync(user);
+
+        // Act
+        var result = await service.GetByEmailAsync(email);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(user.Email, result.Email);
+        Assert.Equal(user.Name, result.Name);
+        Assert.Equal(user.Id, result.Id);
+    }
 }

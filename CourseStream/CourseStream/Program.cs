@@ -53,9 +53,9 @@ app.UseMiddleware<CustomErrorHandlingMiddleware>();
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/courseStreams/list", EndpointHandlers.ListOfCourseStreams);
 app.MapGet("/courseStreams/{id}", EndpointHandlers.GetCourseStreamById);
+app.MapPost("courseStreams/checkEnrollments/{id}", EndpointHandlers.CheckEnrollments);
 app.MapPost("/courseStreams/add", EndpointHandlers.AddCourse);
 app.MapPost("courseStreams/enroll", EndpointHandlers.EnrollStudent);
-
 // Apply EF Core Migrations
 
 using (var scope = app.Services.CreateScope())

@@ -66,4 +66,10 @@ internal static class EndpointHandlers
         await service.MakeAdminAsync(email, password);
         return new {Message = "Admin assigned successfully."};
     }
+    public static async Task<object> GetByEmail([FromServices] UsersService service, string email)
+    {
+        var user = await service.GetByEmailAsync(email);
+        return user;
+    }
+
 }

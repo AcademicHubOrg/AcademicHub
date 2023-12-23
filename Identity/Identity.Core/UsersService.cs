@@ -1,5 +1,4 @@
 ﻿using Identity.Data;
-
 namespace Identity.Core;
 
 public class UserShowDto
@@ -71,5 +70,16 @@ public class UsersService
         }
 
         await _repository.ChangeUserAsync(email);
+    }
+
+    public async Task<UserShowDto> GetByEmailAsync(string email)
+    {
+        var user = await _repository.FindByEmailAsync(email);
+        return new UserShowDto()
+        {
+            Email = user.Email,
+            Name = user.Name,
+            Id = user.Id,
+        };
     }
 }

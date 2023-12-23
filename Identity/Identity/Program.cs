@@ -63,6 +63,7 @@ app.UseMiddleware<CustomErrorHandlingMiddleware>();
 
 app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/users/list", EndpointHandlers.ListOfUsers);
+app.MapGet("/users/get-by-email/{email}", EndpointHandlers.GetByEmail);
 app.MapPost("/users/add", EndpointHandlers.AddUser);
 app.MapPost("/users/login", EndpointHandlers.Login);
 app.MapPost("/users/makeAdmin", EndpointHandlers.MakeAdmin);

@@ -19,6 +19,12 @@ internal static  class EndpointHandlers
 		return new { Data = result };
 	}
 
+	public static async Task<object> CheckEnrollments([FromServices] CourseStreamService service, int courseId)
+	{
+		var result = await service.GetEnrollments(courseId);
+		return new { Data = result };
+	}
+
 	public static async Task<object> AddCourse([FromServices] CourseStreamService service, [FromServices]IHttpClientFactory httpClientFactory , CourseStreamAddDto courseStream)
 	{
 		var client = httpClientFactory.CreateClient();
@@ -38,9 +44,17 @@ internal static  class EndpointHandlers
 	
 	public static async Task<object> EnrollStudent([FromServices] CourseStreamService service, int studentId, int courseStreamId)
 	{
-		await service.EnrollStudentAsync(studentId, courseStreamId);
-		return new { Message = "Enrolment successful." };
+		try
+		{
+			await service.EnrollStudentAsync(studentId, courseStreamId);
+			return new { Message = "Enrollment successful." };
+		}
+		catch (ConflictException ex)
+		{
+			return new { Message = ex.Message };
+		}
 	}
+
 
 	public static async Task<object> GetCourseStreamById([FromServices] CourseStreamService service, int id)
 	{
