@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Identity.Data;
 
@@ -10,6 +11,19 @@ public class IdentityDbContext : DbContext
         : base(options)
     {
     }
+    
+    // Design factory for migrations
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
+    {
+        public IdentityDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
+            optionsBuilder.UseNpgsql("Host=postgres; Database=Identity; User Id=identityuser; Password=identityuser; Port=5432");
+
+            return new IdentityDbContext(optionsBuilder.Options);
+        }
+    }
+
 }
 
 public class User
