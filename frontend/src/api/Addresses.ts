@@ -1,5 +1,5 @@
 enum Addresses{
-    AUTH = "https://academichub.net/auth",
+    AUTH = "https://academichub.net/users",
     COURSESTREAMS = "https://academichub.net/coursestreams",
     COURSETEMPLATES = "https://academichub.net/coursetemplates",
     MATERIALS = "https://academichub.net/materials"
