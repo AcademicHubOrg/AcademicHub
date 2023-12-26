@@ -84,7 +84,7 @@ internal static  class EndpointHandlers
 		{
 			throw new ArgumentException("Invalid data provided. Course Template does not exist.");
 		}*/
-
+	
 		try
 		{
 			List<int> CourseStreams = await service.DeleteAllStreamsByTemplateId(id );

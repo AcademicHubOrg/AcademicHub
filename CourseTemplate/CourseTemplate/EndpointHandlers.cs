@@ -39,10 +39,19 @@ internal static class EndpointHandlers
 	{
 		
 		var client = httpClientFactory.CreateClient();
-		var response = await client.DeleteAsync("http://course-stream:80/courseStreams/delete/" + id);
+		//var link = "http://course-stream:80/courseStreams/delete-all-by/" + id;
+		var link = "http://course-stream:80/courseStreams/delete-all-by/{streamTemplateId}?id=" + id;
+		var link2 = "http://materials:80/materials/delete-by-template-id/" + id;
+		//courseStreams/delete-all-by/{streamTemplateId}?id=1
+		var response = await client.DeleteAsync(link);
+		var response2 = await client.DeleteAsync(link2);
 		if (!response.IsSuccessStatusCode)
 		{
-			throw new ArgumentException("Invalid data provided. Course Stream does not exist.");
+			throw new ArgumentException("Invalid data provided. Course Template does not exist. " + link);
+		}
+		if (!response2.IsSuccessStatusCode)
+		{
+			throw new ArgumentException("Invalid data provided" + link);
 		}
 		
 		try
@@ -60,4 +69,6 @@ internal static class EndpointHandlers
 		}
 		
 	}
+	
+	
 }

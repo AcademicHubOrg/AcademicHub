@@ -68,12 +68,6 @@ public class MaterialsRepository : IMaterialsRepository
     
     public async Task DeleteByTemplateAsync(int templateId)
     {
-        var materialsToDelete = await _context.Materials
-            .Where(material => material.CourseId == templateId)
-            .ToListAsync();
-
-        _context.Materials.RemoveRange(materialsToDelete);
-    
         var essentialsToDelete = await _context.EssentialMaterials
             .Where(essential => essential.TemplateId == templateId)
             .ToListAsync();
