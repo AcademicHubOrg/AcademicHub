@@ -59,7 +59,7 @@ app.MapGet("/healthz", EndpointHandlers.HealthCheck);
 app.MapGet("/courseTemplates/list", EndpointHandlers.ListOfCourseTemplates);
 app.MapPost("/courseTemplates/add", EndpointHandlers.AddCourse);
 app.MapGet("/courseTemplates/{id}", EndpointHandlers.GetCourseById);
-app.MapDelete("/courseDeleteTemplates/{id}", EndpointHandlers.DeleteCourseTemplate);
+app.MapDelete("/courseTemplates/delete/{id}", EndpointHandlers.DeleteCourseTemplate);
 
 // Apply EF Core Migrations
 using (var scope = app.Services.CreateScope())

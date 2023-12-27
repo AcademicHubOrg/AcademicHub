@@ -22,6 +22,10 @@ const CourseStreamListPage = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const { user, isAuthenticated, isLoading} = useAuth0();
 
+    const removeCourseFromList = (courseId: string) => {
+        setCourses(prevCourses => prevCourses.filter(course => course.id !== courseId));
+    };
+
     useEffect(() => {
         getCoursesList()
             .then(courses => setCourses(courses))
@@ -56,7 +60,7 @@ const CourseStreamListPage = () => {
                 </thead>
                 <tbody>
                 {courses.map(course => (
-                    <CourseInstance key={course.id} courseName={course.name} courseID={course.id} templateId={course.templateId}/>
+                    <CourseInstance key={course.id} courseName={course.name} courseID={course.id} templateId={course.templateId} onDelete={removeCourseFromList}/>
                 ))}
                 </tbody>
             </table>
