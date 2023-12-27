@@ -5,30 +5,27 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MyProvider } from './MyContext';
-import {Auth0Addresses} from "./auth0components/Auth0Addresses";
+import { Auth0Addresses } from "./auth0components/Auth0Addresses";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <React.StrictMode>
-        <Auth0Provider
-            domain={Auth0Addresses.AUTH0DOMAIN}
-            clientId={Auth0Addresses.AUTH0CLIENTID}
-            authorizationParams={{
-                redirect_uri: window.location.origin
-            }}
-        >
-            <MyProvider>
-                <App></App>
-            </MyProvider>
-        </Auth0Provider>
-    </React.StrictMode>
+    <Auth0Provider
+        domain={Auth0Addresses.AUTH0DOMAIN}
+        clientId={Auth0Addresses.AUTH0CLIENTID}
+        authorizationParams={{
+            redirect_uri: window.location.origin
+        }}
+    >
+        <MyProvider>
+            <App />
+        </MyProvider>
+    </Auth0Provider>
 );
-
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
