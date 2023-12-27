@@ -7,5 +7,9 @@ export const deleteCourseStream = async (courseId: string) => {
             'Accept': 'application/json'
         }
     });
-    return await response.json();
+    const data = response.json();
+    if(response.ok){
+        console.log('Course stream deleted successfully');
+    }
+    return data;
 };

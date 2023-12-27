@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
 import { useMyContext } from '../../../MyContext';
+import {deleteTemplate} from "../../../api/deleteTemplate";
 
 const cellStyle: CSSProperties = {
     border: '1px solid black',
@@ -12,9 +13,10 @@ const cellStyle: CSSProperties = {
 interface TemplateProps {
     templateName: string;
     templateId: string;
+    onDelete: (templateId: string) => void;
 }
 
-const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId }) => {
+const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId, onDelete }) => {
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
@@ -34,11 +36,8 @@ const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId })
         navigate(`/viewTemplateMaterials`);
     }
     const handleDeleteClick = () => {
-        updateJsonData({
-            templateIDJSON: templateId,
-            loggedIn: jsonData.loggedIn
-        })
-        //call delete template endpoint
+        deleteTemplate(templateId);
+        onDelete(templateId);
     }
     return (
         <tr>

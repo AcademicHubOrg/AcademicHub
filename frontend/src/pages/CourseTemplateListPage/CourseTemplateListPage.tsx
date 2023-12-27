@@ -21,6 +21,10 @@ interface CourseTemplate {
 const CourseTemplateListPage = () => {
     const [courseTemplates, setCourses] = useState<CourseTemplate[]>([]);
     const { user, isAuthenticated, isLoading} = useAuth0();
+
+    const removeTemplateFromList = (templateId: string) => {
+        setCourses(prevCourses => prevCourses.filter(template => template.id !== templateId));
+    };
     // Fetch data from the backend
     useEffect(() => {
         getCourseTemplates()
@@ -57,7 +61,7 @@ const CourseTemplateListPage = () => {
                 </thead>
                 <tbody>
                 {courseTemplates.map(course => (
-                    <TemplateInstance key={course.id} templateName={course.name} templateId={course.id}/>
+                    <TemplateInstance key={course.id} templateName={course.name} templateId={course.id} onDelete={removeTemplateFromList}/>
                 ))}
                 </tbody>
             </table>

@@ -7,5 +7,9 @@ export const deleteTemplate = async (templateId: string) => {
             'Accept': 'application/json'
         }
     });
-    return await response.json();
+    const data = response.json();
+    if(response.ok){
+        console.log('Template deleted successfully');
+    }
+    return data;
 };
