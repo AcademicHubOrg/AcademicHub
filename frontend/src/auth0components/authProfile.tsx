@@ -2,14 +2,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./auth0Login";
 import {useEffect} from "react";
 import {loginService} from "../api/loginService";
+import { useMyContext} from "../MyContext";
 
 const Profile = () => {
     const { user, isAuthenticated, isLoading} = useAuth0();
+    const { updateJsonData } = useMyContext();
+    const { jsonData } = useMyContext();
 
     useEffect(() => {
-        if (isAuthenticated && user && user.name && user.email) {
-            loginService(user.name, user.email)
-                .catch(error => console.error('POST request failed: ', error));
+        if (!jsonData.loggedIn) {
+            if (isAuthenticated && user && user.name && user.email) {
+                loginService(user.name, user.email)
+                    .catch(error => console.error('POST request failed: ', error));
+                updateJsonData({
+                    loggedIn: true
+                })
+            }
         }
     }, [isAuthenticated, user]);
 
