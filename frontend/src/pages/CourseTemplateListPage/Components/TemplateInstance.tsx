@@ -36,9 +36,18 @@ const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId, o
         navigate(`/viewTemplateMaterials`);
     }
     const handleDeleteClick = () => {
-        deleteTemplate(templateId);
-        onDelete(templateId);
+        if (window.confirm(`Are you sure you want to delete ${templateName}?`)) {
+            deleteTemplate(templateId)
+                .then(() => {
+                    onDelete(templateId);
+                })
+                .catch(error => {
+                    console.error('Error deleting the template:', error);
+                });
+        }
     }
+
+
     return (
         <tr>
             <td style={cellStyle}>{templateId}</td>

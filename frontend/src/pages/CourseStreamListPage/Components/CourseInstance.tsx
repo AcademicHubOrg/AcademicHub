@@ -22,6 +22,7 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
     const { jsonData } = useMyContext();
+
     const handleDetailsClick = () => {
         updateJsonData({
             courseIDJSON: courseID,
@@ -30,6 +31,7 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
         })
         navigate(`/course`); // write to context
     }
+
     const handleMaterialsClick = () => {
         updateJsonData({
             courseIDJSON: courseID,
@@ -37,9 +39,17 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
         })
         navigate(`/viewCourseMaterials`); // write to context
     }
+
     const handleDeleteClick = () => {
-        deleteCourseStream(courseID);
-        onDelete(courseID);
+        if (window.confirm(`Are you sure you want to delete the course: ${courseName}?`)) {
+            deleteCourseStream(courseID)
+                .then(() => {
+                    onDelete(courseID);
+                })
+                .catch(error => {
+                    console.error('Error deleting the course stream:', error);
+                });
+        }
     }
 
     return (
