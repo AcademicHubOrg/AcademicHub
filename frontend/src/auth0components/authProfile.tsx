@@ -19,7 +19,7 @@ const Profile = () => {
                 })
             }
         }
-    }, [isAuthenticated, user]);
+    }, [isAuthenticated, user, jsonData.loggedIn, updateJsonData]);
 
     if (isLoading) {
         return <div>Loading ...</div>;
