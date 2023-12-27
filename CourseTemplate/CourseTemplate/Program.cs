@@ -10,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Configure your DbContext
 builder.Services.AddDbContext<CourseTemplateDbContext>(options =>
-	options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionString));
 builder.Services.AddScoped<CourseTemplateService>();
 builder.Services.AddScoped<ICourseTemplateRepository, CourseTemplateRepository>();
 builder.Services.AddHttpClient();
@@ -27,13 +27,13 @@ builder.Services.AddLogging();
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowSpecificOrigin",
-		corsPolicyBuilder =>
-		{
-			corsPolicyBuilder.WithOrigins(Address.academichuburl) // Replace with the actual origin of your frontend
-				.AllowAnyHeader()
-				.AllowAnyMethod();
-		});
+    options.AddPolicy("AllowSpecificOrigin",
+        corsPolicyBuilder =>
+        {
+            corsPolicyBuilder.WithOrigins(Address.academichuburl) // Replace with the actual origin of your frontend
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 
 var app = builder.Build();
@@ -46,8 +46,8 @@ app.UseCors("AllowSpecificOrigin");
 // StatusCodePages Middleware
 app.UseStatusCodePages(context =>
 {
-	context.HttpContext.Response.ContentType = "application/json";
-	return context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
+    context.HttpContext.Response.ContentType = "application/json";
+    return context.HttpContext.Response.WriteAsJsonAsync(new { ErrorMessage = "An unexpected error occurred." });
 });
 
 app.UseRouting(); // This must come before UseAuthentication and UseAuthorization
@@ -64,8 +64,8 @@ app.MapDelete("/courseDeleteTemplates/{id}", EndpointHandlers.DeleteCourseTempla
 // Apply EF Core Migrations
 using (var scope = app.Services.CreateScope())
 {
-	var dbContext = scope.ServiceProvider.GetRequiredService<CourseTemplateDbContext>();
-	dbContext.Database.Migrate();
+    var dbContext = scope.ServiceProvider.GetRequiredService<CourseTemplateDbContext>();
+    dbContext.Database.Migrate();
 }
 
 app.Run();

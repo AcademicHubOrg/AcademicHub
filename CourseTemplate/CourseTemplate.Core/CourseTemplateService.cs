@@ -17,7 +17,7 @@ namespace CourseTemplate.Core
     public class CourseTemplateService
     {
         private readonly ICourseTemplateRepository _repository;
-        
+
         public CourseTemplateService(ICourseTemplateRepository repository)
         {
             _repository = repository;
@@ -52,6 +52,7 @@ namespace CourseTemplate.Core
                     Id = courseTemplate.Id.ToString(),
                 });
             }
+
             return result;
         }
 
@@ -62,13 +63,14 @@ namespace CourseTemplate.Core
             {
                 throw new NotFoundException($"Course with ID '{id}'");
             }
+
             return new ViewCourseTemplateDto()
             {
                 Name = courseTemplate.CourseName,
                 Id = courseTemplate.Id.ToString(),
             };
         }
-        
+
         public async Task DeleteCourseAsync(int id)
         {
             await _repository.DeleteAsync(id);

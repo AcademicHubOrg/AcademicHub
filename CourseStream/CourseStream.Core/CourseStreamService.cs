@@ -1,9 +1,8 @@
-﻿using System.Security.Cryptography;
-using CustomExceptions;
+﻿using CustomExceptions;
 
 namespace CourseStream.Core;
 
-using CourseStream.Data;
+using Data;
 
 
 public class CourseStreamShowDto
