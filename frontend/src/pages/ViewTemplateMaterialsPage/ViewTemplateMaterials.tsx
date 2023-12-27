@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getTemplateMaterials } from '../../api/getMaterialsService';
 import { useMyContext } from '../../MyContext';
 import {useNavigate} from "react-router-dom";
+import {deleteEssentialMaterial} from "../../api/deleteEssentialMaterial";
 
 interface Material {
+    id: string;
     name: string;
     dataText: string;
 }
@@ -14,12 +16,28 @@ const ViewTemplateMaterials: React.FC = () => {
     const { jsonData } = useMyContext();
     const templateId = jsonData.templateIDJSON;
     const navigate = useNavigate();
+
+    const removeMaterialFromList = (id: string) => {
+        setMaterials(prevMaterials => prevMaterials.filter(material => material.id !== id));
+    };
+
     const handleMaterialsClick = () => {
         navigate(`/addEssentialMaterial`);
     }
-    const handleDeleteClick = () => {
-        //call delete material endpoint
+    const handleDeleteClick = (material: Material) => {
+        return () => {
+            if (window.confirm(`Are you sure you want to delete material: "${material.name}"?`)) {
+                deleteEssentialMaterial(material.id)
+                    .then(() => {
+                        removeMaterialFromList(material.id);
+                    })
+                    .catch(error => {
+                        console.error('Error deleting the material:', error);
+                    });
+            }
+        };
     }
+
     // Fetch data from the backend
     useEffect(() => {
         getTemplateMaterials(templateId as string)
@@ -36,7 +54,7 @@ const ViewTemplateMaterials: React.FC = () => {
                         <div key={material.name}>
                             <h3>{material.name}</h3>
                             <p>{material.dataText}</p>
-                            <button onClick={handleDeleteClick}>Delete</button>
+                            <button onClick={handleDeleteClick(material)}>Delete</button>
                         </div>
                     ))
                 ) : (

@@ -2,23 +2,39 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCourseStreamMaterials } from '../../api/getMaterialsService';
 import { useMyContext } from '../../MyContext';
+import {deleteMaterial} from "../../api/deleteMaterial";
 
 interface Material {
+    id: string
     name: string;
     dataText: string;
 }
 
 const ViewCourseMaterials: React.FC = () => {
     const [materials, setMaterials] = useState<Material[]>([]);
-    //deleted updateJsonData
     const { jsonData } = useMyContext();
     const navigate = useNavigate();
     const courseId = jsonData.courseIDJSON;
+
+    const removeMaterialFromList = (id: string) => {
+        setMaterials(prevMaterials => prevMaterials.filter(material => material.id !== id));
+    };
+
     const handleMaterialsClick = () => {
         navigate(`/addMaterial`);
     }
-    const handleDeleteClick = () => {
-        //call delete material endpoint
+    const handleDeleteClick = (material: Material) => {
+        return () => {
+            if (window.confirm(`Are you sure you want to delete material: "${material.name}"?`)) {
+                deleteMaterial(material.id)
+                    .then(() => {
+                        removeMaterialFromList(material.id);
+                    })
+                    .catch(error => {
+                        console.error('Error deleting the material:', error);
+                    });
+            }
+        };
     }
 
     // Fetch data from the backend
@@ -37,7 +53,7 @@ const ViewCourseMaterials: React.FC = () => {
                         <div key={material.name}>
                             <h3>{material.name}</h3>
                             <p>{material.dataText}</p>
-                            <button onClick={handleDeleteClick}>Delete</button>
+                            <button onClick={handleDeleteClick(material)}>Delete</button>
                         </div>
                     ))
                 ) : (
