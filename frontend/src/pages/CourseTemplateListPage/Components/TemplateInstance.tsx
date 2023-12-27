@@ -18,21 +18,25 @@ const TemplateInstance: React.FC<TemplateProps> = ({ templateName, templateId })
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
+    const { jsonData } = useMyContext();
     const handleCreateClick = () => {
         updateJsonData({
-            templateIDJSON: templateId
+            templateIDJSON: templateId,
+            loggedIn: jsonData.loggedIn
         })
         navigate(`/createCourse`);
     }
     const handleMaterialsClick = () => {
         updateJsonData({
-            templateIDJSON: templateId
+            templateIDJSON: templateId,
+            loggedIn: jsonData.loggedIn
         })
         navigate(`/viewTemplateMaterials`);
     }
     const handleDeleteClick = () => {
         updateJsonData({
-            templateIDJSON: templateId
+            templateIDJSON: templateId,
+            loggedIn: jsonData.loggedIn
         })
         //call delete template endpoint
     }

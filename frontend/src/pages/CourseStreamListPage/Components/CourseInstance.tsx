@@ -21,16 +21,19 @@ const CourseInstance: React.FC<CourseProps> = ({ courseName, courseID, templateI
     // useEffect(()=>{console.log(courseName)})
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
+    const { jsonData } = useMyContext();
     const handleDetailsClick = () => {
         updateJsonData({
             courseIDJSON: courseID,
-            templateIDJSON: templateId
+            templateIDJSON: templateId,
+            loggedIn: jsonData.loggedIn
         })
         navigate(`/course`); // write to context
     }
     const handleMaterialsClick = () => {
         updateJsonData({
-            courseIDJSON: courseID
+            courseIDJSON: courseID,
+            loggedIn: jsonData.loggedIn
         })
         navigate(`/viewCourseMaterials`); // write to context
     }
