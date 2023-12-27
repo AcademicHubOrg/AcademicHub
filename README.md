@@ -6,16 +6,12 @@ The course of Software Engineering Practices Project
 git clone https://github.com/AcademicHubOrg/AcademicHub.git
 ```
 
-# How to start working with the AcademicHub services(Identity, CourseTemplate, CourseStream and others)?
+## How to start working with the AcademicHub services?
 
 ## Infrastructure Setup
 
 We use' Docker' to manage infrastructure to avoid complex infrastructure setups.
 Each service has its own `docker-compose` file that should be used to run all required infra using a single command.
-
-> [!NOTE]
-> Make sure that you dont have more than 1 container on the same port.
-> Default port for services is `5440`
 
 ## Run Service's Infrastructure
 
@@ -25,151 +21,42 @@ Run `docker-compose` to setup all the required infra.
 docker-compose up -d
 ```
 
-## Database
+## Check if the Infrastructure set up successfully
 
-### Prerequisites
-
-- **`dotnet ef` tools:** If you don't have it, please
-  visit [installation guide](https://learn.microsoft.com/en-us/ef/core/cli/dotnet).
-
-### Migrations
-
-To set the database properly after docker-compose run is finished and all containers are green - apply migrations to
-update database schema to the appropriate state.
-
-1. Navigate to the Data folder:
-
-  ```bash
-  cd .\SolutionName.Data\
-  ```
-
-2. Apply migrations
-  ```bash
-  dotnet ef database update
-  ```
-
-### Local Environment Credentials
-> [!NOTE]
-> Default credentials for local environment forms following way:
-> **DATABASE:** '${SolutionName}'
-> **USER:** '${SolutionName}user'
-> **PASSWORD:** '${SolutionName}user'
-
-### Setup Validation
-
-Here what should you see Docker has started up successfully and database was updated.
-
-![image](https://github.com/podkolzzzin/AcademicHub/assets/94047397/c0469c30-beed-447c-ba0e-d1bed468cf78)
-
-After that you are ready to work with the service
-
-> TBA: Add detailed guideline how to validate configured setup
-
-# Academic Hub Microservices API Documentation
-
-## Stream Microservice
-
-#### `GET /healthz`
-> **Health Check**  
-> Checks if the Stream service is operational.  
-> **Response:** Status code indicating service health.
-
-#### `GET /courseStreams/list`
-> **List Course Streams**  
-> Retrieves a list of all available course streams.  
-> **Response:** JSON array of course streams.
-
-#### `POST /courseStreams/add`
-> **Add Course Stream**  
-> Adds a new course stream to the system.  
-> **Response:** Status code and details of the added course stream.
-
-## Template Microservice
-
-#### `GET /healthz`
-> **Health Check**  
-> Checks if the Template service is operational.  
-> **Response:** Status code indicating service health.
-
-#### `GET /courseTemplates/list`
-> **List Course Templates**  
-> Retrieves a list of all course templates.  
-> **Response:** JSON array of course templates.
-
-#### `POST /courseTemplates/add`
-> **Add Course Template**  
-> Adds a new course template.  
-> **Response:** Status code and details of the added course template.
-
-#### `GET /courseTemplates/{id}`
-> **Get Course Template by ID**  
-> Retrieves details of a specific course template using its ID.  
-> **Response:** JSON object containing course template details.
-
-## Identity Microservice
-
-#### `GET /healthz`
-> **Health Check**  
-> Checks if the Identity service is operational.  
-> **Response:** Status code indicating service health.
-
-#### `GET /users/list`
-> **List Users**  
-> Retrieves a list of all registered users.  
-> **Response:** JSON array of user details.
-
-#### `POST /users/add`
-> **Add User**  
-> Registers a new user in the system.  
-> **Response:** Status code and details of the added user.
-
-#### `POST /users/makeAdmin`
-> **Make User Admin**  
-> Elevates a user's role to admin.  
-> **Response:** Status code and confirmation of role update.
-
-#### `GET /login`
-> **User Login**  
-> Initiates the user login process.  
-> **Response:** Redirect to login interface or user dashboard.
-
-#### `GET /after-signin`
-> **Post-Signin Redirect**  
-> Handles redirection after a successful sign-in.  
-> **Response:** Redirect to a specified post-login resource.
-
-## Materials Microservice
-
-#### `GET /healthz`
-> **Health Check**  
-> Checks if the Materials service is operational.  
-> **Response:** Status code indicating service health.
-
-#### `GET /materials/list`
-> **List Materials**  
-> Retrieves a list of all teaching materials.  
-> **Response:** JSON array of materials.
-
-#### `GET /materials/id`
-> **Get Material by ID**  
-> Retrieves a specific material by its material ID.  
-> **Response:** JSON object with material details.
-
-#### `GET /materials/course`
-> **Get Materials by Course ID**  
-> Retrieves materials related to a specific course ID.  
-> **Response:** JSON array of materials for the specified course.
-
-#### `POST /materials/add`
-> **Add Material**  
-> Adds a new teaching material.  
-> **Response:** Status code and details of the added material.
-
-
-# How to start working with the AcademicHub React app?
-
-TBA
+Run `docker-ps` to see all the running containers.
 
 ```bash
-instructions should be here
+docker-ps
 ```
+
+Here is the output that you should see if you done everything correctly:
+```bash
+CONTAINER ID   IMAGE                                COMMAND                  CREATED         STATUS                  PORTS                                       NAMES
+c439a1309c2c   ***/web:latest               "docker-entrypoint.s…"   3 seconds ago   Up Less than a second   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   academic_hub_frontend
+35eb07626f9b   ***/course-template:latest   "dotnet ./CourseTemp…"   3 seconds ago   Up Less than a second   0.0.0.0:52998->80/tcp, :::52998->80/tcp     academic_hub_coursetemplate
+b33aa668c052   ***/materials:latest         "dotnet ./Materials.…"   3 seconds ago   Up Less than a second   0.0.0.0:52996->80/tcp, :::52996->80/tcp     academic_hub_materials
+7023749693cb   ***/identity:latest          "dotnet ./Identity.d…"   4 seconds ago   Up Less than a second   0.0.0.0:52999->80/tcp, :::52999->80/tcp     academic_hub_identity
+702fadb9d04d   ***/course-stream:latest     "dotnet CourseStream…"   4 seconds ago   Up Less than a second   0.0.0.0:52997->80/tcp, :::52997->80/tcp     academic_hub_coursestream
+624c710d8f9a   bitnami/postgresql:latest    "/opt/bitnami/script…"   2 days ago      Up 2 days               5432/tcp                                    postgres-container
+```
+
+## Additional Info
+
+For example, to run only the Identity service:
+
+```bash
+docker-compose up identity
+```
+
+This command will build the image for the identity service and start it up in the container.
+
+> [!NOTE]
+> Always check that the postgres-container is up and running before starting any single service. 
+> Failing to do so will result in error on starting your service.
+
+
+## Ports mapping
+For more details, see the [Port Mapping documentation](./docs/Ports%20Mapping.md).
+
+## API documentation
+For API documentation, see the [API documentation](./docs/API.md).

@@ -26,6 +26,15 @@ public class CourseStreamRepository : ICourseStreamRepository
     {
         return await _context.CourseStreams.ToListAsync();
     }
+
+    public async Task<List<Enrollment>> GetEnrollments(int courseId)
+    {
+        return await _context.Enrollments
+            .Where(e => e.CourseStreamId == courseId)
+            .ToListAsync();
+    }
+
+
     public async Task EnrollStudentAsync(int studentId, int courseStreamId, DateTime currentTime)
     {
         var enrollment = new Enrollment

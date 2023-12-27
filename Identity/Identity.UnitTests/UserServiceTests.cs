@@ -14,7 +14,7 @@ public class UsersServiceTests
         // Arrange
         var mockRepo = new Mock<IUsersRepository>();
         var service = new UsersService(mockRepo.Object);
-        var userDto = new UserDto {Name = "Test User", Email = "test@example.com"};
+        var userDto = new UserAddDto {Name = "Test User", Email = "test@example.com"};
 
         // Act
         await service.AddAsync(userDto);
@@ -55,21 +55,20 @@ public class UsersServiceTests
         var service = new UsersService(mockRepo.Object);
         const string name = "Test User";
         const string email = "test@example.com";
-        var existingUser = new User {Id = 100, Email = email, Name = name};
-
-        await service.FindOrCreateUser(name, email);
+        var existingUser = new User { Id = 100, Email = email, Name = name };
+        var userAddDto = new UserAddDto { Name = name, Email = email };
 
         mockRepo.Setup(repo => repo.FindByEmailAsync(email)).ReturnsAsync(existingUser);
-        mockRepo.Setup(repo => repo.AddAsync(It.IsAny<User>())).Returns(Task.CompletedTask).Verifiable();
+        mockRepo.Setup(repo => repo.AddAsync(It.IsAny<User>())).Verifiable();
 
-        // Act        
-        var result = await service.FindOrCreateUser(email, name);
+        // Act
+        var result = await service.FindOrCreateUser(userAddDto);
 
         // Assert
         mockRepo.Verify(repo => repo.FindByEmailAsync(email), Times.Once);
+        mockRepo.Verify(repo => repo.AddAsync(It.IsAny<User>()), Times.Never); // Verify that AddAsync is never called
         Assert.Equal(email, result.Email);
         Assert.Equal(name, result.Name);
-        Assert.Equal(existingUser.Id, result.Id);
     }
 
     [Fact]
@@ -86,7 +85,8 @@ public class UsersServiceTests
         var service = new UsersService(mockRepo.Object);
 
         // Act
-        var result = await service.FindOrCreateUser(email, name);
+        var useAddDto = new UserAddDto{Name = name, Email = email};
+        var result = await service.FindOrCreateUser(useAddDto);
 
         // Assert
         mockRepo.Verify(repo => repo.FindByEmailAsync(email), Times.Once);
@@ -142,5 +142,25 @@ public class UsersServiceTests
         // Assert
         Assert.Equal(expected, actual);
         return Task.CompletedTask;
+    }
+
+    [Fact]
+    public async Task GetByEmailAsync_ReturnsCorrectUserDto_WhenUserExists()
+    {
+        // Arrange
+        var mockRepo = new Mock<IUsersRepository>();
+        var service = new UsersService(mockRepo.Object);
+        const string email = "existing@example.com";
+        var user = new User { Id = 1, Email = email, Name = "Existing User" };
+        mockRepo.Setup(repo => repo.FindByEmailAsync(email)).ReturnsAsync(user);
+
+        // Act
+        var result = await service.GetByEmailAsync(email);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(user.Email, result.Email);
+        Assert.Equal(user.Name, result.Name);
+        Assert.Equal(user.Id, result.Id);
     }
 }
