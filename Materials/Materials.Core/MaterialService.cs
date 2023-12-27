@@ -22,6 +22,7 @@ public class MaterialDataDtoShow
 //some attributes may be missing depending on data type
 public class MaterialShowData
 {
+    public string Id { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string DataText { get; set; } = null!;
 }
@@ -118,6 +119,7 @@ public class MaterialService
             {
                 result.Add(new MaterialShowData()
                 {
+                    Id = materialData.Id.ToString(),
                     Name = materialData.MaterialName,
                     DataText = materialData.DataText,
                 });
@@ -142,6 +144,7 @@ public class MaterialService
             {
                 result.Add(new MaterialShowData()
                 {
+                    Id = essentialData.Id.ToString(),
                     Name = essentialData.MaterialName,
                     DataText = essentialData.DataText,
                 });
@@ -166,6 +169,7 @@ public class MaterialService
             {
                 result.Add(new MaterialShowData()
                 {
+                    Id = materialData.Id.ToString(),
                     Name = materialData.MaterialName,
                     DataText = materialData.DataText,
                 });
@@ -190,6 +194,7 @@ public class MaterialService
             {
                 result.Add(new MaterialShowData()
                 {
+                    Id = essentialData.Id.ToString(),
                     Name = essentialData.MaterialName,
                     DataText = essentialData.DataText,
                 });
