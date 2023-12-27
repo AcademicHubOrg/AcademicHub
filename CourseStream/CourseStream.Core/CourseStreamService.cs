@@ -1,9 +1,8 @@
-﻿using System.Security.Cryptography;
-using CustomExceptions;
+﻿using CustomExceptions;
 
 namespace CourseStream.Core;
 
-using CourseStream.Data;
+using Data;
 
 
 public class CourseStreamShowDto
@@ -30,9 +29,11 @@ public class EnrollmentShowDto
 public class CourseStreamService
 {
 	private readonly ICourseStreamRepository _repository;
+	
 	public CourseStreamService(ICourseStreamRepository repository)
 	{
 		_repository = repository;
+		
 	}
 
 	public async Task AddAsync(CourseStreamAddDto courseStream)
@@ -108,5 +109,23 @@ public class CourseStreamService
 			Id = courseStream.Id.ToString(),
 			TemplateId = courseStream.TemplateId.ToString()
 		};
+	}
+	
+	public async Task DeleteCourseStreamAsync(int streamId)
+	{
+		var courseStream = await _repository.GetByIdAsync(streamId);
+
+		if (courseStream == null)
+		{
+			throw new NotFoundException($"Course stream with ID '{streamId}' not found.");
+		}
+		
+		await _repository.DeleteAsync(courseStream);
+	}
+	
+	public async Task<List<int>> DeleteAllStreamsByTemplateId(int templateId )
+	{
+		
+		return await _repository.DeleteAllStreamsByTemplateId(templateId );
 	}
 }

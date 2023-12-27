@@ -417,4 +417,154 @@ public class MaterialServiceTests
         Assert.Equal(expected, actual);
         return Task.CompletedTask;
     }
+    
+    [Fact]
+    public async Task TestDeleteMaterialAsync()
+    {
+        // Arrange
+        int materialIdToDelete = 1;
+
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.GetAsync(materialIdToDelete)).ReturnsAsync(new MaterialData
+        {
+            Id = materialIdToDelete,
+            MaterialName = "Material to Delete",
+            DataText = "Data to Delete",
+            CourseId = 101
+        });
+
+        mockRepository.Setup(r => r.DeleteAsync(It.IsAny<MaterialData>())).Returns(Task.CompletedTask);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act
+        await materialService.DeleteMaterialAsync(materialIdToDelete);
+
+        // Assert
+        mockRepository.Verify(r => r.GetAsync(materialIdToDelete), Times.Once());
+        mockRepository.Verify(r => r.DeleteAsync(It.Is<MaterialData>(m => m.Id == materialIdToDelete)), Times.Once());
+    }
+    [Fact]
+    public async Task TestDeleteEssentialMaterialAsync()
+    {
+        // Arrange
+        int essentialIdToDelete = 1;
+
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.GetEssentialAsync(essentialIdToDelete)).ReturnsAsync(new EssentialMaterial
+        {
+            Id = essentialIdToDelete,
+            MaterialName = "Essential Material to Delete",
+            DataText = "Essential Data to Delete",
+            TemplateId = 101
+        });
+
+        mockRepository.Setup(r => r.DeleteEssentialAsync(It.IsAny<EssentialMaterial>())).Returns(Task.CompletedTask);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act
+        await materialService.DeleteEssentialMaterialAsync(essentialIdToDelete);
+
+        // Assert
+        mockRepository.Verify(r => r.GetEssentialAsync(essentialIdToDelete), Times.Once());
+        mockRepository.Verify(r => r.DeleteEssentialAsync(It.Is<EssentialMaterial>(e => e.Id == essentialIdToDelete)), Times.Once());
+    }
+    
+    [Fact]
+    public async Task TestDeleteMaterialByCourseAsync()
+    {
+        // Arrange
+        int courseIdToDelete = 1;
+
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.DeleteByCourseAsync(courseIdToDelete)).Returns(Task.CompletedTask);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act
+        await materialService.DeleteMaterialByCourseAsync(courseIdToDelete);
+
+        // Assert
+        mockRepository.Verify(r => r.DeleteByCourseAsync(courseIdToDelete), Times.Once());
+    }
+    [Fact]
+    public async Task TestDeleteEssentialMaterialAsync_ValidId()
+    {
+        // Arrange
+        int essentialIdToDelete = 1;
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.GetEssentialAsync(essentialIdToDelete)).ReturnsAsync(new EssentialMaterial
+        {
+            Id = essentialIdToDelete,
+            MaterialName = "Essential Material to Delete",
+            DataText = "Essential Data to Delete",
+            TemplateId = 101
+        });
+
+        mockRepository.Setup(r => r.DeleteEssentialAsync(It.IsAny<EssentialMaterial>())).Returns(Task.CompletedTask);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act
+        await materialService.DeleteEssentialMaterialAsync(essentialIdToDelete);
+
+        // Assert
+        mockRepository.Verify(r => r.GetEssentialAsync(essentialIdToDelete), Times.Once());
+        mockRepository.Verify(r => r.DeleteEssentialAsync(It.IsAny<EssentialMaterial>()), Times.Once());
+    }
+    [Fact]
+    public async Task TestDeleteEssentialMaterialAsync_InvalidId()
+    {
+        // Arrange
+        int invalidEssentialId = 999; // An ID that does not exist in the repository
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.GetEssentialAsync(invalidEssentialId)).ReturnsAsync((EssentialMaterial)null);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<NotFoundException>(() => materialService.DeleteEssentialMaterialAsync(invalidEssentialId));
+        Assert.Contains($"Essential material with ID: '{invalidEssentialId}' not found", exception.Message);
+
+        // Ensure that repository methods are not called
+        mockRepository.Verify(r => r.GetEssentialAsync(invalidEssentialId), Times.Once());
+        mockRepository.Verify(r => r.DeleteEssentialAsync(It.IsAny<EssentialMaterial>()), Times.Never());
+    }
+    [Fact]
+    public async Task TestDeleteMaterialByCourseAsync_ValidCourseId()
+    {
+        // Arrange
+        int courseIdToDelete = 1;
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.DeleteByCourseAsync(courseIdToDelete)).Returns(Task.CompletedTask);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act
+        await materialService.DeleteMaterialByCourseAsync(courseIdToDelete);
+
+        // Assert
+        mockRepository.Verify(r => r.DeleteByCourseAsync(courseIdToDelete), Times.Once());
+    }
+    [Fact]
+    public async Task TestDeleteEssentialMaterialByTemplateId_ValidTemplateId()
+    {
+        // Arrange
+        int templateIdToDelete = 101;
+        var mockRepository = new Mock<IMaterialsRepository>();
+        mockRepository.Setup(r => r.DeleteByTemplateAsync(templateIdToDelete)).Returns(Task.CompletedTask);
+
+        var materialService = new MaterialService(mockRepository.Object);
+
+        // Act
+        await materialService.DeleteEssentialMaterialByTemplateId(templateIdToDelete);
+
+        // Assert
+        mockRepository.Verify(r => r.DeleteByTemplateAsync(templateIdToDelete), Times.Once());
+    }
+    
+    
+    
+
 }

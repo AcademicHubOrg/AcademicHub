@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-
-namespace CourseStream.Data;
+﻿namespace CourseStream.Data;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -50,10 +48,33 @@ public class CourseStreamRepository : ICourseStreamRepository
         return await _context.Enrollments
             .AnyAsync(e =>  e.CourseStreamId == courseStreamId && e.StudentId == studentId );
     }
+    
 
     public async Task<CourseStream?> GetByIdAsync(int id)
     {
         return await _context.CourseStreams.FindAsync(id);
     }
+    
+    
 
+    public async Task DeleteAsync(CourseStream courseStream)
+    {
+        _context.CourseStreams.Remove(courseStream);
+        await _context.SaveChangesAsync();
+    }
+    public async Task <List <int> > DeleteAllStreamsByTemplateId(int templateId )
+    {
+        var streamsToDelete = await _context.CourseStreams
+            .Where(courseStream => courseStream.TemplateId == templateId)
+            .ToListAsync();
+
+
+        var streamsId = streamsToDelete.Select(course => course.Id).ToList();
+
+        _context.CourseStreams.RemoveRange(streamsToDelete);
+        await _context.SaveChangesAsync();
+        return streamsId;
+    }
+    
+    
 }

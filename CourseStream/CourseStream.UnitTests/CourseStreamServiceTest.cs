@@ -3,6 +3,7 @@ using CourseStream.Data;
 using CustomExceptions;
 using Moq;
 
+
 namespace CourseStream.UnitTests;
 
 public class CourseStreamServiceTest
@@ -217,6 +218,70 @@ public class CourseStreamServiceTest
             Assert.Equal(enrollments[i].StudentId.ToString(), result[i].StudentId);
             Assert.Equal(enrollments[i].CourseStreamId.ToString(), result[i].CourseStreamId);
         }
+    }
+
+    
+    [Fact]
+    public async Task DeleteAsync_CallsDeleteOnRepository_WithCourseStream()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
+
+        var courseId = 1;
+        var dbCourseStream = new Data.CourseStream
+        {
+            Id = courseId,
+            CourseName = "Test Course",
+            TemplateId = 101
+        };
+
+        mockRepo.Setup(r => r.GetByIdAsync(courseId)).ReturnsAsync(dbCourseStream);
+
+        // Act
+        await service.DeleteCourseStreamAsync(courseId);
+
+        // Assert
+        mockRepo.Verify(r => r.DeleteAsync(It.Is<Data.CourseStream>(c => c.Id == courseId)), Times.Once);
+    }
+    [Fact]
+    public async Task DeleteCourseStreamAsync_CallsGetByIdAsyncAndDeleteOnRepository()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
+
+        var streamId = 1;
+        var dbCourseStream = new Data.CourseStream
+        {
+            Id = streamId,
+            CourseName = "Test Course",
+            TemplateId = 101
+        };
+
+        mockRepo.Setup(r => r.GetByIdAsync(streamId)).ReturnsAsync(dbCourseStream);
+
+        // Act
+        await service.DeleteCourseStreamAsync(streamId);
+
+        // Assert
+        mockRepo.Verify(r => r.GetByIdAsync(streamId), Times.Once);
+        mockRepo.Verify(r => r.DeleteAsync(It.Is<Data.CourseStream>(c => c.Id == streamId)), Times.Once);
+    }
+    
+    [Fact]
+    public async Task DeleteAsync_WhenCourseStreamNotFound_ThrowsNotFoundException()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
+
+        int streamId = 1;
+        mockRepo.Setup(r => r.GetByIdAsync(streamId)).ReturnsAsync((Data.CourseStream)null);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<NotFoundException>(async () =>
+            await service.DeleteCourseStreamAsync(streamId));
     }
 
 }

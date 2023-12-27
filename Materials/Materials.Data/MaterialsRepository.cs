@@ -32,4 +32,48 @@ public class MaterialsRepository : IMaterialsRepository
     {
         return await _context.EssentialMaterials.ToListAsync();
     }
+    
+    public async Task<MaterialData> GetAsync(int materialId)
+    {
+        return await _context.Materials.FindAsync(materialId);
+    }
+
+    public async Task DeleteAsync(MaterialData material)
+    {
+        _context.Materials.Remove(material);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<EssentialMaterial> GetEssentialAsync(int essentialId)
+    {
+        return await _context.EssentialMaterials.FindAsync(essentialId);
+    }
+
+    public async Task DeleteEssentialAsync(EssentialMaterial essentialMaterial)
+    {
+        _context.EssentialMaterials.Remove(essentialMaterial);
+        await _context.SaveChangesAsync();
+    }
+    
+    
+    public async Task DeleteByCourseAsync(int courseId)
+    {
+        var materialsToDelete = await _context.Materials
+            .Where(material => material.CourseId == courseId)
+            .ToListAsync();
+
+        _context.Materials.RemoveRange(materialsToDelete);
+        await _context.SaveChangesAsync();
+    }      
+    
+    public async Task DeleteByTemplateAsync(int templateId)
+    {
+        var essentialsToDelete = await _context.EssentialMaterials
+            .Where(essential => essential.TemplateId == templateId)
+            .ToListAsync();
+
+        _context.EssentialMaterials.RemoveRange(essentialsToDelete);
+
+        await _context.SaveChangesAsync();
+    } 
 }

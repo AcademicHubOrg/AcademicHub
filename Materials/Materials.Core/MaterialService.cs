@@ -59,7 +59,8 @@ public class MaterialService
         var dbEssentials = await _repository.ListEssentialsAsync();
         if (dbEssentials.Any(m => m.MaterialName == material.Name && m.TemplateId == templateId))
         {
-            throw new ConflictException($"The template with id: '{templateId}' contains a material with the name '{material.Name}'");
+            throw new ConflictException(
+                $"The template with id: '{templateId}' contains a material with the name '{material.Name}'");
         }
 
         await _repository.AddEssentialAsync(new EssentialMaterial()
@@ -102,10 +103,11 @@ public class MaterialService
                 CourseId = essentialData.TemplateId.ToString()
             });
         }
+
         return result;
     }
 
-    
+
     public async Task<List<MaterialShowData>> ListByCourseIdAsync(int courseId)
     {
         var result = new List<MaterialShowData>();
@@ -121,10 +123,12 @@ public class MaterialService
                 });
             }
         }
+
         if (result.Count == 0)
         {
             throw new NotFoundException($"Material with course ID: '{courseId}'");
         }
+
         return result;
     }
 
@@ -143,13 +147,15 @@ public class MaterialService
                 });
             }
         }
+
         if (result.Count == 0)
         {
             throw new NotFoundException($"Material with template ID: '{templateId}'");
         }
+
         return result;
     }
-    
+
     public async Task<List<MaterialShowData>> ListByIdAsync(int materialId)
     {
         var result = new List<MaterialShowData>();
@@ -165,10 +171,12 @@ public class MaterialService
                 });
             }
         }
+
         if (result.Count == 0)
         {
             throw new NotFoundException($"Material with ID: '{materialId}'");
         }
+
         return result;
     }
 
@@ -187,11 +195,46 @@ public class MaterialService
                 });
             }
         }
+
         if (result.Count == 0)
         {
             throw new NotFoundException($"Material with ID: '{materialId}'");
         }
+
         return result;
     }
-    
+
+    public async Task DeleteMaterialAsync(int materialId)
+    {
+        var material = await _repository.GetAsync(materialId);
+
+        if (material == null)
+        {
+            throw new NotFoundException($"Material with ID: '{materialId}' not found");
+        }
+
+        await _repository.DeleteAsync(material);
+    }
+
+    public async Task DeleteEssentialMaterialAsync(int essentialId)
+    {
+        var essentialMaterial = await _repository.GetEssentialAsync(essentialId);
+
+        if (essentialMaterial == null)
+        {
+            throw new NotFoundException($"Essential material with ID: '{essentialId}' not found");
+        }
+
+        await _repository.DeleteEssentialAsync(essentialMaterial);
+    }
+
+    public async Task DeleteMaterialByCourseAsync(int courseId)
+    {
+        await _repository.DeleteByCourseAsync(courseId);
+    }
+
+    public async Task DeleteEssentialMaterialByTemplateId(int templateId)
+    {
+        await _repository.DeleteByTemplateAsync(templateId);
+    }
 }

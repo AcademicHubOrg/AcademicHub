@@ -105,6 +105,28 @@ namespace CourseTemplate.UnitTests
             Assert.Equal(expected, actual);
             return Task.CompletedTask;
         }
+        [Fact]
+        public async Task DeleteCourseAsync_WhenCourseExists_ShouldDeleteCourse()
+        {
+            // Arrange
+            var courseIdToDelete = 1;
+
+            var existingCourse = new Data.CourseTemplate
+            {
+                Id = courseIdToDelete,
+                CourseName = "ExistingCourse"
+            };
+
+            _mockRepository.Setup(repo => repo.GetByIdAsync(courseIdToDelete))
+                .ReturnsAsync(existingCourse);
+
+            // Act
+            await _service.DeleteCourseAsync(courseIdToDelete);
+
+            // Assert
+            _mockRepository.Verify(repo => repo.DeleteAsync(courseIdToDelete), Times.Once);
+        }
+        
     }
 
     public class CourseTemplateTestData : IEnumerable<object[]>
@@ -124,4 +146,6 @@ namespace CourseTemplate.UnitTests
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+    
+    
 }
