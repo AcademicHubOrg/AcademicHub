@@ -2,6 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
 import { useMyContext } from '../MyContext';
+import {unenroll} from "../api/UnEnrollService";
+import {getEnrollments} from "../api/getEnrollments";
+import {useAuth0} from "@auth0/auth0-react";
 
 const cellStyle: CSSProperties = {
     border: '1px solid black',
@@ -19,6 +22,7 @@ const EnrolledCourse: React.FC<CourseProps> = ({ courseName, courseID, templateI
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
     const { jsonData } = useMyContext();
+    const { user, isAuthenticated, isLoading} = useAuth0();
 
     const handleDetailsClick = () => {
         updateJsonData({
@@ -30,6 +34,11 @@ const EnrolledCourse: React.FC<CourseProps> = ({ courseName, courseID, templateI
     }
 
     const handleUnenrollClick = () => {
+
+        if (user?.email) {
+            unenroll(courseID , user.email)
+        }
+
         //write logic here in the future
     }
 
