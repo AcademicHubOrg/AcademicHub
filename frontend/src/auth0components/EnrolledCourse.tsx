@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { CSSProperties } from 'react';
 import { useMyContext } from '../MyContext';
 import {unenroll} from "../api/UnEnrollService";
-import {getEnrollments} from "../api/getEnrollments";
 import {useAuth0} from "@auth0/auth0-react";
 
 const cellStyle: CSSProperties = {
