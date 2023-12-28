@@ -93,5 +93,33 @@ public class CourseStreamRepository : ICourseStreamRepository
             await _context.SaveChangesAsync();
         }
     }
-    
+
+    [Fact]
+    public async Task UnEnrollStudent_WhenEnrollmentDoesNotExist_NoChangesToEnrollments()
+    {
+        // Arrange
+        var dbContextOptions = new DbContextOptionsBuilder<CourseStreamDbContext>()
+            .UseInMemoryDatabase(databaseName: "UnEnrollStudentTestDatabase")
+            .Options;
+
+        using (var context = new CourseStreamDbContext(dbContextOptions))
+        {
+            // Add a course stream but no enrollment
+            var courseStream = new CourseStream { Id = 1, TemplateId = 101 };
+            context.CourseStreams.Add(courseStream);
+            await context.SaveChangesAsync();
+        }
+
+        using (var context = new CourseStreamDbContext(dbContextOptions))
+        {
+            var repository = new CourseStreamRepository(context);
+
+            // Act
+            await repository.UnEnrollStudent(1, 1);
+
+            // Assert
+            var remainingEnrollments = await context.Enrollments.ToListAsync();
+            Assert.Empty(remainingEnrollments);
+        }
+    }
 }
