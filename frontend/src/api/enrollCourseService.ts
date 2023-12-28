@@ -2,7 +2,7 @@ import { Addresses } from './Addresses';
 import {getUserInfo} from "./getUserService";
 
 interface User {
-    id: string; // Assuming this is actually a string representation of an integer
+    id: string;
     name: string;
     email: string;
 }

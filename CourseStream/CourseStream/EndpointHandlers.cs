@@ -23,6 +23,12 @@ internal static class EndpointHandlers
         return new { Data = result };
     }
 
+    public static async Task<object> GetEnrollmentsByStudent([FromServices] CourseStreamService service, int studentId)
+    {
+        var result = await service.GetEnrollmentsByStudent(studentId);
+        return new { Data = result };
+    }
+
     public static async Task<object> AddCourse([FromServices] CourseStreamService service,
         [FromServices] IHttpClientFactory httpClientFactory, CourseStreamAddDto courseStream)
     {

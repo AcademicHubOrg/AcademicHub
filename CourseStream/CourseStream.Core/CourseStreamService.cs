@@ -95,6 +95,22 @@ public class CourseStreamService
 		return result;
 	}
 
+	public async Task<List<EnrollmentShowDto>> GetEnrollmentsByStudent(int studentId)
+	{
+		var result = new List<EnrollmentShowDto>();
+		var dbCourseEnrollments = await _repository.GetEnrollmentsByStudent(studentId);
+		foreach (var enrollment in dbCourseEnrollments)
+		{
+			result.Add(new EnrollmentShowDto()
+			{
+				Id = enrollment.Id.ToString(),
+				StudentId = enrollment.StudentId.ToString(),
+				CourseStreamId = enrollment.CourseStreamId.ToString()
+			});
+		}
+		return result;
+	}
+
 
 	public async Task<CourseStreamShowDto> GetByIdAsync(int id)
 	{
