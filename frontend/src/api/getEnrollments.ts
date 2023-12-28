@@ -1,6 +1,5 @@
 import { Addresses } from "./Addresses";
 import { getUserInfo } from "./getUserService";
-import { getCourseDetails } from "./courseService";
 
 interface User {
     id: string;
