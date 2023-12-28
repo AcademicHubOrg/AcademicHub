@@ -22,7 +22,7 @@ const EnrolledCourse: React.FC<CourseProps> = ({ courseName, courseID, templateI
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
     const { jsonData } = useMyContext();
-    const { user, isAuthenticated, isLoading} = useAuth0();
+    const { user} = useAuth0();
 
     const handleDetailsClick = () => {
         updateJsonData({
