@@ -284,4 +284,36 @@ public class CourseStreamServiceTest
             await service.DeleteCourseStreamAsync(streamId));
     }
 
+    [Fact]
+    public async Task GetEnrollmentsByStudent_WhenCalled_ReturnsEnrollmentShowDtos()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
+        int studentId = 1;
+
+        var dbCourseEnrollments = new List<Enrollment>
+        {
+            new Enrollment { Id = 1, StudentId = studentId, CourseStreamId = 101 },
+            new Enrollment { Id = 2, StudentId = studentId, CourseStreamId = 102 }
+            // Add more enrollments as needed
+        };
+
+        mockRepo.Setup(r => r.GetEnrollmentsByStudent(studentId)).ReturnsAsync(dbCourseEnrollments);
+
+        // Act
+        var result = await service.GetEnrollmentsByStudent(studentId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(dbCourseEnrollments.Count, result.Count);
+        for (int i = 0; i < result.Count; i++)
+        {
+            Assert.Equal(dbCourseEnrollments[i].Id.ToString(), result[i].Id);
+            Assert.Equal(dbCourseEnrollments[i].StudentId.ToString(), result[i].StudentId);
+            Assert.Equal(dbCourseEnrollments[i].CourseStreamId.ToString(), result[i].CourseStreamId);
+        }
+    }
+
+
 }
