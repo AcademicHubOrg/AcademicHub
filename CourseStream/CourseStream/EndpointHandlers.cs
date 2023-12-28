@@ -116,4 +116,10 @@ internal static class EndpointHandlers
             return new { Error = ex.Message };
         }
     }
+    
+    public static async Task<object> UnEnroll([FromServices] CourseStreamService service, int studentId, int courseStreamId)
+    {
+        await service.UnEnrollStudent(studentId, courseStreamId);
+        return new { Message = "Enrolment successful." };
+    }
 }
