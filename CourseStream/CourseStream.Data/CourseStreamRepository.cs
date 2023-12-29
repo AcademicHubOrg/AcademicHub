@@ -82,5 +82,17 @@ public class CourseStreamRepository : ICourseStreamRepository
         return streamsId;
     }
     
+    public async Task UnEnrollStudent(int studentId, int courseStreamId)
+    {
+        var enrollment = await _context.Enrollments
+            .FirstOrDefaultAsync(e => e.StudentId == studentId && e.CourseStreamId == courseStreamId);
+        
+        if (enrollment != null)
+        {
+            _context.Enrollments.Remove(enrollment);
+            await _context.SaveChangesAsync();
+        }
+    }
+
     
 }

@@ -314,6 +314,38 @@ public class CourseStreamServiceTest
             Assert.Equal(dbCourseEnrollments[i].CourseStreamId.ToString(), result[i].CourseStreamId);
         }
     }
+    
+    [Fact]
+    public async Task UnEnrollStudent_WhenEnrollmentExists_CallsUnEnrollOnRepository()
+    {
+        // Arrange
+        var mockRepo = new Mock<ICourseStreamRepository>();
+        var service = new CourseStreamService(mockRepo.Object);
 
+        var studentId = 2;
+        var courseStreamId = 2;
 
+        var enrollment = new Enrollment
+        {
+            Id = 1,
+            StudentId = studentId,
+            CourseStreamId = courseStreamId,
+            EnrollmentTimestamp = DateTime.UtcNow
+        };
+
+        mockRepo.Setup(r => r.GetEnrollmentsByStudent(studentId))
+            .ReturnsAsync(new List<Enrollment> { enrollment });
+
+        // Act
+        await service.UnEnrollStudent(studentId, courseStreamId);
+
+        // Assert
+        mockRepo.Verify(r => r.UnEnrollStudent(studentId, courseStreamId), Times.Once);
+    }
+
+    
+    
+    
+    
+    
 }

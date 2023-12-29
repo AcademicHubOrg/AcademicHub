@@ -59,7 +59,7 @@ app.MapPost("/courseStreams/add", EndpointHandlers.AddCourse);
 app.MapPost("courseStreams/enroll", EndpointHandlers.EnrollStudent);
 app.MapDelete("/courseStreams/delete/{streamId}", EndpointHandlers.DeleteCourseStream);
 app.MapDelete("/courseStreams/delete-all-by/{courseTemplateId}", EndpointHandlers.DeleteAllStreamsByTemplateId);
-
+app.MapDelete("/courseStreams/unenroll/{studentId}/{courseStreamId}", EndpointHandlers.UnEnroll);
 // Apply EF Core Migrations
 
 using (var scope = app.Services.CreateScope())

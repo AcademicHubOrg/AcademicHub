@@ -12,5 +12,6 @@ public interface ICourseStreamRepository
     Task DeleteAsync(CourseStream courseStream);
     
     Task <List<int>> DeleteAllStreamsByTemplateId(int templateId);
+    Task UnEnrollStudent(int studentId, int courseStreamId);
     
 }

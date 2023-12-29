@@ -144,4 +144,9 @@ public class CourseStreamService
 		
 		return await _repository.DeleteAllStreamsByTemplateId(templateId );
 	}
+	
+	public async Task UnEnrollStudent(int studentId, int courseStreamId)
+	{
+		await _repository.UnEnrollStudent(studentId, courseStreamId);
+	}
 }
