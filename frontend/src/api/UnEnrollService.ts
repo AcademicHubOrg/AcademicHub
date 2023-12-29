@@ -13,9 +13,7 @@ export const unenroll = async (courseStreamId: string, studentEmail: string) => 
         const studentId = parseInt(user.id);
         const streamId = parseInt(courseStreamId);
 
-        const url = new URL(`${Addresses.COURSESTREAMS}/unenroll`);
-        url.searchParams.append('studentId', studentId.toString());
-        url.searchParams.append('courseStreamId', streamId.toString());
+        const url = new URL(`${Addresses.COURSESTREAMS}/unenroll/` + studentId.toString() + '/' + streamId.toString());
 
         const response = await fetch(url.toString(), {
             method: 'DELETE',

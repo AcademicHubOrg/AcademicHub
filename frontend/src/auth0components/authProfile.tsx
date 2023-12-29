@@ -25,6 +25,10 @@ const Profile = () => {
     const { jsonData } = useMyContext();
     const [courses, setCourses] = useState<Course[]>([]);
 
+    const removeCourseFromList = (courseId: string) => {
+        setCourses(prevCourses => prevCourses.filter(course => course.id !== courseId));
+    };
+
     useEffect(() => {
         if (!jsonData.loggedIn) {
             if (isAuthenticated && user && user.name && user.email) {
@@ -77,7 +81,7 @@ const Profile = () => {
                     </thead>
                     <tbody>
                     {courses.map(course => (
-                        <EnrolledCourse key={course.id} courseName={course.name} courseID={course.id} templateId={course.templateId}/>
+                        <EnrolledCourse key={course.id} courseName={course.name} courseID={course.id} templateId={course.templateId} onDelete={removeCourseFromList}/>
                     ))}
                     </tbody>
                 </table>

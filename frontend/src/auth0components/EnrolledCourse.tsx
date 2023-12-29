@@ -15,9 +15,10 @@ interface CourseProps {
     courseName: string;
     courseID: string;
     templateId: string;
+    onDelete: (courseId: string) => void;
 }
 
-const EnrolledCourse: React.FC<CourseProps> = ({ courseName, courseID, templateId}) => {
+const EnrolledCourse: React.FC<CourseProps> = ({ courseName, courseID, templateId, onDelete}) => {
     const navigate = useNavigate();
     const { updateJsonData } = useMyContext();
     const { jsonData } = useMyContext();
@@ -33,12 +34,17 @@ const EnrolledCourse: React.FC<CourseProps> = ({ courseName, courseID, templateI
     }
 
     const handleUnenrollClick = () => {
-
         if (user?.email) {
-            unenroll(courseID , user.email)
+            if (window.confirm(`Are you sure you want to unenroll the course: ${courseName}?`)) {
+                unenroll(courseID, user.email)
+                    .then(() => {
+                        onDelete(courseID);
+                    })
+                    .catch(error => {
+                        console.error('Error un enrolling the course stream:', error);
+                    });
+            }
         }
-
-        //write logic here in the future
     }
 
     return (
