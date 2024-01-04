@@ -8,4 +8,6 @@ public class Enrollment
     public DateTime EnrollmentTimestamp { get; set; }
     // Navigation Properties
     public CourseStream CourseStream { get; set; }
+    
+    
 }

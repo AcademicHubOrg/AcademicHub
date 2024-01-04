@@ -23,6 +23,7 @@ public class EnrollmentShowDto
 	public string Id { get; set; } = null!;
 	public string StudentId { get; set; } = null!;
 	public string CourseStreamId { get; set; } = null!;
+	
 }
 
 
@@ -61,6 +62,13 @@ public class CourseStreamService
 		var currentTime = DateTime.UtcNow;
 		await _repository.EnrollStudentAsync(studentId, courseStreamId, currentTime);
 	}
+	
+	public async Task<bool> IsStudentEnrolledAsync(int studentId, int courseStreamId)
+	{
+		return await _repository.IsStudentEnrolledAsync(studentId, courseStreamId);
+	}
+	
+	
 
 
 	public async Task<List<CourseStreamShowDto>> ListAsync()
@@ -73,7 +81,8 @@ public class CourseStreamService
 			{
 				Name = courseStream.CourseName,
 				Id = courseStream.Id.ToString(),
-				TemplateId = courseStream.TemplateId.ToString()
+				TemplateId = courseStream.TemplateId.ToString(),
+				
 			});
 		}
 		return result;
@@ -89,7 +98,8 @@ public class CourseStreamService
 			{
 				Id = enrollment.Id.ToString(),
 				StudentId = enrollment.StudentId.ToString(),
-				CourseStreamId = enrollment.CourseStreamId.ToString()
+				CourseStreamId = enrollment.CourseStreamId.ToString(),
+				
 			});
 		}
 		return result;
@@ -105,7 +115,8 @@ public class CourseStreamService
 			{
 				Id = enrollment.Id.ToString(),
 				StudentId = enrollment.StudentId.ToString(),
-				CourseStreamId = enrollment.CourseStreamId.ToString()
+				CourseStreamId = enrollment.CourseStreamId.ToString(),
+				
 			});
 		}
 		return result;

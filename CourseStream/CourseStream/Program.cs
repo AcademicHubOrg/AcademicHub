@@ -55,6 +55,7 @@ app.MapGet("/courseStreams/list", EndpointHandlers.ListOfCourseStreams);
 app.MapGet("/courseStreams/{id}", EndpointHandlers.GetCourseStreamById);
 app.MapGet("courseStreams/checkEnrollments/{courseId}", EndpointHandlers.CheckEnrollments);
 app.MapGet("courseStreams/getEnrolledCourses/{studentId}", EndpointHandlers.GetEnrollmentsByStudent);
+app.MapGet("courseStreams/isEnrolled/{studentId}/{courseStreamId}", EndpointHandlers.IsStudentEnrolled);
 app.MapPost("/courseStreams/add", EndpointHandlers.AddCourse);
 app.MapPost("courseStreams/enroll", EndpointHandlers.EnrollStudent);
 app.MapDelete("/courseStreams/delete/{streamId}", EndpointHandlers.DeleteCourseStream);

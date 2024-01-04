@@ -38,11 +38,18 @@ public class CourseStreamRepository : ICourseStreamRepository
 
     public async Task EnrollStudentAsync(int studentId, int courseStreamId, DateTime currentTime)
     {
+        if (await IsStudentEnrolledAsync(studentId, courseStreamId))
+        {
+            throw new ArgumentException("Student is already enrolled in this course stream.");
+        }
+
         var enrollment = new Enrollment
         {
             StudentId = studentId,
             CourseStreamId = courseStreamId,
-            EnrollmentTimestamp = currentTime
+            EnrollmentTimestamp = currentTime,
+            
+            
         };
 
         _context.Enrollments.Add(enrollment);

@@ -122,4 +122,9 @@ internal static class EndpointHandlers
         await service.UnEnrollStudent(studentId, courseStreamId);
         return new { Message = "Enrolment successful." };
     }
+    public static async Task<bool> IsStudentEnrolled([FromServices] CourseStreamService service, int studentId, int courseStreamId)
+    {
+         return await service.IsStudentEnrolledAsync(studentId, courseStreamId);
+    }
+    
 }
